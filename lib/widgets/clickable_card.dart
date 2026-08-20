@@ -56,7 +56,7 @@ class ClickableCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: textColor == Colors.white ? Colors.white12 : const Color(0xFFF1F5F9),
+                color: textColor == Colors.white ? const Color(0xFFF55D95) : const Color(0xFFF1F5F9),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(icon, color: iconColor, size: 24),

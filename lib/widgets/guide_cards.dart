@@ -210,26 +210,6 @@ class InsightCard extends StatelessWidget {
                       softWrap: true,
                     ),
 
-                    const SizedBox(height: 8),
-
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 2,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFCCFBF1),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Text(
-                        'SCS VERIFIED',
-                        style: TextStyle(
-                          fontSize: 9,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF0D9488),
-                        ),
-                      ),
-                    ),
                   ],
                 );
               }
@@ -249,25 +229,6 @@ class InsightCard extends StatelessWidget {
                   ),
 
                   const SizedBox(width: 8),
-
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 2,
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFCCFBF1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Text(
-                      'SCS VERIFIED',
-                      style: TextStyle(
-                        fontSize: 9,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF0D9488),
-                      ),
-                    ),
-                  ),
                 ],
               );
             },

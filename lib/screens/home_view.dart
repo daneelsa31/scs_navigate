@@ -14,35 +14,13 @@ class HomeView extends StatelessWidget {
       direction: isMobile ? Axis.vertical : Axis.horizontal,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          flex: isMobile ? 0 : 5,
+        Flexible(
+          flex: isMobile ? 1 : 5,
+          fit: isMobile ? FlexFit.loose : FlexFit.tight,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 24),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE0F2FE),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Icon(Icons.circle, size: 6, color: Color(0xFF0284C7)),
-                    SizedBox(width: 6),
-                    Text(
-                      'SCS ACADEMIC HUB',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF0369A1),
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               const SizedBox(height: 20),
               RichText(
                 text: const TextSpan(
@@ -54,8 +32,8 @@ class HomeView extends StatelessWidget {
                     fontFamily: 'sans-serif',
                   ),
                   children: [
-                    TextSpan(text: 'Your Path.\nYour Skills.\n', style: TextStyle(color: Color(0xFF0F172A))),
-                    TextSpan(text: 'Your Future.', style: TextStyle(color: Color(0xFF94A3B8))),
+                    TextSpan(text: 'Your Path.\nYour Skills.\n', style: TextStyle(color: Color(0xFF071E4B))),
+                    TextSpan(text: 'Your Future.', style: TextStyle(color: Color(0xFFF55D95))),
                   ],
                 ),
               ),
@@ -73,20 +51,22 @@ class HomeView extends StatelessWidget {
           ),
         ),
         if (!isMobile) const SizedBox(width: 48),
-        Expanded(
-          flex: isMobile ? 0 : 7,
+        Flexible(
+          flex: isMobile ? 1 : 7,
+          fit: isMobile ? FlexFit.loose : FlexFit.tight,
           child: LayoutBuilder(
             builder: (context, constraints) {
               bool stackCards = constraints.maxWidth < 550;
               return Flex(
                 direction: stackCards ? Axis.vertical : Axis.horizontal,
                 children: [
-                  Expanded(
-                    flex: stackCards ? 0 : 1,
+                  Flexible(
+                    flex: 1,
+                    fit: stackCards ? FlexFit.loose : FlexFit.tight,
                     child: ClickableCard(
                       icon: Icons.menu_book_rounded,
                       iconColor: Colors.white70,
-                      backgroundColor: const Color(0xFF0F172A),
+                      backgroundColor: const Color(0xFF071E4B),
                       textColor: Colors.white,
                       title: 'GUIDE',
                       description: 'Understand your academic pathway. Discover skills, technologies, and career outcomes for your program.',
@@ -97,17 +77,18 @@ class HomeView extends StatelessWidget {
                       ],
                       bulletColor: Colors.white38,
                       footerText: 'EXPLORE GUIDE →',
-                      footerColor: const Color(0xFF0D9488),
+                      footerColor: const Color(0xFFF55D95),
                       onTap: () => onNavigate(1),
                     ),
                   ),
                   SizedBox(width: stackCards ? 0 : 16, height: stackCards ? 16 : 0),
-                  Expanded(
-                    flex: stackCards ? 0 : 1,
+                  Flexible(
+                    flex: 1,
+                    fit: stackCards ? FlexFit.loose : FlexFit.tight,
                     child: ClickableCard(
                       icon: Icons.explore_outlined,
                       iconColor: Colors.white70,
-                      backgroundColor: const Color(0xFF0F172A),
+                      backgroundColor: const Color(0xFF071E4B),
                       textColor: Colors.white,
                       title: 'COMPASS',
                       description: 'Discover opportunities beyond the classroom. Find hackathons, certifications, and industry seminars.',
@@ -118,7 +99,7 @@ class HomeView extends StatelessWidget {
                       ],
                       bulletColor: Colors.white38,
                       footerText: 'GO TO COMPASS →',
-                      footerColor: const Color(0xFF0D9488),
+                      footerColor: const Color(0xFFF55D95),
                       onTap: () => onNavigate(2),
                     ),
                   ),

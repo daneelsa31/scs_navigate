@@ -25,15 +25,15 @@ class _GuideViewState extends State<GuideView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildGuideHeader(),
-        const SizedBox(height: 32),
+        const SizedBox(height: 30),
         _buildProgramPathwaySection(),
-        const SizedBox(height: 48),
+        const SizedBox(height: 30),
         _buildSpecializationsSection(),
-        const SizedBox(height: 48),
+        const SizedBox(height: 30),
         _buildComparisonSection(),
-        const SizedBox(height: 48),
+        const SizedBox(height: 30),
         _buildFaqSection(),
-        const SizedBox(height: 48),
+        const SizedBox(height: 30),
         _buildStudentInsightsSection(),
       ],
     );
@@ -47,31 +47,6 @@ class _GuideViewState extends State<GuideView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          decoration: BoxDecoration(
-            color: const Color(0xFFCCFBF1),
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: const Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.menu_book_rounded, size: 14, color: Color(0xFF0D9488)),
-              SizedBox(width: 6),
-              Text(
-                'SCS GUIDE — ACADEMIC PATHWAY HUB',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF0F766E),
-                  letterSpacing: 0.5,
-                ),
-              ),
-            ],
-          ),
-        ),
-
-        const SizedBox(height: 16),
 
         const Text(
           'Your Comprehensive Academic Roadmap',

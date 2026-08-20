@@ -42,15 +42,16 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.5,
-        titleSpacing: 24,
+        toolbarHeight: 70,
+        titleSpacing: 12,
         title: Row(
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.asset(
                 'assets/images/scs_navigate_logo.png',
-                width: 40,
-                height: 40,
+                width: 60,
+                height: 60,
                 fit: BoxFit.contain,
               ),
             ),
@@ -63,7 +64,7 @@ class _MainPageState extends State<MainPage> {
                   'SCS NAVIGATE',
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
-                    fontSize: 16,
+                    fontSize: 22,
                     color: Color(0xFF0F172A),
                     letterSpacing: -0.5,
                   ),
@@ -71,7 +72,7 @@ class _MainPageState extends State<MainPage> {
                 Text(
                   'SCHOOL OF COMPUTER STUDIES',
                   style: TextStyle(
-                    fontSize: 9,
+                    fontSize: 11,
                     fontWeight: FontWeight.w600,
                     color: Color(0xFF64748B),
                     letterSpacing: 0.5,
@@ -125,7 +126,16 @@ class _MainPageState extends State<MainPage> {
               horizontal: 24.0,
               vertical: 32.0,
             ),
-            child: _buildBody(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _buildBody(),
+                if (_selectedIndex == 0 && _selectedSpecialization == null) ...[
+                  const SizedBox(height: 48),
+                  _buildFooter(),
+                ],
+              ],
+            ),
           ),
         ),
       ),
@@ -134,13 +144,21 @@ class _MainPageState extends State<MainPage> {
 
   Widget _navItem(int index, String label) {
     bool isSelected = _selectedIndex == index;
+
     return TextButton(
       onPressed: () => _navigateToTab(index),
+      style: TextButton.styleFrom(
+        foregroundColor: isSelected
+            ? const Color(0xFFF55D95)
+            : const Color.fromARGB(255, 27, 68, 126),
+      ),
       child: Text(
         label,
         style: TextStyle(
           fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-          color: isSelected ? const Color(0xFF0F172A) : const Color(0xFF64748B),
+          color: isSelected
+              ? const Color(0xFFF55D95)
+              : const Color.fromARGB(255, 21, 71, 140),
           fontSize: 14,
         ),
       ),
@@ -179,6 +197,70 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
+  Widget _buildFooter() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 28),
+      decoration: const BoxDecoration(
+        color: Color(0xFF071E4B),
+        border: Border(top: BorderSide(color: Color(0xFFF55D95), width: 4)),
+      ),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final isCompact = constraints.maxWidth < 650;
+          final contact = Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              _FooterContact(icon: Icons.mail_outline, text: 'scs.navigate@usjr.edu.ph'),
+              SizedBox(height: 12),
+              _FooterContact(icon: Icons.language, text: 'www.usjr.edu.ph'),
+              SizedBox(height: 12),
+              _FooterContact(icon: Icons.location_on_outlined, text: 'P. del Rosario St., Cebu City, Philippines 6000'),
+            ],
+          );
+
+          return Flex(
+            direction: isCompact ? Axis.vertical : Axis.horizontal,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipOval(
+                    child: Image.asset(
+                      'assets/images/scs_navigate_logo.png',
+                      width: 78,
+                      height: 78,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  const SizedBox(width: 18),
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('SCS NAVIGATE', style: TextStyle(color: Color(0xFFF55D95), fontSize: 21, fontWeight: FontWeight.bold)),
+                      SizedBox(height: 4),
+                      Text('School of Computer Studies', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600)),
+                      SizedBox(height: 12),
+                      SizedBox(
+                        width: 270,
+                        child: Text('Your centralized hub for academic pathways, specializations, and technology opportunities.', style: TextStyle(color: Colors.white70, fontSize: 12, height: 1.45)),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              if (!isCompact) const SizedBox(width: 48),
+              if (!isCompact) Container(width: 1, height: 105, color: Color(0xFFF55D95)),
+              if (!isCompact) const SizedBox(width: 48, height: 24),
+              if (isCompact) const SizedBox(height: 24),
+              contact,
+            ],
+          );
+        },
+      ),
+    );
+  }
+
   void _showSearchDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -202,6 +284,24 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _FooterContact extends StatelessWidget {
+  final IconData icon;
+  final String text;
+
+  const _FooterContact({required this.icon, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(icon, color: Color(0xFFF55D95), size: 20),
+        const SizedBox(width: 14),
+        Flexible(child: Text(text, style: const TextStyle(color: Colors.white70, fontSize: 13))),
+      ],
     );
   }
 }

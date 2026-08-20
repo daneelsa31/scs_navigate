@@ -15,10 +15,10 @@ class ScsNavigateApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        scaffoldBackgroundColor: const Color(0xFFF8FAFC),
+        scaffoldBackgroundColor: const Color(0xFFFFFCFD),
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF0284C7),
-          primary: const Color(0xFF0284C7),
+          seedColor: const Color(0xFFF55D95),
+          primary: const Color(0xFFF55D95),
           surface: Colors.white,
         ),
         textTheme: const TextTheme(
