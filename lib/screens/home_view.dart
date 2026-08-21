@@ -8,20 +8,40 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isMobile = MediaQuery.of(context).size.width < 850;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isMobile = constraints.maxWidth < 850;
+        final cards = [
+          _buildCard(
+            icon: Icons.menu_book_rounded,
+            title: 'GUIDE',
+            description: 'Understand your academic pathway. Discover skills, technologies, and career outcomes for your program.',
+            bulletPoints: const [
+              'SPECIALIZATIONS & ELECTIVES',
+              'TECHNOLOGY STACKS & SKILLS',
+              'COMPARE MATRIX & CURRICULUM',
+            ],
+            footerText: 'EXPLORE GUIDE ->',
+            onTap: () => onNavigate(1),
+          ),
+          _buildCard(
+            icon: Icons.explore_outlined,
+            title: 'COMPASS',
+            description: 'Discover opportunities beyond the classroom. Find hackathons, certifications, and industry seminars.',
+            bulletPoints: const [
+              'HACKATHONS & EVENTS',
+              'SCHOLARSHIP PROGRAMS',
+              'RECOGNITION PROOF SUBMISSIONS',
+            ],
+            footerText: 'GO TO COMPASS ->',
+            onTap: () => onNavigate(2),
+          ),
+        ];
 
-    return Flex(
-      direction: isMobile ? Axis.vertical : Axis.horizontal,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Flexible(
-          flex: isMobile ? 1 : 5,
-          fit: isMobile ? FlexFit.loose : FlexFit.tight,
-          child: Column(
+        final introduction = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 24),
-              const SizedBox(height: 20),
+              const SizedBox(height: 16),
               RichText(
                 text: const TextSpan(
                   style: TextStyle(
@@ -46,69 +66,59 @@ class HomeView extends StatelessWidget {
                   height: 1.4,
                 ),
               ),
-              if (isMobile) const SizedBox(height: 40),
+              const SizedBox(height: 40),
             ],
-          ),
-        ),
-        if (!isMobile) const SizedBox(width: 48),
-        Flexible(
-          flex: isMobile ? 1 : 7,
-          fit: isMobile ? FlexFit.loose : FlexFit.tight,
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              bool stackCards = constraints.maxWidth < 550;
-              return Flex(
-                direction: stackCards ? Axis.vertical : Axis.horizontal,
+          );
+
+        if (isMobile) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [introduction, ...cards.expand((card) => [card, const SizedBox(height: 16)])],
+          );
+        }
+
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(flex: 5, child: introduction),
+            const SizedBox(width: 48),
+            Expanded(
+              flex: 7,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Flexible(
-                    flex: 1,
-                    fit: stackCards ? FlexFit.loose : FlexFit.tight,
-                    child: ClickableCard(
-                      icon: Icons.menu_book_rounded,
-                      iconColor: Colors.white70,
-                      backgroundColor: const Color(0xFF071E4B),
-                      textColor: Colors.white,
-                      title: 'GUIDE',
-                      description: 'Understand your academic pathway. Discover skills, technologies, and career outcomes for your program.',
-                      bulletPoints: const [
-                        'SPECIALIZATIONS & ELECTIVES',
-                        'TECHNOLOGY STACKS & SKILLS',
-                        'COMPARE MATRIX & CURRICULUM',
-                      ],
-                      bulletColor: Colors.white38,
-                      footerText: 'EXPLORE GUIDE →',
-                      footerColor: const Color(0xFFF55D95),
-                      onTap: () => onNavigate(1),
-                    ),
-                  ),
-                  SizedBox(width: stackCards ? 0 : 16, height: stackCards ? 16 : 0),
-                  Flexible(
-                    flex: 1,
-                    fit: stackCards ? FlexFit.loose : FlexFit.tight,
-                    child: ClickableCard(
-                      icon: Icons.explore_outlined,
-                      iconColor: Colors.white70,
-                      backgroundColor: const Color(0xFF071E4B),
-                      textColor: Colors.white,
-                      title: 'COMPASS',
-                      description: 'Discover opportunities beyond the classroom. Find hackathons, certifications, and industry seminars.',
-                      bulletPoints: const [
-                        'HACKATHONS & EVENTS',
-                        'SCHOLARSHIP PROGRAMS',
-                        'RECOGNITION PROOF SUBMISSIONS',
-                      ],
-                      bulletColor: Colors.white38,
-                      footerText: 'GO TO COMPASS →',
-                      footerColor: const Color(0xFFF55D95),
-                      onTap: () => onNavigate(2),
-                    ),
-                  ),
+                  Expanded(child: cards[0]),
+                  const SizedBox(width: 16),
+                  Expanded(child: cards[1]),
                 ],
-              );
-            },
-          ),
-        ),
-      ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildCard({
+    required IconData icon,
+    required String title,
+    required String description,
+    required List<String> bulletPoints,
+    required String footerText,
+    required VoidCallback onTap,
+  }) {
+    return ClickableCard(
+      icon: icon,
+      iconColor: Colors.white,
+      backgroundColor: const Color(0xFF071E4B),
+      textColor: Colors.white,
+      title: title,
+      description: description,
+      bulletPoints: bulletPoints,
+      bulletColor: const Color(0xFFF55D95),
+      footerText: footerText,
+      footerColor: const Color(0xFFF55D95),
+      onTap: onTap,
     );
   }
 }
