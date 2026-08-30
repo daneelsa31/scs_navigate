@@ -145,7 +145,7 @@ class _SpecializationDetailScreenState
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF0D9488),
+              color: Color(0xFFF55D95),
               height: 1.4,
             ),
           ),
@@ -177,7 +177,7 @@ class _SpecializationDetailScreenState
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF0D9488),
+                  color: Color(0xFFF55D95),
                 ),
               ),
             ],
@@ -195,7 +195,7 @@ class _SpecializationDetailScreenState
         color: const Color(0xFF0F172A),
         borderRadius: BorderRadius.circular(18),
       ),
-      child: Icon(widget.spec.icon, color: const Color(0xFF2DD4BF), size: 34),
+      child: Icon(widget.spec.icon, color: const Color(0xFFFD73A6), size: 34),
     );
   }
 
@@ -299,7 +299,7 @@ class _SpecializationDetailScreenState
         children: [
           const Icon(
             Icons.check_circle_outline,
-            color: Color(0xFF0D9488),
+            color: Color(0xFFF55D95),
             size: 20,
           ),
           const SizedBox(width: 12),
@@ -399,7 +399,7 @@ class _SpecializationDetailScreenState
                 ),
                 decoration: BoxDecoration(
                   color: isTechnology
-                      ? const Color(0xFFCCFBF1)
+                      ? const Color(0xFFFDD9E5)
                       : const Color(0xFFF1F5F9),
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -409,7 +409,7 @@ class _SpecializationDetailScreenState
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                     color: isTechnology
-                        ? const Color(0xFF0D9488)
+                        ? const Color(0xFFF55D95)
                         : const Color(0xFF334155),
                   ),
                 ),
@@ -479,7 +479,7 @@ class _SpecializationDetailScreenState
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF2DD4BF),
+              color: Color(0xFFFD73A6),
             ),
           ),
           const SizedBox(height: 9),
@@ -678,12 +678,12 @@ class _SpecializationDetailScreenState
               Container(
                 padding: const EdgeInsets.all(9),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFCCFBF1),
+                  color: const Color(0xFFFDD9E5),
                   borderRadius: BorderRadius.circular(9),
                 ),
                 child: const Icon(
                   Icons.work_outline,
-                  color: Color(0xFF0D9488),
+                  color: Color(0xFFF55D95),
                   size: 20,
                 ),
               ),
@@ -795,7 +795,7 @@ class _SpecializationDetailScreenState
                     borderRadius: BorderRadius.circular(14),
                     border: Border.all(
                       color: isExpanded
-                          ? const Color(0xFF99F6E4)
+                          ? const Color(0xFFFB9DBD)
                           : const Color(0xFFDCE5EF),
                     ),
                   ),
@@ -866,21 +866,21 @@ class _SpecializationDetailScreenState
           width: double.infinity,
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
-            color: const Color(0xFFF0FDFA),
+            color: const Color(0xFFFDD9E5),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: const Color(0xFF99F6E4)),
+            border: Border.all(color: const Color(0xFFFB9DBD)),
           ),
           child: const Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.lightbulb_outline, color: Color(0xFF0D9488), size: 20),
+              Icon(Icons.lightbulb_outline, color: Color(0xFFF55D95), size: 20),
               SizedBox(width: 10),
               Expanded(
                 child: Text(
                   'These are sample project ideas that can help you understand the kind of work you may encounter in this specialization.',
                   style: TextStyle(
                     fontSize: 12,
-                    color: Color(0xFF0F766E),
+                    color: Color(0xFFF55D95),
                     height: 1.45,
                   ),
                 ),
@@ -980,7 +980,7 @@ class _SpecializationDetailScreenState
                           vertical: 5,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFCCFBF1),
+                          color: const Color(0xFFFDD9E5),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
@@ -988,7 +988,7 @@ class _SpecializationDetailScreenState
                           style: const TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.w600,
-                            color: Color(0xFF0D9488),
+                            color: Color(0xFFF55D95),
                           ),
                         ),
                       );

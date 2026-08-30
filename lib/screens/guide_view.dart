@@ -53,7 +53,7 @@ class _GuideViewState extends State<GuideView> {
           style: TextStyle(
             fontSize: 36,
             fontWeight: FontWeight.w800,
-            color: Color(0xFF0F172A),
+            color:Color(0xFFFD73A6),
             letterSpacing: -1.0,
           ),
         ),
@@ -77,7 +77,7 @@ class _GuideViewState extends State<GuideView> {
       width: double.infinity,
       padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
-        color: const Color(0xFF0F172A),
+        color: const Color(0xFF071E4B),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -134,7 +134,7 @@ class _GuideViewState extends State<GuideView> {
                         Text(
                           'PROGRAM PATHWAY',
                           style: TextStyle(
-                            color: Color(0xFF2DD4BF),
+                            color: Color(0xFFFD73A6),
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 0.5,
@@ -158,7 +158,7 @@ class _GuideViewState extends State<GuideView> {
                       Text(
                         'PROGRAM PATHWAY',
                         style: TextStyle(
-                          color: Color(0xFF2DD4BF),
+                          color: Color(0xFFFD73A6),
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 0.5,
@@ -200,7 +200,7 @@ class _GuideViewState extends State<GuideView> {
             width: double.infinity,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: const Color(0xFF1E293B),
+              color: const Color.fromARGB(255, 22, 49, 104),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
@@ -287,14 +287,14 @@ class _GuideViewState extends State<GuideView> {
                         vertical: 6,
                       ),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF0D9488).withValues(alpha: 0.2),
-                        border: Border.all(color: const Color(0xFF0D9488)),
+                        color: const Color(0xFFF55D95).withValues(alpha: 0.2),
+                        border: Border.all(color: const Color(0xFFF55D95)),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Text(
                         '✓ $spec',
                         style: const TextStyle(
-                          color: Color(0xFF2DD4BF),
+                          color: Color(0xFFFD73A6),
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
@@ -557,7 +557,7 @@ class _GuideViewState extends State<GuideView> {
             Text(
               '✓ High',
               style: TextStyle(
-                color: Color(0xFF0D9488),
+                color: Color(0xFFF55D95),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -566,7 +566,7 @@ class _GuideViewState extends State<GuideView> {
             Text(
               '✓ High',
               style: TextStyle(
-                color: Color(0xFF0D9488),
+                color: Color(0xFFF55D95),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -588,7 +588,7 @@ class _GuideViewState extends State<GuideView> {
             Text(
               '✓ High',
               style: TextStyle(
-                color: Color(0xFF0D9488),
+                color: Color(0xFFF55D95),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -725,7 +725,7 @@ class _GuideViewState extends State<GuideView> {
                 ),
               ),
               style: TextButton.styleFrom(
-                foregroundColor: const Color(0xFF0D9488),
+                foregroundColor: const Color(0xFFF55D95),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 14,
                   vertical: 8,
@@ -837,7 +837,7 @@ class _GuideViewState extends State<GuideView> {
                 ),
               ),
               style: TextButton.styleFrom(
-                foregroundColor: const Color(0xFF0D9488),
+                foregroundColor: const Color(0xFFF55D95),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 14,
                   vertical: 8,
@@ -879,7 +879,7 @@ class _GuideViewState extends State<GuideView> {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: isExpanded
-                  ? const Color(0xFF99F6E4)
+                  ? const Color(0xFFFB9DBD)
                   : const Color(0xFFE2E8F0),
             ),
           ),

@@ -40,12 +40,12 @@ class SpecCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFCCFBF1),
+                    color: const Color(0xFFFDD9E5),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Icon(
                     icon,
-                    color: const Color(0xFF0D9488),
+                    color: const Color(0xFFF55D95),
                     size: 20,
                   ),
                 ),
@@ -82,7 +82,7 @@ class SpecCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF0D9488),
+                    color: Color(0xFFF55D95),
                   ),
                 ),
               ],
