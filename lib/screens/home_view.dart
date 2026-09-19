@@ -4,92 +4,149 @@ import '../widgets/clickable_card.dart';
 class HomeView extends StatelessWidget {
   final Function(int) onNavigate;
 
-  const HomeView({super.key, required this.onNavigate});
+  const HomeView({
+    super.key,
+    required this.onNavigate,
+  });
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isMobile = constraints.maxWidth < 850;
+        final bool isMobile = constraints.maxWidth < 850;
+        final bool isLargeDesktop = constraints.maxWidth >= 1150;
+
+        final double heroFontSize = isMobile
+            ? 42
+            : isLargeDesktop
+                ? 62
+                : 52;
+
+        final double descriptionFontSize =
+            isMobile ? 15 : 17;
+
         final cards = [
           _buildCard(
             icon: Icons.menu_book_rounded,
             title: 'GUIDE',
-            description: 'Understand your academic pathway. Discover skills, technologies, and career outcomes for your program.',
+            description:
+                'Understand your academic pathway. Discover skills, technologies, and career outcomes for your program.',
             bulletPoints: const [
               'SPECIALIZATIONS & ELECTIVES',
               'TECHNOLOGY STACKS & SKILLS',
               'COMPARE MATRIX & CURRICULUM',
             ],
-            footerText: 'EXPLORE GUIDE ->',
+            footerText: 'EXPLORE GUIDE →',
             onTap: () => onNavigate(1),
           ),
           _buildCard(
             icon: Icons.explore_outlined,
             title: 'COMPASS',
-            description: 'Discover opportunities beyond the classroom. Find hackathons, certifications, and industry seminars.',
+            description:
+                'Discover opportunities beyond the classroom. Find hackathons, certifications, and industry seminars.',
             bulletPoints: const [
               'HACKATHONS & EVENTS',
               'SCHOLARSHIP PROGRAMS',
               'RECOGNITION PROOF SUBMISSIONS',
             ],
-            footerText: 'GO TO COMPASS ->',
+            footerText: 'GO TO COMPASS →',
             onTap: () => onNavigate(2),
           ),
         ];
 
         final introduction = Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 16),
-              RichText(
-                text: const TextSpan(
-                  style: TextStyle(
-                    fontSize: 52,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: -1.5,
-                    height: 1.05,
-                    fontFamily: 'sans-serif',
-                  ),
-                  children: [
-                    TextSpan(text: 'Your Path.\nYour Skills.\n', style: TextStyle(color: Color(0xFF071E4B))),
-                    TextSpan(text: 'Your Future.', style: TextStyle(color: Color(0xFFF55D95))),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
-              const Text(
-                'Explore SCS specializations and discover\nverified technology-related opportunities.',
-                style: TextStyle(
-                  color: Color(0xFF64748B),
-                  fontSize: 16,
-                  height: 1.4,
-                ),
-              ),
-              const SizedBox(height: 40),
-            ],
-          );
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 16),
 
+            RichText(
+              text: TextSpan(
+                style: TextStyle(
+                  fontSize: heroFontSize,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: -1.5,
+                  height: 1.04,
+                  fontFamily: 'sans-serif',
+                ),
+                children: const [
+                  TextSpan(
+                    text: 'Your Path.\nYour Skills.\n',
+                    style: TextStyle(
+                      color: Color(0xFF071E4B),
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'Your Future.',
+                    style: TextStyle(
+                      color: Color(0xFFF55D95),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            Text(
+              'Explore SCS specializations and discover\n'
+              'verified technology-related opportunities.',
+              style: TextStyle(
+                color: const Color(0xFF64748B),
+                fontSize: descriptionFontSize,
+                height: 1.5,
+              ),
+            ),
+
+            const SizedBox(height: 40),
+          ],
+        );
+
+        // =======================================================
+        // MOBILE
+        // =======================================================
         if (isMobile) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [introduction, ...cards.expand((card) => [card, const SizedBox(height: 16)])],
+            children: [
+              introduction,
+
+              ...cards.expand(
+                (card) => [
+                  card,
+                  const SizedBox(height: 18),
+                ],
+              ),
+            ],
           );
         }
 
+        // =======================================================
+        // DESKTOP
+        // =======================================================
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(flex: 5, child: introduction),
-            const SizedBox(width: 48),
+            Expanded(
+              flex: 5,
+              child: introduction,
+            ),
+
+            const SizedBox(width: 56),
+
             Expanded(
               flex: 7,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(child: cards[0]),
-                  const SizedBox(width: 16),
-                  Expanded(child: cards[1]),
+                  Expanded(
+                    child: cards[0],
+                  ),
+
+                  const SizedBox(width: 20),
+
+                  Expanded(
+                    child: cards[1],
+                  ),
                 ],
               ),
             ),

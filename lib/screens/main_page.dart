@@ -15,12 +15,10 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
   Specialization? _selectedSpecialization;
 
-  // =========================================================
-  // COLORS
-  // =========================================================
   static const Color navy = Color(0xFF00184D);
   static const Color pink = Color(0xFFF55D95);
   static const Color lightText = Color(0xFF64748B);
+  static const Color background = Color(0xFFFFFCFD);
 
   void _navigateToTab(int index) {
     setState(() {
@@ -43,10 +41,12 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isMobile = MediaQuery.of(context).size.width < 850;
+    final double screenWidth = MediaQuery.sizeOf(context).width;
+
+    final bool isMobile = screenWidth < 850;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFCFD),
+      backgroundColor: background,
 
       // =========================================================
       // NAVIGATION BAR
@@ -54,21 +54,22 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.5,
-        toolbarHeight: 72,
-        titleSpacing: 20,
+        toolbarHeight: 76,
+        titleSpacing: isMobile ? 14 : 28,
+        surfaceTintColor: Colors.transparent,
 
         title: Row(
           children: [
             Image.asset(
               'assets/images/scs_navigate_logo.png',
-              width: 48,
-              height: 48,
+              width: isMobile ? 44 : 52,
+              height: isMobile ? 44 : 52,
               fit: BoxFit.contain,
             ),
 
             const SizedBox(width: 12),
 
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -76,7 +77,7 @@ class _MainPageState extends State<MainPage> {
                   'SCS NAVIGATE',
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
-                    fontSize: 17,
+                    fontSize: isMobile ? 16 : 19,
                     color: navy,
                     letterSpacing: -0.5,
                   ),
@@ -84,7 +85,7 @@ class _MainPageState extends State<MainPage> {
                 Text(
                   'SCHOOL OF COMPUTER STUDIES',
                   style: TextStyle(
-                    fontSize: 9,
+                    fontSize: isMobile ? 8 : 10,
                     fontWeight: FontWeight.w600,
                     color: lightText,
                     letterSpacing: 0.5,
@@ -101,10 +102,11 @@ class _MainPageState extends State<MainPage> {
             _navItem(1, 'GUIDE'),
             _navItem(2, 'COMPASS'),
             _navItem(3, 'About'),
-            const SizedBox(width: 16),
+            const SizedBox(width: 18),
           ],
 
           IconButton(
+            tooltip: 'Search',
             icon: const Icon(
               Icons.search,
               color: lightText,
@@ -112,7 +114,7 @@ class _MainPageState extends State<MainPage> {
             onPressed: () => _showSearchDialog(context),
           ),
 
-          const SizedBox(width: 16),
+          const SizedBox(width: 12),
         ],
       ),
 
@@ -161,37 +163,53 @@ class _MainPageState extends State<MainPage> {
 
       // =========================================================
       // BODY
+      //
+      // SelectionArea = users can highlight/copy website text.
+      //
+      // LayoutBuilder + ConstrainedBox + IntrinsicHeight =
+      // footer remains at the bottom on short pages.
       // =========================================================
-      body: SingleChildScrollView(
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            children: [
-              // =================================================
-              // MAIN CONTENT
-              // Only the website content is limited to 1100px.
-              // =================================================
-              Center(
-                child: Container(
-                  constraints: const BoxConstraints(
-                    maxWidth: 1100,
+      body: SelectionArea(
+        child: LayoutBuilder(
+          builder: (context, viewportConstraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: viewportConstraints.maxHeight,
+                ),
+                child: IntrinsicHeight(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // ===========================================
+                      // MAIN CONTENT
+                      // ===========================================
+                      Expanded(
+                        child: Center(
+                          child: Container(
+                            width: double.infinity,
+                            constraints: const BoxConstraints(
+                              maxWidth: 1280,
+                            ),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: isMobile ? 18 : 40,
+                              vertical: isMobile ? 28 : 44,
+                            ),
+                            child: _buildBody(),
+                          ),
+                        ),
+                      ),
+
+                      // ===========================================
+                      // FOOTER
+                      // ===========================================
+                      _buildFooter(),
+                    ],
                   ),
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 32,
-                  ),
-                  child: _buildBody(),
                 ),
               ),
-
-              // =================================================
-              // FULL-WIDTH FOOTER
-              // This is OUTSIDE the 1100px content container.
-              // =================================================
-              _buildFooter(),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
@@ -206,30 +224,23 @@ class _MainPageState extends State<MainPage> {
 
     return TextButton(
       onPressed: () => _navigateToTab(index),
-
       style: ButtonStyle(
         padding: WidgetStateProperty.all(
           const EdgeInsets.symmetric(
-            horizontal: 14,
+            horizontal: 16,
             vertical: 18,
           ),
         ),
-
         overlayColor: WidgetStateProperty.all(
           pink.withValues(alpha: 0.08),
         ),
       ),
-
       child: Text(
         label,
         style: TextStyle(
-          fontSize: 14,
-          fontWeight: isSelected
-              ? FontWeight.w700
-              : FontWeight.w500,
-
-          // Selected navigation tab = Pink
-          // Other tabs = Navy
+          fontSize: 15,
+          fontWeight:
+              isSelected ? FontWeight.w700 : FontWeight.w500,
           color: isSelected ? pink : navy,
         ),
       ),
@@ -260,9 +271,8 @@ class _MainPageState extends State<MainPage> {
         label,
         style: TextStyle(
           color: isSelected ? pink : navy,
-          fontWeight: isSelected
-              ? FontWeight.bold
-              : FontWeight.w500,
+          fontWeight:
+              isSelected ? FontWeight.bold : FontWeight.w500,
         ),
       ),
 
@@ -299,9 +309,18 @@ class _MainPageState extends State<MainPage> {
       case 2:
         return const Center(
           child: Padding(
-            padding: EdgeInsets.all(100),
+            padding: EdgeInsets.symmetric(
+              vertical: 120,
+              horizontal: 24,
+            ),
             child: Text(
               'COMPASS View (Coming Soon)',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: navy,
+              ),
             ),
           ),
         );
@@ -310,9 +329,18 @@ class _MainPageState extends State<MainPage> {
       default:
         return const Center(
           child: Padding(
-            padding: EdgeInsets.all(100),
+            padding: EdgeInsets.symmetric(
+              vertical: 120,
+              horizontal: 24,
+            ),
             child: Text(
               'About View (Coming Soon)',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: navy,
+              ),
             ),
           ),
         );
@@ -325,9 +353,7 @@ class _MainPageState extends State<MainPage> {
 
   Widget _buildFooter() {
     return Container(
-      // This makes the NAVY BACKGROUND fill the whole screen width
       width: double.infinity,
-
       decoration: const BoxDecoration(
         color: navy,
         border: Border(
@@ -337,23 +363,20 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
       ),
-
       padding: const EdgeInsets.symmetric(
         horizontal: 24,
-        vertical: 30,
+        vertical: 34,
       ),
 
       child: Center(
-        // Only the CONTENT inside the footer has a max width.
-        // The NAVY BACKGROUND remains full-width.
         child: ConstrainedBox(
           constraints: const BoxConstraints(
-            maxWidth: 1100,
+            maxWidth: 1280,
           ),
 
           child: LayoutBuilder(
             builder: (context, constraints) {
-              final bool isSmall = constraints.maxWidth < 700;
+              final bool isSmall = constraints.maxWidth < 760;
 
               // =================================================
               // MOBILE FOOTER
@@ -383,7 +406,7 @@ class _MainPageState extends State<MainPage> {
                                 'SCS NAVIGATE',
                                 style: TextStyle(
                                   color: pink,
-                                  fontSize: 20,
+                                  fontSize: 21,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -394,7 +417,7 @@ class _MainPageState extends State<MainPage> {
                                 'School of Computer Studies',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 13,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -404,15 +427,15 @@ class _MainPageState extends State<MainPage> {
                       ],
                     ),
 
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 18),
 
                     const Text(
                       'Your centralized hub for academic pathways, '
                       'specializations, and technology opportunities.',
                       style: TextStyle(
                         color: Color(0xFFB8C3D9),
-                        fontSize: 13,
-                        height: 1.4,
+                        fontSize: 14,
+                        height: 1.5,
                       ),
                     ),
 
@@ -455,7 +478,6 @@ class _MainPageState extends State<MainPage> {
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // LEFT SIDE
                   Expanded(
                     flex: 3,
                     child: Row(
@@ -463,12 +485,12 @@ class _MainPageState extends State<MainPage> {
                       children: [
                         Image.asset(
                           'assets/images/scs_navigate_logo.png',
-                          width: 70,
-                          height: 70,
+                          width: 76,
+                          height: 76,
                           fit: BoxFit.contain,
                         ),
 
-                        const SizedBox(width: 20),
+                        const SizedBox(width: 22),
 
                         const Expanded(
                           child: Column(
@@ -479,7 +501,7 @@ class _MainPageState extends State<MainPage> {
                                 'SCS NAVIGATE',
                                 style: TextStyle(
                                   color: pink,
-                                  fontSize: 22,
+                                  fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -490,7 +512,7 @@ class _MainPageState extends State<MainPage> {
                                 'School of Computer Studies',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 14,
+                                  fontSize: 15,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -502,8 +524,8 @@ class _MainPageState extends State<MainPage> {
                                 'specializations, and technology opportunities.',
                                 style: TextStyle(
                                   color: Color(0xFFB8C3D9),
-                                  fontSize: 13,
-                                  height: 1.4,
+                                  fontSize: 14,
+                                  height: 1.5,
                                 ),
                               ),
                             ],
@@ -513,17 +535,15 @@ class _MainPageState extends State<MainPage> {
                     ),
                   ),
 
-                  // VERTICAL DIVIDER
                   Container(
                     width: 1,
-                    height: 110,
+                    height: 115,
                     color: pink.withValues(alpha: 0.7),
                     margin: const EdgeInsets.symmetric(
-                      horizontal: 40,
+                      horizontal: 44,
                     ),
                   ),
 
-                  // RIGHT SIDE
                   const Expanded(
                     flex: 2,
                     child: Column(
@@ -534,14 +554,14 @@ class _MainPageState extends State<MainPage> {
                           text: 'scs.navigate@usjr.edu.ph',
                         ),
 
-                        SizedBox(height: 14),
+                        SizedBox(height: 16),
 
                         _FooterInfo(
                           icon: Icons.language,
                           text: 'www.usjr.edu.ph',
                         ),
 
-                        SizedBox(height: 14),
+                        SizedBox(height: 16),
 
                         _FooterInfo(
                           icon: Icons.location_on_outlined,
@@ -571,18 +591,17 @@ class _MainPageState extends State<MainPage> {
         title: const Text(
           'Search SCS Navigate',
           style: TextStyle(
-            fontSize: 16,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
 
         content: TextField(
           autofocus: true,
-
           decoration: InputDecoration(
             hintText: 'Search specializations, scholarships...',
             hintStyle: const TextStyle(
-              fontSize: 13,
+              fontSize: 14,
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
@@ -593,7 +612,6 @@ class _MainPageState extends State<MainPage> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-
             child: const Text(
               'Close',
               style: TextStyle(
@@ -608,7 +626,7 @@ class _MainPageState extends State<MainPage> {
 }
 
 // =============================================================
-// FOOTER INFO WIDGET
+// FOOTER INFO
 // =============================================================
 
 class _FooterInfo extends StatelessWidget {
@@ -630,7 +648,7 @@ class _FooterInfo extends StatelessWidget {
         Icon(
           icon,
           color: pink,
-          size: 20,
+          size: 21,
         ),
 
         const SizedBox(width: 14),
@@ -640,7 +658,8 @@ class _FooterInfo extends StatelessWidget {
             text,
             style: const TextStyle(
               color: Color(0xFFB8C3D9),
-              fontSize: 13,
+              fontSize: 14,
+              height: 1.4,
             ),
           ),
         ),
