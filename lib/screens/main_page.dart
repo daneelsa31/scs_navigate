@@ -3,6 +3,7 @@ import 'home_view.dart';
 import 'guide_view.dart';
 import 'specialization_detail.dart';
 import '../models/specialization.dart';
+import 'compass_view.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -107,10 +108,7 @@ class _MainPageState extends State<MainPage> {
 
           IconButton(
             tooltip: 'Search',
-            icon: const Icon(
-              Icons.search,
-              color: lightText,
-            ),
+            icon: const Icon(Icons.search, color: lightText),
             onPressed: () => _showSearchDialog(context),
           ),
 
@@ -127,9 +125,7 @@ class _MainPageState extends State<MainPage> {
                 padding: EdgeInsets.zero,
                 children: [
                   DrawerHeader(
-                    decoration: const BoxDecoration(
-                      color: navy,
-                    ),
+                    decoration: const BoxDecoration(color: navy),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -177,35 +173,35 @@ class _MainPageState extends State<MainPage> {
                 constraints: BoxConstraints(
                   minHeight: viewportConstraints.maxHeight,
                 ),
-                child: IntrinsicHeight(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      // ===========================================
-                      // MAIN CONTENT
-                      // ===========================================
-                      Expanded(
-                        child: Center(
-                          child: Container(
-                            width: double.infinity,
-                            constraints: const BoxConstraints(
-                              maxWidth: 1280,
-                            ),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: isMobile ? 18 : 40,
-                              vertical: isMobile ? 28 : 44,
-                            ),
-                            child: _buildBody(),
-                          ),
-                        ),
-                      ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // MAIN CONTENT
+                    Center(
+                      child: Container(
+                        width: double.infinity,
+                        constraints: const BoxConstraints(maxWidth: 1280),
 
-                      // ===========================================
-                      // FOOTER
-                      // ===========================================
-                      _buildFooter(),
-                    ],
-                  ),
+                        padding: EdgeInsets.only(
+                          left: isMobile ? 18 : 40,
+                          right: isMobile ? 18 : 40,
+
+                          // GUIDE has less space above the heading
+                          top: _selectedIndex == 1
+                              ? (isMobile ? 12 : 18)
+                              : (isMobile ? 28 : 44),
+
+                          bottom: isMobile ? 28 : 44,
+                        ),
+
+                        child: _buildBody(),
+                      ),
+                    ),
+
+                    // FOOTER
+                    _buildFooter(),
+                  ],
                 ),
               ),
             );
@@ -226,21 +222,15 @@ class _MainPageState extends State<MainPage> {
       onPressed: () => _navigateToTab(index),
       style: ButtonStyle(
         padding: WidgetStateProperty.all(
-          const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 18,
-          ),
+          const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
         ),
-        overlayColor: WidgetStateProperty.all(
-          pink.withValues(alpha: 0.08),
-        ),
+        overlayColor: WidgetStateProperty.all(pink.withValues(alpha: 0.08)),
       ),
       child: Text(
         label,
         style: TextStyle(
           fontSize: 15,
-          fontWeight:
-              isSelected ? FontWeight.w700 : FontWeight.w500,
+          fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
           color: isSelected ? pink : navy,
         ),
       ),
@@ -271,8 +261,7 @@ class _MainPageState extends State<MainPage> {
         label,
         style: TextStyle(
           color: isSelected ? pink : navy,
-          fontWeight:
-              isSelected ? FontWeight.bold : FontWeight.w500,
+          fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
         ),
       ),
 
@@ -297,42 +286,19 @@ class _MainPageState extends State<MainPage> {
 
     switch (_selectedIndex) {
       case 0:
-        return HomeView(
-          onNavigate: _navigateToTab,
-        );
+        return HomeView(onNavigate: _navigateToTab);
 
       case 1:
-        return GuideView(
-          onSpecializationTap: _showSpecialization,
-        );
+        return GuideView(onSpecializationTap: _showSpecialization);
 
       case 2:
-        return const Center(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: 120,
-              horizontal: 24,
-            ),
-            child: Text(
-              'COMPASS View (Coming Soon)',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: navy,
-              ),
-            ),
-          ),
-        );
+        return CompassView();
 
       case 3:
       default:
         return const Center(
           child: Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: 120,
-              horizontal: 24,
-            ),
+            padding: EdgeInsets.symmetric(vertical: 120, horizontal: 24),
             child: Text(
               'About View (Coming Soon)',
               textAlign: TextAlign.center,
@@ -356,23 +322,13 @@ class _MainPageState extends State<MainPage> {
       width: double.infinity,
       decoration: const BoxDecoration(
         color: navy,
-        border: Border(
-          top: BorderSide(
-            color: pink,
-            width: 4,
-          ),
-        ),
+        border: Border(top: BorderSide(color: pink, width: 4)),
       ),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 24,
-        vertical: 34,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 34),
 
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: 1280,
-          ),
+          constraints: const BoxConstraints(maxWidth: 1280),
 
           child: LayoutBuilder(
             builder: (context, constraints) {
@@ -399,8 +355,7 @@ class _MainPageState extends State<MainPage> {
 
                         const Expanded(
                           child: Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 'SCS NAVIGATE',
@@ -465,8 +420,7 @@ class _MainPageState extends State<MainPage> {
 
                     const _FooterInfo(
                       icon: Icons.location_on_outlined,
-                      text:
-                          'P. del Rosario St., Cebu City, Philippines 6000',
+                      text: 'P. del Rosario St., Cebu City, Philippines 6000',
                     ),
                   ],
                 );
@@ -494,8 +448,7 @@ class _MainPageState extends State<MainPage> {
 
                         const Expanded(
                           child: Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 'SCS NAVIGATE',
@@ -539,9 +492,7 @@ class _MainPageState extends State<MainPage> {
                     width: 1,
                     height: 115,
                     color: pink.withValues(alpha: 0.7),
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 44,
-                    ),
+                    margin: const EdgeInsets.symmetric(horizontal: 44),
                   ),
 
                   const Expanded(
@@ -590,34 +541,22 @@ class _MainPageState extends State<MainPage> {
       builder: (context) => AlertDialog(
         title: const Text(
           'Search SCS Navigate',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
 
         content: TextField(
           autofocus: true,
           decoration: InputDecoration(
             hintText: 'Search specializations, scholarships...',
-            hintStyle: const TextStyle(
-              fontSize: 14,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            hintStyle: const TextStyle(fontSize: 14),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
         ),
 
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text(
-              'Close',
-              style: TextStyle(
-                color: pink,
-              ),
-            ),
+            child: const Text('Close', style: TextStyle(color: pink)),
           ),
         ],
       ),
@@ -633,10 +572,7 @@ class _FooterInfo extends StatelessWidget {
   final IconData icon;
   final String text;
 
-  const _FooterInfo({
-    required this.icon,
-    required this.text,
-  });
+  const _FooterInfo({required this.icon, required this.text});
 
   static const Color pink = Color(0xFFF55D95);
 
@@ -645,11 +581,7 @@ class _FooterInfo extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(
-          icon,
-          color: pink,
-          size: 21,
-        ),
+        Icon(icon, color: pink, size: 21),
 
         const SizedBox(width: 14),
 
