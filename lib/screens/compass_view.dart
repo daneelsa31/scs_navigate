@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:url_launcher/url_launcher.dart';
+
+import '../models/opportunity.dart';
+import '../services/opportunity_service.dart';
 
 class CompassView extends StatefulWidget {
   const CompassView({super.key});
@@ -19,6 +21,8 @@ class _CompassViewState extends State<CompassView> {
   static const lightText = Color(0xFF64748B);
 
   static const borderColor = Color(0xFFE2E8F0);
+
+  final OpportunityService _opportunityService = OpportunityService();
 
   // =============================================================
 
@@ -48,186 +52,15 @@ class _CompassViewState extends State<CompassView> {
     'Scholarships',
   ];
 
-  final opportunities = const [
-    Opportunity(
-      title: 'Sample Hackathon Opportunity',
-
-      organizer: 'School of Computer Studies',
-
-      category: 'Hackathons',
-
-      description:
-          'Participate in a technology-focused hackathon and develop innovative solutions to real-world campus and community challenges.',
-
-      deadline: 'September 30, 2026',
-
-      status: 'Registration Open',
-
-      location: 'USJ-R Main Campus',
-
-      eligibility: [
-        'Open to all SCS students',
-
-        'Participants may join individually or as a team',
-      ],
-
-      perks: [
-        'Certificate of Participation',
-
-        'Networking Opportunities',
-
-        'Prizes for Winning Teams',
-      ],
-
-      registrationLink: 'https://example.com/',
-    ),
-
-    Opportunity(
-      title: 'Sample Technology Training',
-
-      organizer: 'School of Computer Studies',
-
-      category: 'Trainings',
-
-      description:
-          'Develop practical technical skills through guided training sessions and hands-on activities designed for students.',
-
-      deadline: 'October 5, 2026',
-
-      status: 'Registration Open',
-
-      location: 'SCS Computer Laboratory',
-
-      eligibility: [
-        'Open to currently enrolled SCS students',
-
-        'Participants must complete the registration form',
-      ],
-
-      perks: ['Certificate', 'Hands-on Experience', 'Learning Resources'],
-
-      registrationLink: 'https://example.com/',
-    ),
-
-    Opportunity(
-      title: 'Sample Industry Seminar',
-
-      organizer: 'Industry Partner',
-
-      category: 'Seminars',
-
-      description:
-          'Learn about current trends, tools, and career opportunities from professionals working in the technology industry.',
-
-      deadline: 'October 10, 2026',
-
-      status: 'Registration Open',
-
-      location: 'USJ-R Main Auditorium',
-
-      eligibility: ['Open to all SCS students'],
-
-      perks: ['Certificate of Attendance', 'Career Insights', 'Networking'],
-
-      registrationLink: 'https://example.com/',
-    ),
-
-    Opportunity(
-      title: 'Sample Certification Program',
-
-      organizer: 'Technology Organization',
-
-      category: 'Certifications',
-
-      description:
-          'Build your credentials through an industry-recognized technology certification opportunity.',
-
-      deadline: 'October 20, 2026',
-
-      status: 'Applications Open',
-
-      location: 'Online',
-
-      eligibility: [
-        'Open to eligible SCS students',
-
-        'Applicants must complete the required registration process',
-      ],
-
-      perks: ['Industry Certification', 'Digital Badge', 'Career Advantage'],
-
-      registrationLink: 'https://example.com/',
-    ),
-
-    Opportunity(
-      title: 'Sample Programming Competition',
-
-      organizer: 'School of Computer Studies',
-
-      category: 'Competitions',
-
-      description:
-          'Challenge your problem-solving and programming skills through a competitive coding activity.',
-
-      deadline: 'November 2, 2026',
-
-      status: 'Registration Open',
-
-      location: 'SCS Computer Laboratory',
-
-      eligibility: [
-        'Open to SCS students',
-
-        'Participants may be required to form teams',
-      ],
-
-      perks: ['Certificate', 'Awards', 'Competition Experience'],
-
-      registrationLink: 'https://example.com/',
-    ),
-
-    Opportunity(
-      title: 'Sample Technology Scholarship',
-
-      organizer: 'Scholarship Provider',
-
-      category: 'Scholarships',
-
-      description:
-          'Explore financial support and learning opportunities available to eligible technology students.',
-
-      deadline: 'November 15, 2026',
-
-      status: 'Applications Open',
-
-      location: 'Online Application',
-
-      eligibility: [
-        'Must meet the scholarship provider requirements',
-
-        'Required documents must be submitted before the deadline',
-      ],
-
-      perks: [
-        'Financial Assistance',
-
-        'Learning Support',
-
-        'Academic Opportunity',
-      ],
-
-      registrationLink: 'https://example.com/',
-    ),
-  ];
-
-  List<Opportunity> get filteredOpportunities {
-    final q = searchQuery.toLowerCase();
+  List<Opportunity> _filterOpportunities(List<Opportunity> opportunities) {
+    final q = searchQuery.toLowerCase().trim();
 
     return opportunities.where((o) {
       final categoryMatch =
           selectedCategory == 'All' || o.category == selectedCategory;
 
       final searchMatch =
+          q.isEmpty ||
           o.title.toLowerCase().contains(q) ||
           o.organizer.toLowerCase().contains(q) ||
           o.category.toLowerCase().contains(q) ||
@@ -239,85 +72,123 @@ class _CompassViewState extends State<CompassView> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, c) {
-        final mobile = c.maxWidth < 700;
+    return StreamBuilder<List<Opportunity>>(
+      stream: _opportunityService.getPublicOpportunities(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Padding(
+            padding: EdgeInsets.symmetric(vertical: 100),
+            child: Center(child: CircularProgressIndicator(color: pink)),
+          );
+        }
 
-        final large = c.maxWidth >= 1100;
-
-        final results = filteredOpportunities;
-
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-
-          children: [
-            Text(
-              'COMPASS',
-
-              style: TextStyle(
-                color: navy,
-
-                fontSize: mobile
-                    ? 38
-                    : large
-                    ? 52
-                    : 46,
-
-                fontWeight: FontWeight.w900,
-
-                letterSpacing: -1.5,
-
-                height: 1,
+        if (snapshot.hasError) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 80),
+            child: Center(
+              child: Column(
+                children: [
+                  const Icon(
+                    Icons.error_outline_rounded,
+                    color: pink,
+                    size: 42,
+                  ),
+                  const SizedBox(height: 14),
+                  const Text(
+                    'Unable to load COMPASS opportunities.',
+                    style: TextStyle(
+                      color: navy,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    snapshot.error.toString(),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: lightText, fontSize: 12),
+                  ),
+                ],
               ),
             ),
+          );
+        }
 
-            const SizedBox(height: 14),
+        final opportunities = snapshot.data ?? [];
 
-            Text(
-              'Discover opportunities beyond the classroom. Find competitions, hackathons, seminars, trainings, certifications, and scholarships.',
+        final results = _filterOpportunities(opportunities);
 
-              style: TextStyle(
-                color: lightText,
+        return LayoutBuilder(
+          builder: (context, c) {
+            final mobile = c.maxWidth < 700;
+            final large = c.maxWidth >= 1100;
 
-                fontSize: mobile ? 15 : 17,
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'COMPASS',
+                  style: TextStyle(
+                    color: navy,
+                    fontSize: mobile
+                        ? 38
+                        : large
+                        ? 52
+                        : 46,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: -1.5,
+                    height: 1,
+                  ),
+                ),
 
-                height: 1.5,
-              ),
-            ),
+                const SizedBox(height: 14),
 
-            const SizedBox(height: 22),
+                Text(
+                  'Discover opportunities beyond the classroom. '
+                  'Find competitions, hackathons, seminars, '
+                  'trainings, certifications, and scholarships.',
+                  style: TextStyle(
+                    color: lightText,
+                    fontSize: mobile ? 15 : 17,
+                    height: 1.5,
+                  ),
+                ),
 
-            const Divider(color: borderColor, height: 1),
+                const SizedBox(height: 30),
 
-            const SizedBox(height: 24),
+                const Divider(color: borderColor, height: 1),
 
-            _buildSearchPanel(mobile),
+                const SizedBox(height: 38),
 
-            const SizedBox(height: 42),
+                _buildSearchPanel(mobile),
 
-            Text(
-              'Showing ${results.length} '
-              '${results.length == 1 ? 'opportunity' : 'opportunities'}',
+                const SizedBox(height: 42),
 
-              style: const TextStyle(
-                color: lightText,
+                Text(
+                  'Showing ${results.length} '
+                  '${results.length == 1 ? 'opportunity' : 'opportunities'}',
+                  style: const TextStyle(
+                    color: lightText,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
 
-                fontSize: 14,
+                const SizedBox(height: 20),
 
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+                if (results.isEmpty)
+                  _buildEmptyState()
+                else
+                  _buildCards(results),
 
-            const SizedBox(height: 20),
+                const SizedBox(height: 50),
 
-            if (results.isEmpty) _buildEmptyState() else _buildCards(results),
+                _buildRecognitionBanner(),
 
-            const SizedBox(height: 50),
-
-            _buildRecognitionBanner(),
-
-            const SizedBox(height: 30),
-          ],
+                const SizedBox(height: 30),
+              ],
+            );
+          },
         );
       },
     );
@@ -1412,50 +1283,6 @@ class _CompassViewState extends State<CompassView> {
 // OPPORTUNITY MODEL
 
 // ===============================================================
-
-class Opportunity {
-  final String title;
-
-  final String organizer;
-
-  final String category;
-
-  final String description;
-
-  final String deadline;
-
-  final String status;
-
-  final String location;
-
-  final String registrationLink;
-
-  final List<String> eligibility;
-
-  final List<String> perks;
-
-  const Opportunity({
-    required this.title,
-
-    required this.organizer,
-
-    required this.category,
-
-    required this.description,
-
-    required this.deadline,
-
-    required this.status,
-
-    required this.registrationLink,
-
-    this.location = 'To be announced',
-
-    this.eligibility = const [],
-
-    this.perks = const [],
-  });
-}
 
 // ===============================================================
 
