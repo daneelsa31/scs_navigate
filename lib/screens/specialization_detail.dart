@@ -28,47 +28,34 @@ class _SpecializationDetailScreenState
   static const border = Color(0xFFDCE5EF);
   static const softBackground = Color(0xFFF8FAFC);
 
-  // 0 = Sample Projects
-  // 1 = Possible Career Paths
-  // 2 = Student Insights
-  // 3 = FAQs
   int _selectedTab = 0;
-
   final Set<int> _expandedFaqs = {};
 
   // ============================================================
-  // REPLACE THESE WITH YOUR REAL PPT / GOOGLE DRIVE LINKS
+  // PPT LINKS
+  // Replace these with your actual links later.
   // ============================================================
 
-  static const String webPresentationLink =
-      'https://example.com/web-specialization-presentation';
+  static const webPresentationLink =
+      'https://drive.google.com/file/d/1Aq6G4fEfFZXlCAMQoZhKX0Mx_3_OVIVX/view?usp=sharing';
 
-  static const String mobilePresentationLink =
-      'https://example.com/mobile-specialization-presentation';
+  static const mobilePresentationLink =
+      'https://ahdzlee.github.io/usjr-mobile-cybsec-track/';
 
-  static const String cybersecurityPresentationLink =
-      'https://example.com/cybersecurity-specialization-presentation';
+  static const cybersecurityPresentationLink =
+      'https://ahdzlee.github.io/usjr-mobile-cybsec-track/';
 
   // ============================================================
-  // SPECIALIZATION CONTENT
+  // CONTENT SELECTOR
   // ============================================================
 
   _SpecializationContent get content {
     final title = widget.spec.title.toLowerCase();
 
-    if (title.contains('web')) {
-      return _webContent;
-    }
+    if (title.contains('web')) return _webContent;
+    if (title.contains('mobile')) return _mobileContent;
+    if (title.contains('cyber')) return _cyberContent;
 
-    if (title.contains('mobile')) {
-      return _mobileContent;
-    }
-
-    if (title.contains('cyber')) {
-      return _cybersecurityContent;
-    }
-
-    // Other specializations continue using your existing data.
     return _SpecializationContent(
       title: widget.spec.title,
       subtitle: widget.spec.subtitle,
@@ -90,37 +77,38 @@ class _SpecializationDetailScreenState
   static const _webContent = _SpecializationContent(
     title: 'Web Development',
     subtitle:
-        'Build modern, database-driven web applications from frontend to backend.',
+        'Build complete web applications from interface to database.',
+
     whatIsIt:
-        'Web Development focuses on building, deploying, and maintaining '
-        'applications for the Internet and World Wide Web. Students work with '
-        'user interfaces, server-side programming, databases, object-oriented '
-        'programming, and web frameworks to create full-featured web applications.',
+        'Web Development is about creating websites and web applications '
+        'that people can use through a browser. In this specialization, you '
+        'will learn how to build the visible part of a website, write the '
+        'logic behind it, connect it to a database, and use web frameworks '
+        'to make development more organized and efficient.',
+
     whatWillILearn: [
-      'Build user interfaces and prototypes from wireframes and designs.',
-      'Develop and deploy cross-platform, cross-browser web applications.',
-      'Configure Apache or Nginx web servers.',
-      'Write reusable PHP server-side scripts.',
-      'Validate and sanitize user input and process form data.',
-      'Connect web applications to MySQL databases.',
+      'Build websites and web applications.',
+      'Turn designs and wireframes into working interfaces.',
+      'Write server-side code using PHP.',
+      'Connect applications to databases.',
+      'Process forms and user input.',
       'Apply Object-Oriented Programming in web development.',
-      'Create reusable classes and libraries using SOLID principles.',
-      'Use ORM for database abstraction.',
-      'Understand MVC architecture and web development frameworks.',
-      'Develop secure, database-driven applications using Laravel.',
+      'Create reusable code and classes.',
+      'Use web frameworks such as Laravel.',
+      'Build secure, database-driven web applications.',
     ],
+
     recommendedSkills: [
-      'HTML5 fundamentals',
-      'CSS3 fundamentals',
-      'JavaScript fundamentals',
+      'Basic to intermediate HTML',
+      'Basic to intermediate CSS',
+      'Basic JavaScript',
+      'Programming fundamentals',
       'Object-Oriented Programming',
-      'General programming logic',
-      'Database and DBMS concepts',
-      'CRUD operations',
-      'SQL queries, joins, and subqueries',
-      'Basic understanding of stored procedures',
-      'Problem-solving and debugging skills',
+      'Basic database concepts',
+      'SQL basics',
+      'Problem-solving and debugging',
     ],
+
     targetTechnologies: [
       'HTML5',
       'CSS3',
@@ -133,71 +121,70 @@ class _SpecializationDetailScreenState
       'ORM',
       'MVC',
     ],
+
     isItForMe:
-        'This specialization may suit you if you enjoy creating websites and '
-        'web applications, working with both frontend and backend logic, '
-        'connecting applications to databases, and turning designs into '
-        'functional systems. It is also a good fit if you are comfortable '
-        'solving programming problems and want to understand how complete web '
-        'applications work from the browser to the server.',
+        'This specialization may be a good fit if you enjoy creating '
+        'websites, turning designs into working systems, solving programming '
+        'problems, and working with both user interfaces and databases. '
+        'You may especially enjoy Web Development if you like seeing your '
+        'code turn into something visible and usable in a browser.',
+
     expectText:
-        'Expect a progression through three Web Applications Development '
-        'courses. The track begins with web servers, PHP, form processing, and '
-        'database integration; advances into OOP, reusable classes, SOLID '
-        'principles, and ORM; and later introduces MVC, frameworks, Laravel, '
-        'and secure database-driven applications.',
+        'Expect a lot of coding and application building. You will start '
+        'with server-side programming and database integration, then move '
+        'into OOP and reusable code, and later use frameworks such as '
+        'Laravel to build larger and more organized applications. You should '
+        'also be comfortable debugging code and improving applications until '
+        'they work correctly.',
+
     careerPaths: [
       {
         'title': 'Frontend Developer',
         'description':
-            'Builds responsive and interactive interfaces that users see and interact with in web applications.',
+            'Builds the parts of websites and web applications that users directly see and interact with.',
       },
       {
         'title': 'Backend Developer',
         'description':
-            'Develops server-side application logic, APIs, databases, and data-processing functionality.',
+            'Works on server-side logic, databases, APIs, and the systems behind a web application.',
       },
       {
         'title': 'Full-Stack Developer',
         'description':
-            'Works across both frontend and backend components of complete web applications.',
+            'Works on both the frontend and backend parts of a complete web application.',
       },
       {
         'title': 'Web Application Developer',
         'description':
-            'Designs, develops, tests, and maintains browser-based software applications.',
+            'Builds and maintains browser-based software applications.',
       },
       {
         'title': 'PHP Developer',
         'description':
-            'Builds server-side web applications and backend functionality primarily using PHP.',
+            'Develops server-side web applications and backend features using PHP.',
       },
       {
         'title': 'Laravel Developer',
         'description':
-            'Develops structured PHP web applications using the Laravel framework and MVC architecture.',
+            'Builds organized PHP applications using the Laravel framework.',
       },
       {
         'title': 'Web Systems Developer',
         'description':
-            'Develops database-driven information systems and services delivered through the web.',
+            'Creates database-driven systems and services that run through the web.',
       },
       {
         'title': 'Junior Software Developer',
         'description':
-            'Supports software development projects using programming, databases, debugging, and application design skills.',
+            'Works on software projects using programming, databases, debugging, and application design skills.',
       },
       {
         'title': 'Web Support / Maintenance Developer',
         'description':
-            'Maintains existing websites, fixes issues, improves features, and updates applications to current standards.',
-      },
-      {
-        'title': 'UI-Focused Web Developer',
-        'description':
-            'Combines frontend programming with interface implementation to turn designs and wireframes into functional pages.',
+            'Maintains existing websites, fixes issues, and improves features over time.',
       },
     ],
+
     presentationUrl: webPresentationLink,
   );
 
@@ -209,41 +196,39 @@ class _SpecializationDetailScreenState
     title: 'Mobile Applications Development',
     subtitle:
         'Build the Future of Mobile — One Codebase, Infinite Possibilities.',
+
     whatIsIt:
-        'Mobile Applications Development focuses on building cross-platform '
-        'applications using Flutter. Students learn responsive UI development, '
-        'state management, backend integration, APIs, authentication, databases, '
-        'location services, AI/ML features, software architecture, testing, '
-        'CI/CD, and application deployment.',
+        'Mobile Applications Development focuses on creating applications '
+        'using Flutter and Dart. With Flutter, one codebase can be used to '
+        'build applications for multiple platforms. The specialization '
+        'covers user interface design, app logic, backend services, APIs, '
+        'authentication, databases, maps, AI features, testing, and deployment.',
+
     whatWillILearn: [
-      'Develop cross-platform applications using Flutter and Dart.',
-      'Build responsive and adaptive user interfaces.',
+      'Build mobile applications using Flutter and Dart.',
+      'Create responsive and user-friendly interfaces.',
       'Work with widgets, navigation, forms, and animations.',
-      'Manage application state using Provider and Riverpod.',
-      'Perform unit and widget testing.',
-      'Integrate REST APIs and JSON data.',
-      'Use Supabase and PostgreSQL for backend services.',
-      'Implement authentication and protected routes.',
-      'Handle storage and real-time features.',
-      'Integrate Mapbox and location services.',
-      'Apply SOLID principles and Clean Architecture.',
-      'Use repository patterns, use cases, and dependency injection.',
-      'Integrate TensorFlow Lite and machine learning features.',
-      'Use Google ML Kit and OCR.',
-      'Integrate LLM APIs and chat interfaces.',
-      'Use GitHub Actions for CI/CD.',
-      'Prepare production-ready applications for deployment.',
+      'Manage data and app state.',
+      'Connect apps to online APIs and backend services.',
+      'Add login and user authentication.',
+      'Connect apps to databases.',
+      'Add maps and location-based features.',
+      'Add AI and machine learning features.',
+      'Test and organize larger applications.',
+      'Prepare applications for deployment.',
     ],
+
     recommendedSkills: [
       'Basic programming fundamentals',
       'Basic Object-Oriented Programming',
       'Variables, functions, classes, and control structures',
       'Basic UI/UX awareness',
       'Basic Git and GitHub familiarity',
-      'Problem-solving and debugging skills',
+      'Problem-solving and debugging',
       'Willingness to learn Dart and Flutter',
-      'Ability to work on individual and group projects',
+      'Ability to work independently and in a team',
     ],
+
     targetTechnologies: [
       'Flutter',
       'Dart',
@@ -262,25 +247,28 @@ class _SpecializationDetailScreenState
       'GitHub',
       'GitHub Actions',
     ],
+
     isItForMe:
-        'This specialization may suit you if you are interested in creating '
-        'mobile applications, designing user interfaces, integrating APIs and '
-        'databases, and building features such as maps, authentication, '
-        'real-time updates, AI, and machine learning. It is especially suitable '
-        'if you like the idea of developing for multiple platforms from a '
-        'single codebase.',
+        'This specialization may be a good fit if you enjoy creating '
+        'applications that people can use on phones, designing interfaces, '
+        'and building interactive features. You may especially enjoy Mobile '
+        'Development if you like seeing your work run as a real app and want '
+        'to build features such as login systems, maps, real-time updates, '
+        'APIs, or AI-powered tools.',
+
     expectText:
-        'Expect a three-semester progression. The first part focuses on '
-        'Flutter foundations, UI/UX, state management, and testing. The second '
-        'introduces APIs, authentication, databases, storage, maps, and backend '
-        'services. The third covers Clean Architecture, AI/ML, CI/CD, and '
-        'production deployment. The track includes individual projects, group '
-        'work, and a production-ready capstone application.',
+        'Expect a project-heavy specialization. You will begin by learning '
+        'Flutter and app interfaces, then connect apps to APIs, authentication, '
+        'databases, and maps. Later, you will work with AI/ML features, '
+        'architecture, testing, CI/CD, and deployment. The specialization '
+        'includes individual work, group projects, and a production-ready '
+        'capstone application.',
+
     careerPaths: [
       {
         'title': 'Flutter Developer',
         'description':
-            'Builds cross-platform mobile, web, and desktop applications using Flutter and Dart.',
+            'Builds cross-platform applications using Flutter and Dart.',
       },
       {
         'title': 'Mobile Application Developer',
@@ -290,44 +278,45 @@ class _SpecializationDetailScreenState
       {
         'title': 'Cross-Platform App Developer',
         'description':
-            'Creates applications that run across multiple platforms using a shared codebase.',
+            'Creates applications that can run on multiple platforms from one shared codebase.',
       },
       {
         'title': 'Junior Mobile Software Developer',
         'description':
-            'Supports mobile software development through coding, debugging, testing, and feature implementation.',
+            'Supports mobile app development through coding, debugging, testing, and feature implementation.',
       },
       {
         'title': 'Mobile UI Developer',
         'description':
-            'Focuses on creating responsive, accessible, and visually polished interfaces for mobile applications.',
+            'Focuses on building responsive and user-friendly mobile interfaces.',
       },
       {
         'title': 'Mobile Frontend Developer',
         'description':
-            'Builds the user-facing layers of mobile applications and integrates them with backend services.',
+            'Builds the user-facing part of mobile applications and connects it to backend services.',
       },
       {
         'title': 'App Integration Developer',
         'description':
-            'Connects mobile applications with APIs, authentication systems, databases, maps, and external services.',
+            'Connects mobile apps to APIs, authentication, databases, maps, and other services.',
       },
       {
         'title': 'Mobile Full-Stack Developer',
         'description':
-            'Works on both the Flutter application and supporting backend services, databases, and APIs.',
+            'Works on both the mobile application and its backend services.',
       },
       {
         'title': 'Mobile Solutions Developer',
         'description':
-            'Creates mobile-based technical solutions for business, productivity, education, and other domains.',
+            'Creates mobile-based solutions for business, education, productivity, and other needs.',
       },
       {
         'title': 'Software Developer',
         'description':
-            'Applies programming, architecture, testing, and development skills to broader software projects.',
+            'Uses programming, architecture, testing, and development skills in broader software projects.',
       },
     ],
+
     presentationUrl: mobilePresentationLink,
   );
 
@@ -335,50 +324,48 @@ class _SpecializationDetailScreenState
   // CYBERSECURITY
   // ============================================================
 
-  static const _cybersecurityContent = _SpecializationContent(
+  static const _cyberContent = _SpecializationContent(
     title: 'Cybersecurity',
     subtitle: 'Think. Hack. Defend.',
+
     whatIsIt:
-        'Cybersecurity is a hands-on specialization focused on both offensive '
-        'and defensive security. Students learn ethical hacking, penetration '
-        'testing, security operations, digital forensics, incident response, '
-        'threat modeling, secure architecture, automation, and research through '
-        'labs, Capture The Flag challenges, vulnerable machines, and red-team/'
-        'blue-team exercises.',
+        'Cybersecurity is about protecting computers, networks, applications, '
+        'and data from attacks. In this specialization, you will learn both '
+        'how attackers find weaknesses and how defenders detect, investigate, '
+        'and respond to threats. The track is highly hands-on and uses '
+        'Capture The Flag challenges, vulnerable machines, and red-team/'
+        'blue-team exercises in controlled environments.',
+
     whatWillILearn: [
-      'Perform reconnaissance, OSINT, scanning, and enumeration.',
-      'Identify and exploit web application vulnerabilities.',
-      'Conduct network and system exploitation.',
-      'Use Metasploit in controlled environments.',
-      'Perform Windows and Linux privilege escalation.',
-      'Understand Active Directory attacks and post-exploitation.',
-      'Perform password attacks and analyze cryptographic weaknesses.',
-      'Conduct vulnerability assessments and prepare professional pentest reports.',
-      'Operate SIEM platforms such as Splunk and Wazuh.',
-      'Engineer detection rules and map attacks to MITRE ATT&CK.',
-      'Perform network, disk, and memory forensics.',
-      'Analyze malware and extract indicators of compromise.',
-      'Perform incident response and containment.',
-      'Apply STRIDE and PASTA threat modeling.',
-      'Design secure architectures using Zero Trust and segmentation.',
-      'Automate security tasks with Python.',
-      'Apply DevSecOps and CI/CD security.',
-      'Conduct vulnerability and security research.',
+      'Understand how attackers find weaknesses in systems.',
+      'Practice ethical hacking in controlled environments.',
+      'Scan networks and identify vulnerabilities.',
+      'Test web applications for common security issues.',
+      'Analyze network traffic.',
+      'Monitor security alerts and logs.',
+      'Investigate cybersecurity incidents.',
+      'Perform basic digital forensics.',
+      'Analyze suspicious files and malware.',
+      'Respond to security incidents.',
+      'Design safer and more secure systems.',
+      'Automate security tasks using scripts.',
+      'Explore security research and threat analysis.',
     ],
+
     recommendedSkills: [
       'Networking fundamentals',
-      'TCP/IP',
-      'OSI model',
+      'Basic TCP/IP knowledge',
+      'Basic understanding of the OSI model',
       'Basic network troubleshooting',
       'Linux command-line basics',
-      'File permissions and shell navigation',
       'Basic scripting',
       'Python fundamentals',
-      'Problem-solving and analytical thinking',
+      'Analytical thinking',
+      'Problem-solving',
       'Attention to detail',
-      'Willingness to work in controlled lab environments',
-      'Strong awareness of ethics and responsible system use',
+      'Strong sense of ethics and responsible system use',
     ],
+
     targetTechnologies: [
       'Kali Linux',
       'Metasploit',
@@ -401,97 +388,100 @@ class _SpecializationDetailScreenState
       'Metasploitable',
       'VulnHub',
     ],
+
     isItForMe:
-        'This specialization may suit you if you enjoy understanding how systems '
-        'can be attacked and defended, investigating suspicious activity, '
-        'solving technical challenges, working with networks and Linux, and '
-        'learning through practical exercises. It is especially suitable if '
-        'you are interested in both offensive and defensive cybersecurity.',
+        'This specialization may be a good fit if you enjoy solving technical '
+        'problems, investigating how systems work, understanding how attacks '
+        'happen, and learning how to defend against them. You may especially '
+        'enjoy Cybersecurity if you like networking, Linux, troubleshooting, '
+        'puzzles, CTFs, investigation, or hands-on lab work.',
+
     expectText:
-        'Expect an intensive three-semester, hands-on track. CYBSEC 1 focuses '
-        'on offensive security and penetration testing. CYBSEC 2 focuses on '
-        'defensive security, SIEM, digital forensics, malware analysis, and '
-        'incident response. CYBSEC 3 focuses on threat modeling, secure '
-        'architecture, automation, research, and capstone work. Students are '
-        'also expected to follow strict ethical conduct and work only within '
-        'authorized environments.',
+        'Expect a very hands-on specialization. You will perform ethical '
+        'hacking in controlled environments, investigate attacks, analyze logs '
+        'and network traffic, work with forensic tools, participate in CTFs, '
+        'and practice both offensive and defensive security. You should also '
+        'expect strict ethical rules and only work on systems where testing is '
+        'properly authorized.',
+
     careerPaths: [
       {
         'title': 'SOC Analyst',
         'description':
-            'Monitors security alerts, investigates suspicious activity, and supports Security Operations Center processes.',
+            'Monitors security alerts and investigates suspicious activity in a Security Operations Center.',
       },
       {
         'title': 'Cybersecurity Analyst',
         'description':
-            'Assesses security risks, monitors systems, investigates threats, and helps protect organizational assets.',
+            'Helps identify risks, monitor systems, investigate threats, and protect digital assets.',
       },
       {
         'title': 'Junior Penetration Tester',
         'description':
-            'Tests authorized systems for vulnerabilities and documents findings and remediation recommendations.',
+            'Tests authorized systems for security weaknesses and reports what needs to be fixed.',
       },
       {
         'title': 'Vulnerability Assessment Analyst',
         'description':
-            'Identifies, evaluates, prioritizes, and reports security weaknesses in systems and applications.',
+            'Identifies and evaluates weaknesses in systems and applications.',
       },
       {
         'title': 'Incident Response Analyst',
         'description':
-            'Investigates cybersecurity incidents and supports containment, eradication, and recovery activities.',
+            'Investigates cybersecurity incidents and helps contain and recover from attacks.',
       },
       {
         'title': 'Digital Forensics Analyst',
         'description':
-            'Examines digital evidence, system artifacts, disks, memory, and network data during investigations.',
+            'Examines digital evidence, devices, logs, memory, and other data during investigations.',
       },
       {
         'title': 'Security Operations Analyst',
         'description':
-            'Supports monitoring, detection, investigation, and response activities in security operations.',
+            'Supports monitoring, detection, investigation, and response activities.',
       },
       {
         'title': 'Threat Hunting Analyst',
         'description':
-            'Proactively searches systems and security data for hidden or previously undetected threats.',
+            'Searches systems and security data for threats that may not have been detected automatically.',
       },
       {
         'title': 'Junior Malware Analyst',
         'description':
-            'Examines suspicious software using static and dynamic analysis to understand malicious behavior.',
+            'Studies suspicious software to understand what it does and how it affects systems.',
       },
       {
         'title': 'Security Engineer',
         'description':
-            'Implements and maintains security controls, monitoring systems, and defensive infrastructure.',
+            'Builds and maintains tools and systems used to improve organizational security.',
       },
       {
         'title': 'Security Automation Engineer',
         'description':
-            'Develops scripts, detection workflows, and automated security processes using programming and security tools.',
+            'Uses scripts and automation to make security monitoring and response more efficient.',
       },
       {
         'title': 'DevSecOps Security Analyst',
         'description':
-            'Integrates security practices and controls into software development and CI/CD workflows.',
+            'Helps include security practices throughout the software development process.',
       },
       {
         'title': 'Security Researcher',
         'description':
-            'Studies vulnerabilities, attack techniques, defensive methods, and emerging cybersecurity threats.',
+            'Studies vulnerabilities, threats, attack methods, and new ways to improve security.',
       },
       {
         'title': 'Security Architect',
         'description':
-            'Designs secure systems and architectures using risk assessment, threat modeling, segmentation, and security principles.',
+            'Designs secure systems and helps organizations plan stronger security structures.',
       },
     ],
+
     presentationUrl: cybersecurityPresentationLink,
   );
 
   // ============================================================
-  // BUILD
+  // PAGE BUILD
   // ============================================================
 
   @override
@@ -513,7 +503,9 @@ class _SpecializationDetailScreenState
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(isMobile ? 0 : 24),
-            border: isMobile ? null : Border.all(color: const Color(0xFFE2E8F0)),
+            border: isMobile
+                ? null
+                : Border.all(color: const Color(0xFFE2E8F0)),
           ),
           child: Padding(
             padding: EdgeInsets.symmetric(
@@ -553,7 +545,11 @@ class _SpecializationDetailScreenState
   Widget _buildTopNavigation(bool isMobile) {
     return OutlinedButton.icon(
       onPressed: widget.onBack,
-      icon: const Icon(Icons.arrow_back, size: 18, color: navy),
+      icon: const Icon(
+        Icons.arrow_back,
+        size: 18,
+        color: navy,
+      ),
       label: Text(
         isMobile ? 'Back' : 'Back to Specializations',
         style: const TextStyle(
@@ -570,7 +566,9 @@ class _SpecializationDetailScreenState
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(22),
         ),
-        side: const BorderSide(color: Color(0xFFD9E2EC)),
+        side: const BorderSide(
+          color: Color(0xFFD9E2EC),
+        ),
       ),
     );
   }
@@ -580,16 +578,15 @@ class _SpecializationDetailScreenState
   // ============================================================
 
   Widget _buildHeroSection(bool isMobile) {
-    final info = content;
-
     if (isMobile) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildIcon(),
           const SizedBox(height: 14),
+
           Text(
-            info.title,
+            content.title,
             style: const TextStyle(
               fontSize: 26,
               fontWeight: FontWeight.w800,
@@ -597,9 +594,11 @@ class _SpecializationDetailScreenState
               height: 1.15,
             ),
           ),
+
           const SizedBox(height: 7),
+
           Text(
-            info.subtitle,
+            content.subtitle,
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -607,7 +606,8 @@ class _SpecializationDetailScreenState
               height: 1.4,
             ),
           ),
-          if (info.presentationUrl.isNotEmpty) ...[
+
+          if (content.presentationUrl.isNotEmpty) ...[
             const SizedBox(height: 16),
             _buildPresentationButton(),
           ],
@@ -620,12 +620,13 @@ class _SpecializationDetailScreenState
       children: [
         _buildIcon(),
         const SizedBox(width: 18),
+
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                info.title,
+                content.title,
                 style: const TextStyle(
                   fontSize: 36,
                   fontWeight: FontWeight.w800,
@@ -633,16 +634,19 @@ class _SpecializationDetailScreenState
                   letterSpacing: -1,
                 ),
               ),
+
               const SizedBox(height: 4),
+
               Text(
-                info.subtitle,
+                content.subtitle,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: pink,
                 ),
               ),
-              if (info.presentationUrl.isNotEmpty) ...[
+
+              if (content.presentationUrl.isNotEmpty) ...[
                 const SizedBox(height: 16),
                 _buildPresentationButton(),
               ],
@@ -661,19 +665,31 @@ class _SpecializationDetailScreenState
         color: navy,
         borderRadius: BorderRadius.circular(18),
       ),
-      child: Icon(widget.spec.icon, color: const Color(0xFFFD73A6), size: 34),
+      child: Icon(
+        widget.spec.icon,
+        color: const Color(0xFFFD73A6),
+        size: 34,
+      ),
     );
   }
 
   Widget _buildPresentationButton() {
     return OutlinedButton.icon(
       onPressed: () => _openLink(content.presentationUrl),
-      icon: const Icon(Icons.slideshow_outlined, size: 18),
-      label: const Text('View Specialization Presentation'),
+      icon: const Icon(
+        Icons.slideshow_outlined,
+        size: 18,
+      ),
+      label: const Text(
+        'View Specialization Presentation',
+      ),
       style: OutlinedButton.styleFrom(
         foregroundColor: pink,
         side: const BorderSide(color: pink),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 12,
+        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
@@ -704,7 +720,9 @@ class _SpecializationDetailScreenState
               color: navy,
             ),
           ),
+
           const SizedBox(height: 10),
+
           Text(
             content.whatIsIt,
             style: const TextStyle(
@@ -734,19 +752,28 @@ class _SpecializationDetailScreenState
             color: navy,
           ),
         ),
+
         const SizedBox(height: 16),
-        _buildResponsiveListCards(content.whatWillILearn, isMobile),
+
+        _buildResponsiveListCards(
+          content.whatWillILearn,
+          isMobile,
+        ),
       ],
     );
   }
 
-  Widget _buildResponsiveListCards(List<String> items, bool isMobile) {
+  Widget _buildResponsiveListCards(
+    List<String> items,
+    bool isMobile,
+  ) {
     if (isMobile) {
       return Column(
         children: items
             .map(
               (item) => Padding(
-                padding: const EdgeInsets.only(bottom: 10),
+                padding:
+                    const EdgeInsets.only(bottom: 10),
                 child: _buildLearningCard(item),
               ),
             )
@@ -756,22 +783,31 @@ class _SpecializationDetailScreenState
 
     return GridView.builder(
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+      physics:
+          const NeverScrollableScrollPhysics(),
       itemCount: items.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate:
+          const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 16,
         mainAxisSpacing: 14,
         mainAxisExtent: 92,
       ),
-      itemBuilder: (_, index) => _buildLearningCard(items[index]),
+      itemBuilder: (_, index) {
+        return _buildLearningCard(
+          items[index],
+        );
+      },
     );
   }
 
   Widget _buildLearningCard(String item) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 14,
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
@@ -779,8 +815,14 @@ class _SpecializationDetailScreenState
       ),
       child: Row(
         children: [
-          const Icon(Icons.check_circle_outline, color: pink, size: 20),
+          const Icon(
+            Icons.check_circle_outline,
+            color: pink,
+            size: 20,
+          ),
+
           const SizedBox(width: 12),
+
           Expanded(
             child: Text(
               item,
@@ -800,7 +842,9 @@ class _SpecializationDetailScreenState
   // RECOMMENDED SKILLS + TECHNOLOGIES
   // ============================================================
 
-  Widget _buildSkillsAndTechnologySection(bool isMobile) {
+  Widget _buildSkillsAndTechnologySection(
+    bool isMobile,
+  ) {
     final skills = _buildInfoCard(
       title: '🛠️ RECOMMENDED SKILLS',
       items: content.recommendedSkills,
@@ -824,7 +868,8 @@ class _SpecializationDetailScreenState
     }
 
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment:
+          CrossAxisAlignment.start,
       children: [
         Expanded(child: skills),
         const SizedBox(width: 16),
@@ -847,7 +892,8 @@ class _SpecializationDetailScreenState
         border: Border.all(color: border),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment:
+            CrossAxisAlignment.start,
         children: [
           Text(
             title,
@@ -857,13 +903,16 @@ class _SpecializationDetailScreenState
               color: textGray,
             ),
           ),
+
           const SizedBox(height: 12),
+
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: items.map((item) {
               return Container(
-                padding: const EdgeInsets.symmetric(
+                padding:
+                    const EdgeInsets.symmetric(
                   horizontal: 11,
                   vertical: 8,
                 ),
@@ -871,16 +920,20 @@ class _SpecializationDetailScreenState
                   color: isTechnology
                       ? lightPink
                       : const Color(0xFFF1F5F9),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius:
+                      BorderRadius.circular(10),
                 ),
                 child: Text(
                   item,
                   style: TextStyle(
                     fontSize: 12,
-                    fontWeight: FontWeight.w600,
+                    fontWeight:
+                        FontWeight.w600,
                     color: isTechnology
                         ? pink
-                        : const Color(0xFF334155),
+                        : const Color(
+                            0xFF334155,
+                          ),
                   ),
                 ),
               );
@@ -892,20 +945,24 @@ class _SpecializationDetailScreenState
   }
 
   // ============================================================
-  // IS IT FOR ME?
+  // IS IT FOR ME
   // ============================================================
 
   Widget _buildIsItForMeSection(bool isMobile) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(isMobile ? 16 : 20),
+      padding:
+          EdgeInsets.all(isMobile ? 16 : 20),
       decoration: BoxDecoration(
         color: const Color(0xFFFFFBEB),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFFCD34D)),
+        border: Border.all(
+          color: const Color(0xFFFCD34D),
+        ),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment:
+            CrossAxisAlignment.start,
         children: [
           const Text(
             '💡 IS IT FOR ME?',
@@ -915,7 +972,9 @@ class _SpecializationDetailScreenState
               color: Color(0xFF92400E),
             ),
           ),
+
           const SizedBox(height: 9),
+
           Text(
             content.isItForMe,
             style: const TextStyle(
@@ -930,19 +989,21 @@ class _SpecializationDetailScreenState
   }
 
   // ============================================================
-  // WHAT SHOULD I EXPECT?
+  // WHAT SHOULD I EXPECT
   // ============================================================
 
   Widget _buildExpectSection(bool isMobile) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(isMobile ? 17 : 20),
+      padding:
+          EdgeInsets.all(isMobile ? 17 : 20),
       decoration: BoxDecoration(
         color: navy,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment:
+            CrossAxisAlignment.start,
         children: [
           const Text(
             '⚠️ WHAT SHOULD I EXPECT?',
@@ -952,7 +1013,9 @@ class _SpecializationDetailScreenState
               color: Color(0xFFFD73A6),
             ),
           ),
+
           const SizedBox(height: 9),
+
           Text(
             content.expectText,
             style: const TextStyle(
@@ -971,9 +1034,12 @@ class _SpecializationDetailScreenState
   // TRACK DETAILS
   // ============================================================
 
-  Widget _buildTrackDetailsSection(bool isMobile) {
+  Widget _buildTrackDetailsSection(
+    bool isMobile,
+  ) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment:
+          CrossAxisAlignment.start,
       children: [
         Row(
           children: [
@@ -987,6 +1053,7 @@ class _SpecializationDetailScreenState
                 ),
               ),
             ),
+
             if (!isMobile)
               const Text(
                 'Select a tab below',
@@ -997,6 +1064,7 @@ class _SpecializationDetailScreenState
               ),
           ],
         ),
+
         const SizedBox(height: 14),
         _buildTabs(isMobile),
         const SizedBox(height: 18),
@@ -1007,29 +1075,42 @@ class _SpecializationDetailScreenState
 
   Widget _buildTabs(bool isMobile) {
     final tabs = [
-      ('Sample Projects', Icons.folder_open_outlined),
-      ('Possible Career Paths', Icons.business_center),
-      ('Student Insights', Icons.chat_bubble_outline),
-      ('FAQs', Icons.help_outline),
+      (
+        'Sample Projects',
+        Icons.folder_open_outlined,
+      ),
+      (
+        'Possible Career Paths',
+        Icons.business_center,
+      ),
+      (
+        'Student Insights',
+        Icons.chat_bubble_outline,
+      ),
+      (
+        'FAQs',
+        Icons.help_outline,
+      ),
     ];
 
     if (isMobile) {
       return GridView.builder(
         shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
+        physics:
+            const NeverScrollableScrollPhysics(),
         itemCount: tabs.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 8,
           mainAxisSpacing: 8,
           mainAxisExtent: 48,
         ),
         itemBuilder: (_, index) {
-          final tab = tabs[index];
           return _buildTabButton(
             index: index,
-            label: tab.$1,
-            icon: tab.$2,
+            label: tabs[index].$1,
+            icon: tabs[index].$2,
           );
         },
       );
@@ -1038,7 +1119,8 @@ class _SpecializationDetailScreenState
     return Wrap(
       spacing: 8,
       runSpacing: 8,
-      children: tabs.asMap().entries.map((entry) {
+      children:
+          tabs.asMap().entries.map((entry) {
         return _buildTabButton(
           index: entry.key,
           label: entry.value.$1,
@@ -1064,18 +1146,22 @@ class _SpecializationDetailScreenState
       icon: Icon(
         icon,
         size: 15,
-        color: selected ? Colors.white : textGray,
+        color:
+            selected ? Colors.white : textGray,
       ),
       label: Text(
         label,
         style: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.bold,
-          color: selected ? Colors.white : textGray,
+          color:
+              selected ? Colors.white : textGray,
         ),
       ),
       style: TextButton.styleFrom(
-        backgroundColor: selected ? navy : const Color(0xFFF1F5F9),
+        backgroundColor: selected
+            ? navy
+            : const Color(0xFFF1F5F9),
         padding: const EdgeInsets.symmetric(
           horizontal: 12,
           vertical: 10,
@@ -1090,7 +1176,9 @@ class _SpecializationDetailScreenState
   Widget _buildTabContent(bool isMobile) {
     switch (_selectedTab) {
       case 0:
-        return _buildSampleProjectsTab(isMobile);
+        return _buildSampleProjectsTab(
+          isMobile,
+        );
       case 1:
         return _buildCareerTab(isMobile);
       case 2:
@@ -1098,7 +1186,9 @@ class _SpecializationDetailScreenState
       case 3:
         return _buildFaqTab();
       default:
-        return _buildSampleProjectsTab(isMobile);
+        return _buildSampleProjectsTab(
+          isMobile,
+        );
     }
   }
 
@@ -1116,17 +1206,21 @@ class _SpecializationDetailScreenState
     }
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment:
+          CrossAxisAlignment.start,
       children: [
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(16),
-          margin: const EdgeInsets.only(bottom: 16),
+          margin:
+              const EdgeInsets.only(bottom: 16),
           decoration: BoxDecoration(
             color: lightPink,
-            borderRadius: BorderRadius.circular(14),
+            borderRadius:
+                BorderRadius.circular(14),
             border: Border.all(
-              color: pink.withValues(alpha: .35),
+              color:
+                  pink.withValues(alpha: .35),
             ),
           ),
           child: const Text(
@@ -1140,8 +1234,11 @@ class _SpecializationDetailScreenState
             ),
           ),
         ),
+
         ...paths.map((career) {
-          final title = career['title'] ?? 'Career Path';
+          final title =
+              career['title'] ?? 'Career Path';
+
           final description =
               career['description'] ??
               career['desc'] ??
@@ -1149,21 +1246,28 @@ class _SpecializationDetailScreenState
 
           return Container(
             width: double.infinity,
-            margin: const EdgeInsets.only(bottom: 12),
-            padding: EdgeInsets.all(isMobile ? 15 : 18),
+            margin:
+                const EdgeInsets.only(bottom: 12),
+            padding:
+                EdgeInsets.all(isMobile ? 15 : 18),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: border),
+              borderRadius:
+                  BorderRadius.circular(14),
+              border:
+                  Border.all(color: border),
             ),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: const EdgeInsets.all(9),
+                  padding:
+                      const EdgeInsets.all(9),
                   decoration: BoxDecoration(
                     color: lightPink,
-                    borderRadius: BorderRadius.circular(9),
+                    borderRadius:
+                        BorderRadius.circular(9),
                   ),
                   child: const Icon(
                     Icons.work_outline,
@@ -1171,20 +1275,26 @@ class _SpecializationDetailScreenState
                     size: 20,
                   ),
                 ),
+
                 const SizedBox(width: 12),
+
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start,
                     children: [
                       Text(
                         title,
                         style: const TextStyle(
                           fontSize: 14,
-                          fontWeight: FontWeight.bold,
+                          fontWeight:
+                              FontWeight.bold,
                           color: navy,
                         ),
                       ),
+
                       const SizedBox(height: 5),
+
                       Text(
                         description,
                         style: const TextStyle(
@@ -1221,110 +1331,138 @@ class _SpecializationDetailScreenState
   Widget _buildFaqTab() {
     final faqs = [
       {
-        'question': 'Is this specialization required?',
+        'question':
+            'Is this specialization required?',
         'answer':
             'Program requirements may vary. Please verify the latest official SCS curriculum and departmental guidelines.',
       },
       {
-        'question': 'What skills should I develop beforehand?',
+        'question':
+            'What skills should I develop beforehand?',
         'answer':
             'Use the Recommended Skills section above as preparation guidance. '
-            'These skills are intended to help you prepare and should not be '
+            'These skills can help you prepare and should not automatically be '
             'treated as formal prerequisites unless specifically stated by SCS.',
       },
       {
-        'question': 'Can I change my specialization later?',
+        'question':
+            'Can I change my specialization later?',
         'answer':
             'Changes may depend on program rules, prerequisites, available slots, '
             'and departmental approval. Confirm the current policy with SCS.',
       },
       {
-        'question': 'What technologies should I learn first?',
+        'question':
+            'What technologies should I learn first?',
         'answer':
             'Use the Target Technologies section as a starting point. You do not '
-            'need to master everything at once; focus first on the fundamentals '
-            'relevant to your chosen specialization.',
+            'need to master everything at once; focus first on the fundamentals.',
       },
       {
-        'question': 'Are the listed career paths guaranteed jobs?',
+        'question':
+            'Are the listed career paths guaranteed jobs?',
         'answer':
-            'No. They are possible career paths related to the skills developed '
-            'in the specialization. Actual opportunities depend on your skills, '
-            'experience, portfolio, certifications, and employer requirements.',
+            'No. They are possible career directions related to the skills '
+            'developed in the specialization. Actual opportunities depend on '
+            'your experience, skills, portfolio, certifications, and employer requirements.',
       },
       {
-        'question': 'Are the sample projects official SCS projects?',
+        'question':
+            'Are the sample projects official SCS projects?',
         'answer':
-            'The projects shown here are sample project ideas intended to illustrate '
-            'the kind of work students may encounter. They are not official SCS '
-            'projects unless explicitly identified as such.',
+            'The projects shown here are sample project ideas intended to help '
+            'students understand the kind of work they may encounter. They are '
+            'not official SCS projects unless explicitly identified as such.',
       },
     ];
 
     return Column(
-      children: List.generate(faqs.length, (index) {
+      children:
+          List.generate(faqs.length, (index) {
         final faq = faqs[index];
-        final expanded = _expandedFaqs.contains(index);
+        final expanded =
+            _expandedFaqs.contains(index);
 
         return Padding(
-          padding: const EdgeInsets.only(bottom: 10),
+          padding:
+              const EdgeInsets.only(bottom: 10),
           child: Material(
             color: Colors.transparent,
-            borderRadius: BorderRadius.circular(14),
+            borderRadius:
+                BorderRadius.circular(14),
             child: InkWell(
               onTap: () {
                 setState(() {
                   expanded
-                      ? _expandedFaqs.remove(index)
-                      : _expandedFaqs.add(index);
+                      ? _expandedFaqs
+                          .remove(index)
+                      : _expandedFaqs
+                          .add(index);
                 });
               },
-              borderRadius: BorderRadius.circular(14),
+              borderRadius:
+                  BorderRadius.circular(14),
               child: Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(
+                padding:
+                    const EdgeInsets.symmetric(
                   horizontal: 16,
                   vertical: 14,
                 ),
                 decoration: BoxDecoration(
-                  color: expanded ? softBackground : Colors.white,
-                  borderRadius: BorderRadius.circular(14),
+                  color: expanded
+                      ? softBackground
+                      : Colors.white,
+                  borderRadius:
+                      BorderRadius.circular(14),
                   border: Border.all(
                     color: expanded
-                        ? const Color(0xFFFB9DBD)
+                        ? const Color(
+                            0xFFFB9DBD,
+                          )
                         : border,
                   ),
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
                         Expanded(
                           child: Text(
                             faq['question']!,
-                            style: const TextStyle(
+                            style:
+                                const TextStyle(
                               fontSize: 13,
-                              fontWeight: FontWeight.w600,
+                              fontWeight:
+                                  FontWeight.w600,
                               color: navy,
                             ),
                           ),
                         ),
+
                         const SizedBox(width: 10),
+
                         Icon(
                           expanded
-                              ? Icons.keyboard_arrow_up_rounded
-                              : Icons.keyboard_arrow_down_rounded,
+                              ? Icons
+                                  .keyboard_arrow_up_rounded
+                              : Icons
+                                  .keyboard_arrow_down_rounded,
                           size: 20,
                           color: textGray,
                         ),
                       ],
                     ),
+
                     if (expanded) ...[
                       const SizedBox(height: 10),
+
                       Text(
                         faq['answer']!,
-                        style: const TextStyle(
+                        style:
+                            const TextStyle(
                           fontSize: 12,
                           color: textGray,
                           height: 1.45,
@@ -1345,8 +1483,11 @@ class _SpecializationDetailScreenState
   // SAMPLE PROJECTS
   // ============================================================
 
-  Widget _buildSampleProjectsTab(bool isMobile) {
-    final projects = widget.spec.sampleProjects;
+  Widget _buildSampleProjectsTab(
+    bool isMobile,
+  ) {
+    final projects =
+        widget.spec.sampleProjects;
 
     if (projects.isEmpty) {
       return _buildEmptyTab(
@@ -1355,32 +1496,42 @@ class _SpecializationDetailScreenState
     }
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment:
+          CrossAxisAlignment.start,
       children: [
         Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(18),
+          padding:
+              const EdgeInsets.all(18),
           decoration: BoxDecoration(
             color: lightPink,
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: const Color(0xFFFB9DBD)),
+            borderRadius:
+                BorderRadius.circular(14),
+            border: Border.all(
+              color:
+                  const Color(0xFFFB9DBD),
+            ),
           ),
           child: const Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment:
+                CrossAxisAlignment.start,
             children: [
               Icon(
                 Icons.lightbulb_outline,
                 color: pink,
                 size: 20,
               ),
+
               SizedBox(width: 10),
+
               Expanded(
                 child: Text(
                   'These are sample project ideas that can help you understand '
                   'the kind of work you may encounter in this specialization.',
                   style: TextStyle(
                     fontSize: 12,
-                    color: Color(0xFF9D174D),
+                    color:
+                        Color(0xFF9D174D),
                     height: 1.45,
                   ),
                 ),
@@ -1388,49 +1539,64 @@ class _SpecializationDetailScreenState
             ],
           ),
         ),
+
         const SizedBox(height: 16),
 
         if (isMobile)
           Column(
-            children: projects.map(_buildSampleProjectCard).toList(),
+            children: projects
+                .map(_buildSampleProjectCard)
+                .toList(),
           )
         else
           GridView.builder(
             shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
+            physics:
+                const NeverScrollableScrollPhysics(),
             itemCount: projects.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate:
+                const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
               mainAxisExtent: 330,
             ),
             itemBuilder: (_, index) {
-              return _buildSampleProjectCard(projects[index]);
+              return _buildSampleProjectCard(
+                projects[index],
+              );
             },
           ),
       ],
     );
   }
 
-  Widget _buildSampleProjectCard(SampleProject project) {
+  Widget _buildSampleProjectCard(
+    SampleProject project,
+  ) {
     final hasImage =
-        project.mediaType.toLowerCase() == 'image' &&
-        project.imageUrl != null &&
-        project.imageUrl!.trim().isNotEmpty;
+        project.mediaType.toLowerCase() ==
+                'image' &&
+            project.imageUrl != null &&
+            project.imageUrl!
+                .trim()
+                .isNotEmpty;
 
     return Container(
       width: double.infinity,
       height: 330,
-      margin: const EdgeInsets.only(bottom: 12),
+      margin:
+          const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius:
+            BorderRadius.circular(16),
         border: Border.all(color: border),
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment:
+            CrossAxisAlignment.start,
         children: [
           SizedBox(
             height: 135,
@@ -1439,28 +1605,36 @@ class _SpecializationDetailScreenState
                 ? Image.network(
                     project.imageUrl!,
                     fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) {
+                    errorBuilder:
+                        (_, _, __) {
                       return _buildProjectMediaPlaceholder(
                         project.mediaType,
                       );
                     },
                   )
-                : _buildProjectMediaPlaceholder(project.mediaType),
+                : _buildProjectMediaPlaceholder(
+                    project.mediaType,
+                  ),
           ),
 
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding:
+                  const EdgeInsets.all(16),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
                 children: [
                   Text(
                     project.title,
                     maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    overflow:
+                        TextOverflow.ellipsis,
+                    style:
+                        const TextStyle(
                       fontSize: 15,
-                      fontWeight: FontWeight.bold,
+                      fontWeight:
+                          FontWeight.bold,
                       color: navy,
                     ),
                   ),
@@ -1470,8 +1644,10 @@ class _SpecializationDetailScreenState
                   Text(
                     project.description,
                     maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    overflow:
+                        TextOverflow.ellipsis,
+                    style:
+                        const TextStyle(
                       fontSize: 12,
                       color: textGray,
                       height: 1.4,
@@ -1483,21 +1659,30 @@ class _SpecializationDetailScreenState
                   Wrap(
                     spacing: 6,
                     runSpacing: 6,
-                    children: project.technologies.map((technology) {
+                    children:
+                        project.technologies
+                            .map((technology) {
                       return Container(
-                        padding: const EdgeInsets.symmetric(
+                        padding:
+                            const EdgeInsets
+                                .symmetric(
                           horizontal: 8,
                           vertical: 5,
                         ),
-                        decoration: BoxDecoration(
+                        decoration:
+                            BoxDecoration(
                           color: lightPink,
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius:
+                              BorderRadius
+                                  .circular(8),
                         ),
                         child: Text(
                           technology,
-                          style: const TextStyle(
+                          style:
+                              const TextStyle(
                             fontSize: 10,
-                            fontWeight: FontWeight.w600,
+                            fontWeight:
+                                FontWeight.w600,
                             color: pink,
                           ),
                         ),
@@ -1507,36 +1692,64 @@ class _SpecializationDetailScreenState
 
                   const Spacer(),
 
-                  if ((project.githubUrl ?? '').trim().isNotEmpty ||
-                      (project.demoUrl ?? '').trim().isNotEmpty)
+                  if ((project.githubUrl ?? '')
+                          .trim()
+                          .isNotEmpty ||
+                      (project.demoUrl ?? '')
+                          .trim()
+                          .isNotEmpty)
                     Wrap(
                       spacing: 8,
                       runSpacing: 8,
                       children: [
-                        if ((project.githubUrl ?? '').trim().isNotEmpty)
+                        if ((project.githubUrl ??
+                                '')
+                            .trim()
+                            .isNotEmpty)
                           OutlinedButton.icon(
                             onPressed: () {
-                              _openLink(project.githubUrl!);
+                              _openLink(
+                                project
+                                    .githubUrl!,
+                              );
                             },
-                            icon: const Icon(Icons.code, size: 15),
-                            label: const Text(
+                            icon: const Icon(
+                              Icons.code,
+                              size: 15,
+                            ),
+                            label:
+                                const Text(
                               'GitHub',
-                              style: TextStyle(fontSize: 11),
+                              style:
+                                  TextStyle(
+                                fontSize:
+                                    11,
+                              ),
                             ),
                           ),
 
-                        if ((project.demoUrl ?? '').trim().isNotEmpty)
+                        if ((project.demoUrl ??
+                                '')
+                            .trim()
+                            .isNotEmpty)
                           OutlinedButton.icon(
                             onPressed: () {
-                              _openLink(project.demoUrl!);
+                              _openLink(
+                                project.demoUrl!,
+                              );
                             },
                             icon: const Icon(
                               Icons.open_in_new,
                               size: 15,
                             ),
-                            label: const Text(
+                            label:
+                                const Text(
                               'Demo',
-                              style: TextStyle(fontSize: 11),
+                              style:
+                                  TextStyle(
+                                fontSize:
+                                    11,
+                              ),
                             ),
                           ),
                       ],
@@ -1550,25 +1763,35 @@ class _SpecializationDetailScreenState
     );
   }
 
-  Widget _buildProjectMediaPlaceholder(String mediaType) {
-    final video = mediaType.toLowerCase() == 'video';
+  Widget _buildProjectMediaPlaceholder(
+    String mediaType,
+  ) {
+    final video =
+        mediaType.toLowerCase() == 'video';
 
     return Container(
       color: softBackground,
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment:
+              MainAxisAlignment.center,
           children: [
             Icon(
               video
-                  ? Icons.play_circle_outline_rounded
+                  ? Icons
+                      .play_circle_outline_rounded
                   : Icons.image_outlined,
               size: 38,
-              color: const Color(0xFF94A3B8),
+              color:
+                  const Color(0xFF94A3B8),
             ),
+
             const SizedBox(height: 7),
+
             Text(
-              video ? 'PROJECT VIDEO' : 'PROJECT PREVIEW',
+              video
+                  ? 'PROJECT VIDEO'
+                  : 'PROJECT PREVIEW',
               style: const TextStyle(
                 fontSize: 10,
                 fontWeight: FontWeight.bold,
@@ -1583,7 +1806,7 @@ class _SpecializationDetailScreenState
   }
 
   // ============================================================
-  // OPEN EXTERNAL LINKS
+  // LINKS
   // ============================================================
 
   Future<void> _openLink(String link) async {
@@ -1609,13 +1832,15 @@ class _SpecializationDetailScreenState
   void _showLinkError() {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('Unable to open the link.'),
+        content: Text(
+          'Unable to open the link.',
+        ),
       ),
     );
   }
 
   // ============================================================
-  // EMPTY TAB
+  // EMPTY
   // ============================================================
 
   Widget _buildEmptyTab(String text) {
@@ -1624,7 +1849,8 @@ class _SpecializationDetailScreenState
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: softBackground,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius:
+            BorderRadius.circular(14),
         border: Border.all(color: border),
       ),
       child: Text(

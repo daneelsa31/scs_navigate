@@ -35,6 +35,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   url_launcher: ^6.3.3
+  firebase_core: ^4.15.0
+  cloud_firestore: ^6.10.0
+  firebase_auth: ^6.7.0
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +63,7 @@ flutter:
 
   assets:
     - assets/images/scs_navigate_logo.png
+    - assets/images/specializations/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

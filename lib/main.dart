@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+import 'firebase_options.dart';
 import 'screens/main_page.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const ScsNavigateApp());
 }
 
@@ -22,7 +31,9 @@ class ScsNavigateApp extends StatelessWidget {
           surface: Colors.white,
         ),
         textTheme: const TextTheme(
-          bodyMedium: TextStyle(color: Color(0xFF0F172A)),
+          bodyMedium: TextStyle(
+            color: Color(0xFF0F172A),
+          ),
         ),
       ),
       home: const MainPage(),

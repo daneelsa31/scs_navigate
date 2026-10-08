@@ -47,13 +47,12 @@ class _GuideViewState extends State<GuideView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
         const Text(
           'Your Comprehensive Academic Roadmap',
           style: TextStyle(
             fontSize: 36,
             fontWeight: FontWeight.w800,
-            color:Color(0xFFFD73A6),
+            color: Color(0xFFFD73A6),
             letterSpacing: -1.0,
           ),
         ),
@@ -337,7 +336,7 @@ class _GuideViewState extends State<GuideView> {
         const SizedBox(height: 24),
 
         const Text(
-          'PRIMARY IT SPECIALIZATIONS',
+          'PRIMARY IT SPECIALIZATIONS YOU CAN CHOOSE FROM',
           style: TextStyle(
             fontSize: 11,
             fontWeight: FontWeight.bold,
@@ -357,6 +356,7 @@ class _GuideViewState extends State<GuideView> {
 
             final card1 = SpecCard(
               icon: webDevelopmentSpec.icon,
+              imagePath: 'assets/images/specializations/web_development.png',
               title: webDevelopmentSpec.title,
               description:
                   'Build websites. Build applications. Build solutions.',
@@ -368,9 +368,10 @@ class _GuideViewState extends State<GuideView> {
 
             final card2 = SpecCard(
               icon: mobileDevelopmentSpec.icon,
+              imagePath: 'assets/images/specializations/mobile_development.png',
               title: mobileDevelopmentSpec.title,
               description:
-                  'Create native and cross-platform mobile apps for millions of users.',
+                  'Create cross-platform apps and interactive mobile experiences.',
               actionText: 'EXPLORE MOBILE DEVELOPMENT →',
               onTap: () {
                 widget.onSpecializationTap(mobileDevelopmentSpec);
@@ -379,9 +380,10 @@ class _GuideViewState extends State<GuideView> {
 
             final card3 = SpecCard(
               icon: cybersecuritySpec.icon,
+              imagePath: 'assets/images/specializations/cybersecurity.png',
               title: cybersecuritySpec.title,
               description:
-                  'Protect networks, data, and systems from emerging cyber threats.',
+                  'Protect networks, systems, and data from cyber threats.',
               actionText: 'EXPLORE CYBERSECURITY →',
               onTap: () {
                 widget.onSpecializationTap(cybersecuritySpec);
@@ -416,57 +418,6 @@ class _GuideViewState extends State<GuideView> {
         const SizedBox(height: 28),
 
         // --------------------------------------------------------
-        // PROFESSIONAL ELECTIVE
-        // --------------------------------------------------------
-        const Text(
-          'COURSE',
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF94A3B8),
-            letterSpacing: 0.5,
-          ),
-        ),
-
-        const SizedBox(height: 16),
-
-        LayoutBuilder(
-          builder: (context, constraints) {
-            final isSmall = constraints.maxWidth < 700;
-
-            final courseCard = SpecCard(
-              icon: aiotSpec.icon,
-              title: aiotSpec.title,
-              description:
-                  'Bridging embedded devices and artificial intelligence.',
-              actionText: 'EXPLORE AIoT →',
-              onTap: () {
-                widget.onSpecializationTap(aiotSpec);
-              },
-            );
-
-            if (isSmall) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [courseCard],
-              );
-            }
-
-            return Row(
-              children: [
-                Expanded(child: courseCard),
-                const SizedBox(width: 16),
-                const Expanded(child: SizedBox.shrink()),
-                const SizedBox(width: 16),
-                const Expanded(child: SizedBox.shrink()),
-              ],
-            );
-          },
-        ),
-
-        const SizedBox(height: 28),
-
-        // --------------------------------------------------------
         // OTHER SPECIALIZATIONS
         // --------------------------------------------------------
         const Text(
@@ -491,7 +442,7 @@ class _GuideViewState extends State<GuideView> {
               physics: const NeverScrollableScrollPhysics(),
               mainAxisSpacing: 16,
               crossAxisSpacing: 16,
-              childAspectRatio: isSmall ? 2.5 : 1.3,
+              childAspectRatio: isSmall ? 3.2 : 2.3,
               children: const [
                 MiniSpecCard(
                   icon: Icons.memory,
@@ -512,7 +463,336 @@ class _GuideViewState extends State<GuideView> {
             );
           },
         ),
+
+        const SizedBox(height: 16),
+
+        // --------------------------------------------------------
+        // PROFESSIONAL ELECTIVE
+        // --------------------------------------------------------
+        const Text(
+          'PROFESSIONAL ELECTIVE',
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF94A3B8),
+            letterSpacing: 0.5,
+          ),
+        ),
+
+        const SizedBox(height: 16),
+
+        _buildProfessionalElectiveCard(),
+
+        const SizedBox(height: 28),
       ],
+    );
+  }
+
+  Widget _buildProfessionalElectiveCard() {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: InkWell(
+        onTap: _showProfessionalElectiveDialog,
+        borderRadius: BorderRadius.circular(16),
+        child: Container(
+          width: 480,
+          padding: const EdgeInsets.all(18),
+          decoration: BoxDecoration(
+            color: const Color(0xFFFFF7FA),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: const Color(0xFFF55D95).withValues(alpha: 0.25),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFDD9E5),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Text(
+                  'COURSE OPTION',
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFFF55D95),
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 14),
+
+              const Row(
+                children: [
+                  Icon(
+                    Icons.menu_book_outlined,
+                    color: Color(0xFFF55D95),
+                    size: 24,
+                  ),
+
+                  SizedBox(width: 10),
+
+                  Expanded(
+                    child: Text(
+                      'Professional Elective',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                        color: Color(0xFF0F172A),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 8),
+
+              const Text(
+                'An elective course option that may be taken depending on '
+                'your program requirements and available SCS offerings.',
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Color(0xFF64748B),
+                  height: 1.45,
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              TextButton.icon(
+                onPressed: _showProfessionalElectiveDialog,
+                icon: const Icon(Icons.info_outline_rounded, size: 16),
+                label: const Text(
+                  'View Details',
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+                ),
+                style: TextButton.styleFrom(
+                  foregroundColor: const Color(0xFFF55D95),
+                  padding: EdgeInsets.zero,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showProfessionalElectiveDialog() {
+    showDialog(
+      context: context,
+      barrierColor: Colors.black.withValues(alpha: 0.4),
+      builder: (dialogContext) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: const EdgeInsets.all(20),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 560),
+            child: Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // HEADER
+                    Row(
+                      children: [
+                        Container(
+                          width: 42,
+                          height: 42,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFDD9E5),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const Icon(
+                            Icons.menu_book_outlined,
+                            color: Color(0xFFF55D95),
+                          ),
+                        ),
+
+                        const SizedBox(width: 12),
+
+                        const Expanded(
+                          child: Text(
+                            'Professional Elective / AIoT',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800,
+                              color: Color(0xFF0F172A),
+                            ),
+                          ),
+                        ),
+
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(dialogContext);
+                          },
+                          icon: const Icon(Icons.close_rounded),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    // WHAT IS IT?
+                    const Text(
+                      'What is it?',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF0F172A),
+                      ),
+                    ),
+
+                    const SizedBox(height: 8),
+
+                    const Text(
+                      'The Professional Elective is an academic course option '
+                      'designed to give students an additional area of learning '
+                      'outside the main IT specializations. In the current setup, '
+                      'the Professional Elective is AIoT, which introduces students '
+                      'to concepts that combine Artificial Intelligence and '
+                      'Internet of Things technologies.',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Color(0xFF64748B),
+                        height: 1.5,
+                      ),
+                    ),
+
+                    const SizedBox(height: 12),
+
+                    const Text(
+                      'It serves as another structured learning option within the '
+                      'program. It allows students to explore a different area of '
+                      'computing while still meeting the academic requirements '
+                      'of their degree.',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Color(0xFF64748B),
+                        height: 1.5,
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    // WHO MAY TAKE IT?
+                    const Text(
+                      'Who may take it?',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF0F172A),
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    const _ElectiveBullet(
+                      text:
+                          'BSIT and BSIS students who choose only one specialization',
+                    ),
+
+                    const _ElectiveBullet(
+                      text:
+                          'BSCS students who choose not to take an IT specialization',
+                    ),
+
+                    const _ElectiveBullet(
+                      text:
+                          'Students whose program pathway requires a Professional Elective to complete the required units or course requirements',
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    // WHAT IS AIoT ABOUT?
+                    const Text(
+                      'What is AIoT about?',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF0F172A),
+                      ),
+                    ),
+
+                    const SizedBox(height: 8),
+
+                    const Text(
+                      'AIoT, or Artificial Intelligence of Things, combines '
+                      'connected devices with intelligent systems. It explores '
+                      'how devices can collect data, communicate with one another, '
+                      'and use intelligent processing to support automation, '
+                      'monitoring, and smarter decision-making.',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Color(0xFF64748B),
+                        height: 1.5,
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    // WHY IS IT PART OF THE PROGRAM?
+                    const Text(
+                      'Why is it part of the program?',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF0F172A),
+                      ),
+                    ),
+
+                    const SizedBox(height: 8),
+
+                    const Text(
+                      'The Professional Elective gives students another way to '
+                      'broaden their technical exposure while completing the '
+                      'required academic units of their program. It provides a '
+                      'distinct learning experience from the main specialization '
+                      'tracks rather than simply acting as a replacement for them.',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Color(0xFF64748B),
+                        height: 1.5,
+                      ),
+                    ),
+
+                    const SizedBox(height: 18),
+
+                    // NOTE
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(14),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFFF7FA),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Text(
+                        'Professional Elective requirements are based on the '
+                        'student\'s program pathway and the current SCS curriculum.',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF9D174D),
+                          height: 1.45,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -521,102 +801,62 @@ class _GuideViewState extends State<GuideView> {
   // ============================================================
 
   Widget _buildComparisonSection() {
-    final allRows = <DataRow>[
-      const DataRow(
-        cells: [
-          DataCell(
-            Text('Main Focus', style: TextStyle(fontWeight: FontWeight.bold)),
-          ),
-          DataCell(Text('Web apps, UI/UX, and cloud APIs')),
-          DataCell(Text('Native & cross-platform apps')),
-          DataCell(Text('Network defense & system security')),
-        ],
-      ),
-      const DataRow(
-        cells: [
-          DataCell(
-            Text(
-              'Programming Depth',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          DataCell(Text('High (Full Stack / OOP)')),
-          DataCell(Text('High (Full Stack / Mobile OOP)')),
-          DataCell(Text('Medium (Scripting & Automation)')),
-        ],
-      ),
-      const DataRow(
-        cells: [
-          DataCell(
-            Text(
-              'UI / UX Focus',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          DataCell(
-            Text(
-              '✓ High',
-              style: TextStyle(
-                color: Color(0xFFF55D95),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          DataCell(
-            Text(
-              '✓ High',
-              style: TextStyle(
-                color: Color(0xFFF55D95),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          DataCell(Text('✕ Low')),
-        ],
-      ),
-      const DataRow(
-        cells: [
-          DataCell(
-            Text(
-              'Networking Focus',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          DataCell(Text('✕ Low')),
-          DataCell(Text('✕ Low')),
-          DataCell(
-            Text(
-              '✓ High',
-              style: TextStyle(
-                color: Color(0xFFF55D95),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ],
-      ),
-      const DataRow(
-        cells: [
-          DataCell(
-            Text(
-              'Primary Tech Stack',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          DataCell(Text('HTML, CSS, JS, TypeScript, React')),
-          DataCell(Text('Kotlin, Java, Dart, Flutter')),
-          DataCell(Text('Wireshark, Linux, Nmap, Metasploit')),
-        ],
-      ),
+    final rows = [
+      [
+        'Best For Students Who...',
+        'Enjoy building websites, solving coding problems, and working with both interfaces and databases.',
+        'Enjoy creating apps, designing interfaces, and building interactive features for mobile devices.',
+        'Enjoy solving technical challenges, investigating systems, networking, Linux, and hands-on security labs.',
+      ],
+      [
+        'Main Focus',
+        'Building complete web applications from interface to database.',
+        'Building cross-platform apps using Flutter, APIs, databases, maps, and AI features.',
+        'Learning how systems are attacked, monitored, investigated, and defended.',
+      ],
+      [
+        'Programming Intensity',
+        'High — lots of coding and application building.',
+        'High — app development, logic, APIs, and project work.',
+        'Medium to High — scripting, automation, security tools, and technical labs.',
+      ],
+      [
+        'UI / Design Focus',
+        'Medium to High — web interfaces and turning designs into working pages.',
+        'High — responsive layouts, widgets, animations, and mobile interfaces.',
+        'Low — more focused on systems, networks, investigation, and security operations.',
+      ],
+      [
+        'Networking / Systems Focus',
+        'Low to Medium — mainly web servers and backend systems.',
+        'Low to Medium — mostly app and backend integration.',
+        'Very High — networking, traffic analysis, Linux, SIEM, and system security.',
+      ],
+      [
+        'Typical Projects / Activities',
+        'Web systems, PHP/MySQL applications, database-driven websites, and Laravel projects.',
+        'Flutter apps, maps, login systems, backend-connected apps, AI tools, and production-ready mobile projects.',
+        'CTFs, ethical hacking labs, vulnerable machines, pentesting, forensics, and red-team/blue-team exercises.',
+      ],
+      [
+        'Possible Career Directions',
+        'Frontend Developer, Backend Developer, Full-Stack Developer, PHP Developer, Laravel Developer.',
+        'Flutter Developer, Mobile App Developer, Cross-Platform Developer, Mobile UI Developer, Software Developer.',
+        'SOC Analyst, Cybersecurity Analyst, Junior Pentester, Incident Response Analyst, Digital Forensics Analyst.',
+      ],
+      [
+        'Primary Technologies',
+        'HTML5, CSS3, JavaScript, PHP, MySQL, Apache, Nginx, Laravel.',
+        'Flutter, Dart, Riverpod, Supabase, PostgreSQL, REST APIs, Mapbox, Firebase.',
+        'Kali Linux, Nmap, Wireshark, Burp Suite, Metasploit, Splunk, Wazuh, Python.',
+      ],
     ];
 
-    // Show only the first 3 rows initially.
-    final visibleRows = _showAllComparisonRows
-        ? allRows
-        : allRows.take(3).toList();
+    final visibleRows = _showAllComparisonRows ? rows : rows.take(4).toList();
 
     return Container(
-      padding: const EdgeInsets.all(28),
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -628,8 +868,8 @@ class _GuideViewState extends State<GuideView> {
           const Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('⚖️ ', style: TextStyle(fontSize: 18)),
-              SizedBox(width: 4),
+              Text('⚖️', style: TextStyle(fontSize: 18)),
+              SizedBox(width: 8),
               Expanded(
                 child: Text(
                   "Can't decide? Compare them.",
@@ -646,63 +886,140 @@ class _GuideViewState extends State<GuideView> {
           const SizedBox(height: 4),
 
           const Text(
-            'Comparing core primary specializations side by side.',
+            'Compare the specializations based on what students usually want to know before choosing.',
             style: TextStyle(fontSize: 13, color: Color(0xFF64748B)),
           ),
 
-          const SizedBox(height: 24),
+          const SizedBox(height: 18),
 
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: DataTable(
-              headingRowColor: WidgetStateProperty.all(const Color(0xFFF8FAFC)),
-              columns: const [
-                DataColumn(
-                  label: Text(
+          // HEADER
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+            decoration: const BoxDecoration(color: Color(0xFFF8FAFC)),
+            child: const Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Text(
                     'CRITERIA',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
                       fontSize: 11,
+                      fontWeight: FontWeight.bold,
                       color: Color(0xFF64748B),
                     ),
                   ),
                 ),
-                DataColumn(
-                  label: Text(
+                SizedBox(width: 14),
+                Expanded(
+                  flex: 3,
+                  child: Text(
                     'Web Development',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
                       fontSize: 13,
+                      fontWeight: FontWeight.bold,
                       color: Color(0xFF0F172A),
                     ),
                   ),
                 ),
-                DataColumn(
-                  label: Text(
+                SizedBox(width: 14),
+                Expanded(
+                  flex: 3,
+                  child: Text(
                     'Mobile Development',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
                       fontSize: 13,
+                      fontWeight: FontWeight.bold,
                       color: Color(0xFF0F172A),
                     ),
                   ),
                 ),
-                DataColumn(
-                  label: Text(
+                SizedBox(width: 14),
+                Expanded(
+                  flex: 3,
+                  child: Text(
                     'Cybersecurity',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
                       fontSize: 13,
+                      fontWeight: FontWeight.bold,
                       color: Color(0xFF0F172A),
                     ),
                   ),
                 ),
               ],
-              rows: visibleRows,
             ),
           ),
 
-          const SizedBox(height: 12),
+          // ROWS
+          ...visibleRows.map((row) {
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+              decoration: const BoxDecoration(
+                border: Border(top: BorderSide(color: Color(0xFFE5E7EB))),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      row[0],
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF0F172A),
+                        height: 1.4,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(width: 14),
+
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      row[1],
+                      style: const TextStyle(
+                        fontSize: 12.5,
+                        color: Color(0xFF334155),
+                        height: 1.45,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(width: 14),
+
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      row[2],
+                      style: const TextStyle(
+                        fontSize: 12.5,
+                        color: Color(0xFF334155),
+                        height: 1.45,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(width: 14),
+
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      row[3],
+                      style: const TextStyle(
+                        fontSize: 12.5,
+                        color: Color(0xFF334155),
+                        height: 1.45,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
+
+          const SizedBox(height: 8),
 
           Center(
             child: TextButton.icon(
@@ -727,8 +1044,8 @@ class _GuideViewState extends State<GuideView> {
               style: TextButton.styleFrom(
                 foregroundColor: const Color(0xFFF55D95),
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 8,
+                  horizontal: 10,
+                  vertical: 6,
                 ),
               ),
             ),
@@ -1058,22 +1375,13 @@ class _GuideViewState extends State<GuideView> {
         return ['Minimum of 1 Specialization', 'Maximum of 2 Specializations'];
 
       case 'BSCS':
-        return [
-          'Artificial Intelligence',
-          'Maximum of 1 Specialization or Professional Elective Course',
-        ];
+        return ['Artificial Intelligence', 'Maximum of 1 IT Specialization'];
 
       case 'BSIS':
-        return [
-          'Business Analytics',
-          'Maximum of 1 Specialization or Professional Elective Course',
-        ];
+        return ['Business Analytics', 'Maximum of 1 IT Specialization'];
 
       case 'ACT':
-        return [
-          'Software Development',
-          'Maximum of 1 Specialization or Professional Elective Course',
-        ];
+        return ['Software Development', 'Maximum of 1 IT Specialization'];
 
       default:
         return [];
@@ -1083,13 +1391,52 @@ class _GuideViewState extends State<GuideView> {
   String _getProgramNote(String program) {
     switch (program) {
       case 'BSIT':
-        return 'If you only choose to enroll 1 specialization, you will have to take Prof Elec';
+        return 'If you opt to enroll in only 1 specialization, you are required to enroll in Proffessional Elective course.';
+
+      case 'BSCS':
+        return 'If you opt not to take any specialization, you are required to enroll in Proffessional Elective course.';
 
       case 'BSIS':
-        return 'BSIS students combine core business strategy with IT systems development. [To be verified with SCS]';
+        return 'If you opt not to take any specialization, you are required to enroll in Proffessional Elective course.';
 
       default:
         return '';
     }
+  }
+}
+
+class _ElectiveBullet extends StatelessWidget {
+  final String text;
+
+  const _ElectiveBullet({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Icon(
+            Icons.check_circle_outline_rounded,
+            color: Color(0xFFF55D95),
+            size: 17,
+          ),
+
+          const SizedBox(width: 8),
+
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontSize: 13,
+                color: Color(0xFF475569),
+                height: 1.4,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

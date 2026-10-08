@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 class CompassView extends StatefulWidget {
@@ -10,153 +11,211 @@ class CompassView extends StatefulWidget {
 
 class _CompassViewState extends State<CompassView> {
   static const navy = Color(0xFF00184D);
+
   static const pink = Color(0xFFF55D95);
+
   static const lightPink = Color(0xFFFFF1F6);
+
   static const lightText = Color(0xFF64748B);
+
   static const borderColor = Color(0xFFE2E8F0);
 
   // =============================================================
+
   // CHANGE THIS LATER TO YOUR ACTUAL GOOGLE FORM LINK
+
   // =============================================================
-  static const proofFormLink =
-      'https://docs.google.com/forms/';
+
+  static const proofFormLink = 'https://docs.google.com/forms/';
 
   String selectedCategory = 'All';
+
   String searchQuery = '';
 
   final categories = [
     'All',
+
     'Competitions',
+
     'Hackathons',
+
     'Seminars',
+
     'Trainings',
+
     'Certifications',
+
     'Scholarships',
   ];
 
   final opportunities = const [
     Opportunity(
       title: 'Sample Hackathon Opportunity',
+
       organizer: 'School of Computer Studies',
+
       category: 'Hackathons',
+
       description:
           'Participate in a technology-focused hackathon and develop innovative solutions to real-world campus and community challenges.',
+
       deadline: 'September 30, 2026',
+
       status: 'Registration Open',
+
       location: 'USJ-R Main Campus',
+
       eligibility: [
         'Open to all SCS students',
+
         'Participants may join individually or as a team',
       ],
+
       perks: [
         'Certificate of Participation',
+
         'Networking Opportunities',
+
         'Prizes for Winning Teams',
       ],
+
       registrationLink: 'https://example.com/',
     ),
 
     Opportunity(
       title: 'Sample Technology Training',
+
       organizer: 'School of Computer Studies',
+
       category: 'Trainings',
+
       description:
           'Develop practical technical skills through guided training sessions and hands-on activities designed for students.',
+
       deadline: 'October 5, 2026',
+
       status: 'Registration Open',
+
       location: 'SCS Computer Laboratory',
+
       eligibility: [
         'Open to currently enrolled SCS students',
+
         'Participants must complete the registration form',
       ],
-      perks: [
-        'Certificate',
-        'Hands-on Experience',
-        'Learning Resources',
-      ],
+
+      perks: ['Certificate', 'Hands-on Experience', 'Learning Resources'],
+
       registrationLink: 'https://example.com/',
     ),
 
     Opportunity(
       title: 'Sample Industry Seminar',
+
       organizer: 'Industry Partner',
+
       category: 'Seminars',
+
       description:
           'Learn about current trends, tools, and career opportunities from professionals working in the technology industry.',
+
       deadline: 'October 10, 2026',
+
       status: 'Registration Open',
+
       location: 'USJ-R Main Auditorium',
-      eligibility: [
-        'Open to all SCS students',
-      ],
-      perks: [
-        'Certificate of Attendance',
-        'Career Insights',
-        'Networking',
-      ],
+
+      eligibility: ['Open to all SCS students'],
+
+      perks: ['Certificate of Attendance', 'Career Insights', 'Networking'],
+
       registrationLink: 'https://example.com/',
     ),
 
     Opportunity(
       title: 'Sample Certification Program',
+
       organizer: 'Technology Organization',
+
       category: 'Certifications',
+
       description:
           'Build your credentials through an industry-recognized technology certification opportunity.',
+
       deadline: 'October 20, 2026',
+
       status: 'Applications Open',
+
       location: 'Online',
+
       eligibility: [
         'Open to eligible SCS students',
+
         'Applicants must complete the required registration process',
       ],
-      perks: [
-        'Industry Certification',
-        'Digital Badge',
-        'Career Advantage',
-      ],
+
+      perks: ['Industry Certification', 'Digital Badge', 'Career Advantage'],
+
       registrationLink: 'https://example.com/',
     ),
 
     Opportunity(
       title: 'Sample Programming Competition',
+
       organizer: 'School of Computer Studies',
+
       category: 'Competitions',
+
       description:
           'Challenge your problem-solving and programming skills through a competitive coding activity.',
+
       deadline: 'November 2, 2026',
+
       status: 'Registration Open',
+
       location: 'SCS Computer Laboratory',
+
       eligibility: [
         'Open to SCS students',
+
         'Participants may be required to form teams',
       ],
-      perks: [
-        'Certificate',
-        'Awards',
-        'Competition Experience',
-      ],
+
+      perks: ['Certificate', 'Awards', 'Competition Experience'],
+
       registrationLink: 'https://example.com/',
     ),
 
     Opportunity(
       title: 'Sample Technology Scholarship',
+
       organizer: 'Scholarship Provider',
+
       category: 'Scholarships',
+
       description:
           'Explore financial support and learning opportunities available to eligible technology students.',
+
       deadline: 'November 15, 2026',
+
       status: 'Applications Open',
+
       location: 'Online Application',
+
       eligibility: [
         'Must meet the scholarship provider requirements',
+
         'Required documents must be submitted before the deadline',
       ],
+
       perks: [
         'Financial Assistance',
+
         'Learning Support',
+
         'Academic Opportunity',
       ],
+
       registrationLink: 'https://example.com/',
     ),
   ];
@@ -183,19 +242,31 @@ class _CompassViewState extends State<CompassView> {
     return LayoutBuilder(
       builder: (context, c) {
         final mobile = c.maxWidth < 700;
+
         final large = c.maxWidth >= 1100;
+
         final results = filteredOpportunities;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+
           children: [
             Text(
               'COMPASS',
+
               style: TextStyle(
                 color: navy,
-                fontSize: mobile ? 38 : large ? 52 : 46,
+
+                fontSize: mobile
+                    ? 38
+                    : large
+                    ? 52
+                    : 46,
+
                 fontWeight: FontWeight.w900,
+
                 letterSpacing: -1.5,
+
                 height: 1,
               ),
             ),
@@ -204,16 +275,21 @@ class _CompassViewState extends State<CompassView> {
 
             Text(
               'Discover opportunities beyond the classroom. Find competitions, hackathons, seminars, trainings, certifications, and scholarships.',
+
               style: TextStyle(
                 color: lightText,
+
                 fontSize: mobile ? 15 : 17,
+
                 height: 1.5,
               ),
             ),
 
-            const SizedBox(height: 30),
+            const SizedBox(height: 22),
+
             const Divider(color: borderColor, height: 1),
-            const SizedBox(height: 38),
+
+            const SizedBox(height: 24),
 
             _buildSearchPanel(mobile),
 
@@ -222,19 +298,19 @@ class _CompassViewState extends State<CompassView> {
             Text(
               'Showing ${results.length} '
               '${results.length == 1 ? 'opportunity' : 'opportunities'}',
+
               style: const TextStyle(
                 color: lightText,
+
                 fontSize: 14,
+
                 fontWeight: FontWeight.w600,
               ),
             ),
 
             const SizedBox(height: 20),
 
-            if (results.isEmpty)
-              _buildEmptyState()
-            else
-              _buildCards(results),
+            if (results.isEmpty) _buildEmptyState() else _buildCards(results),
 
             const SizedBox(height: 50),
 
@@ -248,65 +324,81 @@ class _CompassViewState extends State<CompassView> {
   }
 
   // =============================================================
+
   // SEARCH
+
   // =============================================================
 
   Widget _buildSearchPanel(bool mobile) {
     return Container(
       width: double.infinity,
+
       padding: EdgeInsets.all(mobile ? 18 : 28),
+
       decoration: BoxDecoration(
         color: Colors.white,
+
         borderRadius: BorderRadius.circular(24),
+
         border: Border.all(color: borderColor),
+
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: .025),
+
             blurRadius: 18,
+
             offset: const Offset(0, 6),
           ),
         ],
       ),
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+
         children: [
           TextField(
             onChanged: (value) {
               setState(() => searchQuery = value);
             },
-            style: const TextStyle(
-              fontSize: 15,
-              color: navy,
-            ),
+
+            style: const TextStyle(fontSize: 15, color: navy),
+
             decoration: InputDecoration(
-              hintText:
-                  'Search opportunities by title, organizer, or topic...',
+              hintText: 'Search opportunities by title, organizer, or topic...',
+
               hintStyle: const TextStyle(
                 color: Color(0xFF94A3B8),
+
                 fontSize: 15,
               ),
+
               prefixIcon: const Icon(
                 Icons.search_rounded,
+
                 color: Color(0xFF94A3B8),
               ),
+
               filled: true,
+
               fillColor: const Color(0xFFFFF8FA),
+
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 18,
+
                 vertical: 18,
               ),
+
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30),
-                borderSide: BorderSide(
-                  color: pink.withValues(alpha: .20),
-                ),
+
+                borderSide: BorderSide(color: pink.withValues(alpha: .20)),
               ),
+
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30),
-                borderSide: const BorderSide(
-                  color: pink,
-                  width: 1.5,
-                ),
+
+                borderSide: const BorderSide(color: pink, width: 1.5),
               ),
             ),
           ),
@@ -315,10 +407,10 @@ class _CompassViewState extends State<CompassView> {
 
           Wrap(
             spacing: 10,
+
             runSpacing: 10,
-            children: categories
-                .map(_buildFilterChip)
-                .toList(),
+
+            children: categories.map(_buildFilterChip).toList(),
           ),
         ],
       ),
@@ -326,8 +418,7 @@ class _CompassViewState extends State<CompassView> {
   }
 
   Widget _buildFilterChip(String category) {
-    final selected =
-        selectedCategory == category;
+    final selected = selectedCategory == category;
 
     return InkWell(
       onTap: () {
@@ -335,29 +426,32 @@ class _CompassViewState extends State<CompassView> {
           selectedCategory = category;
         });
       },
+
       borderRadius: BorderRadius.circular(30),
+
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 180),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 11,
-        ),
+
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 11),
+
         decoration: BoxDecoration(
           color: selected ? pink : lightPink,
+
           borderRadius: BorderRadius.circular(30),
+
           border: Border.all(
-            color: selected
-                ? pink
-                : pink.withValues(alpha: .12),
+            color: selected ? pink : pink.withValues(alpha: .12),
           ),
         ),
+
         child: Text(
           category,
+
           style: TextStyle(
-            color: selected
-                ? Colors.white
-                : navy,
+            color: selected ? Colors.white : navy,
+
             fontSize: 13,
+
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -366,7 +460,9 @@ class _CompassViewState extends State<CompassView> {
   }
 
   // =============================================================
+
   // CARDS
+
   // =============================================================
 
   Widget _buildCards(List<Opportunity> results) {
@@ -377,9 +473,8 @@ class _CompassViewState extends State<CompassView> {
             children: results
                 .map(
                   (o) => Padding(
-                    padding: const EdgeInsets.only(
-                      bottom: 18,
-                    ),
+                    padding: const EdgeInsets.only(bottom: 18),
+
                     child: _buildOpportunityCard(o),
                   ),
                 )
@@ -387,19 +482,16 @@ class _CompassViewState extends State<CompassView> {
           );
         }
 
-        final width =
-            (c.maxWidth - 20) / 2;
+        final width = (c.maxWidth - 20) / 2;
 
         return Wrap(
           spacing: 20,
+
           runSpacing: 20,
+
           children: results
               .map(
-                (o) => SizedBox(
-                  width: width,
-                  child:
-                      _buildOpportunityCard(o),
-                ),
+                (o) => SizedBox(width: width, child: _buildOpportunityCard(o)),
               )
               .toList(),
         );
@@ -407,49 +499,70 @@ class _CompassViewState extends State<CompassView> {
     );
   }
 
-  Widget _buildOpportunityCard(
-    Opportunity o,
-  ) {
+  Widget _buildOpportunityCard(Opportunity o) {
     return Container(
-      padding: const EdgeInsets.all(26),
+      padding: const EdgeInsets.all(22),
+
       decoration: BoxDecoration(
         color: Colors.white,
+
         borderRadius: BorderRadius.circular(22),
-        border: Border.all(
-          color: borderColor,
-        ),
+
+        border: Border.all(color: borderColor),
+
         boxShadow: [
           BoxShadow(
-            color:
-                Colors.black.withValues(alpha: .025),
+            color: Colors.black.withValues(alpha: .025),
+
             blurRadius: 14,
+
             offset: const Offset(0, 5),
           ),
         ],
       ),
+
       child: Column(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+
             children: [
-              Flexible(
-                child: _pill(
-                  o.category.toUpperCase(),
-                  pink,
-                  lightPink,
-                  fontSize: 11,
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+
+                  child: _pill(
+                    o.category.toUpperCase(),
+
+                    pink,
+
+                    lightPink,
+
+                    fontSize: 11,
+                  ),
                 ),
               ),
 
-              const Spacer(),
+              const SizedBox(width: 12),
 
-              _pill(
-                o.status,
-                pink,
-                lightPink,
-                dot: true,
-                fontSize: 12,
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+
+                  child: _pill(
+                    o.status,
+
+                    pink,
+
+                    lightPink,
+
+                    dot: true,
+
+                    fontSize: 12,
+                  ),
+                ),
               ),
             ],
           ),
@@ -458,10 +571,14 @@ class _CompassViewState extends State<CompassView> {
 
           Text(
             o.title,
+
             style: const TextStyle(
               color: navy,
+
               fontSize: 21,
+
               fontWeight: FontWeight.w800,
+
               height: 1.25,
             ),
           ),
@@ -470,18 +587,17 @@ class _CompassViewState extends State<CompassView> {
 
           Text.rich(
             TextSpan(
-              style: const TextStyle(
-                color: lightText,
-                fontSize: 13,
-              ),
+              style: const TextStyle(color: lightText, fontSize: 13),
+
               children: [
-                const TextSpan(
-                  text: 'Organizer: ',
-                ),
+                const TextSpan(text: 'Organizer: '),
+
                 TextSpan(
                   text: o.organizer,
+
                   style: const TextStyle(
                     color: navy,
+
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -493,15 +609,20 @@ class _CompassViewState extends State<CompassView> {
 
           Text(
             o.description,
+
             style: const TextStyle(
               color: lightText,
+
               fontSize: 14,
+
               height: 1.55,
             ),
           ),
 
           const SizedBox(height: 22),
+
           const Divider(color: borderColor),
+
           const SizedBox(height: 8),
 
           Row(
@@ -509,20 +630,18 @@ class _CompassViewState extends State<CompassView> {
               Expanded(
                 child: Text.rich(
                   TextSpan(
-                    style: const TextStyle(
-                      color: lightText,
-                      fontSize: 13,
-                    ),
+                    style: const TextStyle(color: lightText, fontSize: 13),
+
                     children: [
-                      const TextSpan(
-                        text: 'Deadline: ',
-                      ),
+                      const TextSpan(text: 'Deadline: '),
+
                       TextSpan(
                         text: o.deadline,
+
                         style: const TextStyle(
                           color: navy,
-                          fontWeight:
-                              FontWeight.w700,
+
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ],
@@ -546,46 +665,59 @@ class _CompassViewState extends State<CompassView> {
 
   Widget _pill(
     String text,
+
     Color foreground,
+
     Color background, {
+
     bool dot = false,
+
     double fontSize = 12,
   }) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 13,
-        vertical: 7,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 7),
+
       decoration: BoxDecoration(
         color: background,
+
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: pink.withValues(alpha: .2),
-        ),
+
+        border: Border.all(color: pink.withValues(alpha: .2)),
       ),
+
       child: Row(
         mainAxisSize: MainAxisSize.min,
+
         children: [
           if (dot) ...[
             Container(
               width: 7,
+
               height: 7,
+
               decoration: BoxDecoration(
                 color: foreground,
+
                 shape: BoxShape.circle,
               ),
             ),
+
             const SizedBox(width: 7),
           ],
 
           Flexible(
             child: Text(
               text,
+
               overflow: TextOverflow.ellipsis,
+
               style: TextStyle(
                 color: foreground,
+
                 fontSize: fontSize,
+
                 fontWeight: FontWeight.w800,
+
                 letterSpacing: dot ? 0 : .4,
               ),
             ),
@@ -596,38 +728,39 @@ class _CompassViewState extends State<CompassView> {
   }
 
   // =============================================================
+
   // EMPTY STATE
+
   // =============================================================
 
   Widget _buildEmptyState() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 30,
-        vertical: 70,
-      ),
+
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 70),
+
       decoration: BoxDecoration(
         color: Colors.white,
+
         borderRadius: BorderRadius.circular(22),
-        border: Border.all(
-          color: borderColor,
-        ),
+
+        border: Border.all(color: borderColor),
       ),
+
       child: const Column(
         children: [
-          Icon(
-            Icons.search_off_rounded,
-            color: pink,
-            size: 46,
-          ),
+          Icon(Icons.search_off_rounded, color: pink, size: 46),
 
           SizedBox(height: 16),
 
           Text(
             'No opportunities found',
+
             style: TextStyle(
               color: navy,
+
               fontSize: 20,
+
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -636,11 +769,10 @@ class _CompassViewState extends State<CompassView> {
 
           Text(
             'Try changing your search or selecting another category.',
+
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: lightText,
-              fontSize: 14,
-            ),
+
+            style: TextStyle(color: lightText, fontSize: 14),
           ),
         ],
       ),
@@ -648,7 +780,9 @@ class _CompassViewState extends State<CompassView> {
   }
 
   // =============================================================
+
   // RECOGNITION SECTION
+
   // =============================================================
 
   Widget _buildRecognitionBanner() {
@@ -658,50 +792,58 @@ class _CompassViewState extends State<CompassView> {
 
         return Container(
           width: double.infinity,
+
           padding: EdgeInsets.symmetric(
             horizontal: mobile ? 22 : 36,
+
             vertical: mobile ? 26 : 32,
           ),
+
           decoration: BoxDecoration(
             color: navy,
+
             borderRadius: BorderRadius.circular(26),
-            border: Border.all(
-              color: pink.withValues(alpha: .22),
-            ),
+
+            border: Border.all(color: pink.withValues(alpha: .22)),
+
             boxShadow: [
               BoxShadow(
                 color: navy.withValues(alpha: .10),
+
                 blurRadius: 20,
+
                 offset: const Offset(0, 6),
               ),
             ],
           ),
+
           child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+
             children: [
               if (mobile)
                 Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
                   children: [
                     _buildRecognitionText(),
+
                     const SizedBox(height: 24),
+
                     SizedBox(
                       width: double.infinity,
-                      child:
-                          _buildSubmitProofButton(),
+
+                      child: _buildSubmitProofButton(),
                     ),
                   ],
                 )
               else
                 Row(
                   children: [
-                    Expanded(
-                      child:
-                          _buildRecognitionText(),
-                    ),
+                    Expanded(child: _buildRecognitionText()),
+
                     const SizedBox(width: 30),
+
                     _buildSubmitProofButton(),
                   ],
                 ),
@@ -710,19 +852,24 @@ class _CompassViewState extends State<CompassView> {
 
               Container(
                 width: double.infinity,
+
                 height: 1,
-                color: Colors.white
-                    .withValues(alpha: .14),
+
+                color: Colors.white.withValues(alpha: .14),
               ),
 
               const SizedBox(height: 22),
 
               const Text(
                 'One Certificate of Recognition may be issued per student per semester.',
+
                 style: TextStyle(
                   color: Color(0xFFCBD5E1),
+
                   fontSize: 13,
+
                   fontStyle: FontStyle.italic,
+
                   height: 1.5,
                 ),
               ),
@@ -735,26 +882,27 @@ class _CompassViewState extends State<CompassView> {
 
   Widget _buildRecognitionText() {
     return Column(
-      crossAxisAlignment:
-          CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+
       children: [
         const Row(
           mainAxisSize: MainAxisSize.min,
+
           children: [
-            Icon(
-              Icons.workspace_premium_outlined,
-              color: pink,
-              size: 19,
-            ),
+            Icon(Icons.workspace_premium_outlined, color: pink, size: 19),
 
             SizedBox(width: 8),
 
             Text(
               'ACADEMIC RECOGNITION',
+
               style: TextStyle(
                 color: pink,
+
                 fontSize: 12,
+
                 fontWeight: FontWeight.w800,
+
                 letterSpacing: 1.1,
               ),
             ),
@@ -765,10 +913,14 @@ class _CompassViewState extends State<CompassView> {
 
         const Text(
           'Participated in a COMPASS Opportunity?',
+
           style: TextStyle(
             color: Colors.white,
+
             fontSize: 25,
+
             fontWeight: FontWeight.w800,
+
             height: 1.2,
           ),
         ),
@@ -777,9 +929,10 @@ class _CompassViewState extends State<CompassView> {
 
         Text(
           'Submit your proof of participation for verification.',
+
           style: TextStyle(
-            color: Colors.white
-                .withValues(alpha: .78),
+            color: Colors.white.withValues(alpha: .78),
+
             fontSize: 14,
           ),
         ),
@@ -790,12 +943,17 @@ class _CompassViewState extends State<CompassView> {
   Widget _buildSubmitProofButton() {
     return _ActionButton(
       text: 'Submit Proof',
+
       icon: Icons.add_rounded,
+
       background: Colors.white,
+
       foreground: navy,
-      trailing:
-          Icons.arrow_forward_rounded,
+
+      trailing: Icons.arrow_forward_rounded,
+
       trailingColor: pink,
+
       onTap: () {
         _openLink(proofFormLink);
       },
@@ -803,53 +961,59 @@ class _CompassViewState extends State<CompassView> {
   }
 
   // =============================================================
+
   // LEARN MORE POPUP
+
   // =============================================================
 
-  void _showOpportunityDetails(
-    Opportunity o,
-  ) {
+  void _showOpportunityDetails(Opportunity o) {
     showDialog(
       context: context,
-      barrierColor:
-          Colors.black.withValues(alpha: .45),
+
+      barrierColor: Colors.black.withValues(alpha: .45),
+
       builder: (dialogContext) {
-        final height =
-            MediaQuery.sizeOf(dialogContext).height;
+        final height = MediaQuery.sizeOf(dialogContext).height;
 
         return Dialog(
           backgroundColor: Colors.transparent,
-          insetPadding:
-              const EdgeInsets.symmetric(
+
+          insetPadding: const EdgeInsets.symmetric(
             horizontal: 20,
+
             vertical: 30,
           ),
+
           child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxWidth: 760,
-              maxHeight: height * .88,
-            ),
+            constraints: BoxConstraints(maxWidth: 760, maxHeight: height * .88),
+
             child: ClipRRect(
-              borderRadius:
-                  BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(24),
+
               child: Material(
                 color: Colors.white,
+
                 child: Column(
                   children: [
                     // HEADER
                     Container(
                       color: navy,
-                      padding:
-                          const EdgeInsets.symmetric(
+
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 24,
+
                         vertical: 16,
                       ),
+
                       child: Row(
                         children: [
                           _pill(
                             o.category.toUpperCase(),
+
                             Colors.white,
+
                             pink,
+
                             fontSize: 11,
                           ),
 
@@ -857,15 +1021,15 @@ class _CompassViewState extends State<CompassView> {
 
                           IconButton(
                             tooltip: 'Close',
+
                             onPressed: () {
-                              Navigator.pop(
-                                dialogContext,
-                              );
+                              Navigator.pop(dialogContext);
                             },
+
                             icon: const Icon(
                               Icons.close_rounded,
-                              color:
-                                  Color(0xFFB8C3D9),
+
+                              color: Color(0xFFB8C3D9),
                             ),
                           ),
                         ],
@@ -874,24 +1038,23 @@ class _CompassViewState extends State<CompassView> {
 
                     // BODY
                     Expanded(
-                      child:
-                          SingleChildScrollView(
-                        padding:
-                            const EdgeInsets.all(
-                          28,
-                        ),
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.all(28),
+
                         child: Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+
                           children: [
                             Text(
                               o.title,
-                              style:
-                                  const TextStyle(
+
+                              style: const TextStyle(
                                 color: navy,
+
                                 fontSize: 27,
-                                fontWeight:
-                                    FontWeight.w800,
+
+                                fontWeight: FontWeight.w800,
+
                                 height: 1.2,
                               ),
                             ),
@@ -900,130 +1063,102 @@ class _CompassViewState extends State<CompassView> {
 
                             Text.rich(
                               TextSpan(
-                                style:
-                                    const TextStyle(
+                                style: const TextStyle(
                                   color: lightText,
+
                                   fontSize: 15,
                                 ),
+
                                 children: [
-                                  const TextSpan(
-                                    text:
-                                        'Organizer: ',
-                                  ),
+                                  const TextSpan(text: 'Organizer: '),
+
                                   TextSpan(
-                                    text:
-                                        o.organizer,
-                                    style:
-                                        const TextStyle(
+                                    text: o.organizer,
+
+                                    style: const TextStyle(
                                       color: navy,
-                                      fontWeight:
-                                          FontWeight
-                                              .w700,
+
+                                      fontWeight: FontWeight.w700,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
 
-                            const SizedBox(
-                              height: 26,
-                            ),
+                            const SizedBox(height: 26),
 
                             _buildInfoBox(o),
 
-                            const SizedBox(
-                              height: 28,
-                            ),
+                            const SizedBox(height: 28),
 
-                            _sectionTitle(
-                              'About Opportunity',
-                            ),
+                            _sectionTitle('About Opportunity'),
 
-                            const SizedBox(
-                              height: 10,
-                            ),
+                            const SizedBox(height: 10),
 
                             Text(
                               o.description,
-                              style:
-                                  const TextStyle(
+
+                              style: const TextStyle(
                                 color: lightText,
+
                                 fontSize: 15,
+
                                 height: 1.6,
                               ),
                             ),
 
-                            if (o.eligibility
-                                .isNotEmpty) ...[
-                              const SizedBox(
-                                height: 28,
-                              ),
+                            if (o.eligibility.isNotEmpty) ...[
+                              const SizedBox(height: 28),
 
-                              _sectionTitle(
-                                'Eligibility Criteria',
-                              ),
+                              _sectionTitle('Eligibility Criteria'),
 
-                              const SizedBox(
-                                height: 12,
-                              ),
+                              const SizedBox(height: 12),
 
                               ...o.eligibility.map(
                                 (item) => Padding(
-                                  padding:
-                                      const EdgeInsets
-                                          .only(
-                                    bottom: 10,
-                                  ),
+                                  padding: const EdgeInsets.only(bottom: 10),
+
                                   child: Row(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment
-                                            .start,
+                                        CrossAxisAlignment.start,
+
                                     children: [
                                       Container(
-                                        margin:
-                                            const EdgeInsets
-                                                .only(
-                                          top: 1,
-                                        ),
+                                        margin: const EdgeInsets.only(top: 1),
+
                                         width: 19,
+
                                         height: 19,
-                                        decoration:
-                                            BoxDecoration(
-                                          color:
-                                              lightPink,
-                                          shape:
-                                              BoxShape
-                                                  .circle,
-                                          border:
-                                              Border.all(
-                                            color:
-                                                pink,
-                                          ),
+
+                                        decoration: BoxDecoration(
+                                          color: lightPink,
+
+                                          shape: BoxShape.circle,
+
+                                          border: Border.all(color: pink),
                                         ),
-                                        child:
-                                            const Icon(
-                                          Icons
-                                              .check_rounded,
+
+                                        child: const Icon(
+                                          Icons.check_rounded,
+
                                           size: 12,
+
                                           color: pink,
                                         ),
                                       ),
 
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
+                                      const SizedBox(width: 10),
 
                                       Expanded(
                                         child: Text(
                                           item,
-                                          style:
-                                              const TextStyle(
-                                            color:
-                                                lightText,
-                                            fontSize:
-                                                14,
-                                            height:
-                                                1.4,
+
+                                          style: const TextStyle(
+                                            color: lightText,
+
+                                            fontSize: 14,
+
+                                            height: 1.4,
                                           ),
                                         ),
                                       ),
@@ -1033,78 +1168,62 @@ class _CompassViewState extends State<CompassView> {
                               ),
                             ],
 
-                            if (o.perks
-                                .isNotEmpty) ...[
-                              const SizedBox(
-                                height: 26,
-                              ),
+                            if (o.perks.isNotEmpty) ...[
+                              const SizedBox(height: 26),
 
-                              _sectionTitle(
-                                'Perks & Awards',
-                              ),
+                              _sectionTitle('Perks & Awards'),
 
-                              const SizedBox(
-                                height: 12,
-                              ),
+                              const SizedBox(height: 12),
 
                               Wrap(
                                 spacing: 8,
+
                                 runSpacing: 8,
+
                                 children: o.perks
                                     .map(
-                                      (perk) =>
-                                          Container(
-                                        padding:
-                                            const EdgeInsets
-                                                .symmetric(
-                                          horizontal:
-                                              12,
+                                      (perk) => Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 12,
+
                                           vertical: 8,
                                         ),
-                                        decoration:
-                                            BoxDecoration(
-                                          color:
-                                              lightPink,
-                                          borderRadius:
-                                              BorderRadius
-                                                  .circular(
+
+                                        decoration: BoxDecoration(
+                                          color: lightPink,
+
+                                          borderRadius: BorderRadius.circular(
                                             8,
                                           ),
-                                          border:
-                                              Border.all(
-                                            color: pink
-                                                .withValues(
-                                              alpha:
-                                                  .18,
-                                            ),
+
+                                          border: Border.all(
+                                            color: pink.withValues(alpha: .18),
                                           ),
                                         ),
+
                                         child: Row(
-                                          mainAxisSize:
-                                              MainAxisSize
-                                                  .min,
+                                          mainAxisSize: MainAxisSize.min,
+
                                           children: [
                                             const Icon(
-                                              Icons
-                                                  .auto_awesome,
-                                              color:
-                                                  pink,
-                                              size:
-                                                  14,
+                                              Icons.auto_awesome,
+
+                                              color: pink,
+
+                                              size: 14,
                                             ),
-                                            const SizedBox(
-                                              width: 6,
-                                            ),
+
+                                            const SizedBox(width: 6),
+
                                             Text(
                                               perk,
-                                              style:
-                                                  const TextStyle(
-                                                color:
-                                                    navy,
-                                                fontSize:
-                                                    13,
-                                                fontWeight:
-                                                    FontWeight.w600,
+
+                                              style: const TextStyle(
+                                                color: navy,
+
+                                                fontSize: 13,
+
+                                                fontWeight: FontWeight.w600,
                                               ),
                                             ),
                                           ],
@@ -1122,68 +1241,60 @@ class _CompassViewState extends State<CompassView> {
                     // ACTIONS
                     Container(
                       width: double.infinity,
-                      padding:
-                          const EdgeInsets.symmetric(
+
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 24,
+
                         vertical: 18,
                       ),
-                      decoration:
-                          const BoxDecoration(
-                        color:
-                            Color(0xFFFFF8FA),
-                        border: Border(
-                          top: BorderSide(
-                            color: borderColor,
-                          ),
-                        ),
+
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFFFF8FA),
+
+                        border: Border(top: BorderSide(color: borderColor)),
                       ),
+
                       child: LayoutBuilder(
                         builder: (context, c) {
-                          final mobile =
-                              c.maxWidth < 600;
+                          final mobile = c.maxWidth < 600;
 
-                          final proof =
-                              _ActionButton(
-                            text:
-                                'Submit Proof of Participation',
-                            icon: Icons
-                                .workspace_premium_outlined,
+                          final proof = _ActionButton(
+                            text: 'Submit Proof of Participation',
+
+                            icon: Icons.workspace_premium_outlined,
+
                             background: pink,
-                            foreground:
-                                Colors.white,
+
+                            foreground: Colors.white,
+
                             onTap: () {
-                              _openLink(
-                                proofFormLink,
-                              );
+                              _openLink(proofFormLink);
                             },
                           );
 
-                          final register =
-                              _ActionButton(
-                            text:
-                                'Visit Official Site / Register',
-                            icon: Icons
-                                .open_in_new_rounded,
+                          final register = _ActionButton(
+                            text: 'Visit Official Site / Register',
+
+                            icon: Icons.open_in_new_rounded,
+
                             background: navy,
-                            foreground:
-                                Colors.white,
+
+                            foreground: Colors.white,
+
                             onTap: () {
-                              _openLink(
-                                o.registrationLink,
-                              );
+                              _openLink(o.registrationLink);
                             },
                           );
 
                           if (mobile) {
                             return Column(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment
-                                      .stretch,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+
                               children: [
                                 register,
-                                const SizedBox(
-                                  height: 10,
-                                ),
+
+                                const SizedBox(height: 10),
+
                                 proof,
                               ],
                             );
@@ -1191,15 +1302,11 @@ class _CompassViewState extends State<CompassView> {
 
                           return Row(
                             children: [
-                              Expanded(
-                                child: proof,
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              Expanded(
-                                child: register,
-                              ),
+                              Expanded(child: proof),
+
+                              const SizedBox(width: 20),
+
+                              Expanded(child: register),
                             ],
                           );
                         },
@@ -1215,49 +1322,50 @@ class _CompassViewState extends State<CompassView> {
     );
   }
 
-  Widget _buildInfoBox(
-    Opportunity o,
-  ) {
+  Widget _buildInfoBox(Opportunity o) {
     return Container(
       width: double.infinity,
+
       padding: const EdgeInsets.all(20),
+
       decoration: BoxDecoration(
         color: lightPink,
+
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: pink.withValues(alpha: .18),
-        ),
+
+        border: Border.all(color: pink.withValues(alpha: .18)),
       ),
+
       child: LayoutBuilder(
         builder: (context, c) {
           final deadline = _PopupInfoItem(
-            icon:
-                Icons.calendar_month_outlined,
+            icon: Icons.calendar_month_outlined,
+
             label: 'Deadline',
+
             value: o.deadline,
           );
 
           final location = _PopupInfoItem(
-            icon:
-                Icons.location_on_outlined,
+            icon: Icons.location_on_outlined,
+
             label: 'Location',
+
             value: o.location,
           );
 
           if (c.maxWidth < 520) {
             return Column(
-              children: [
-                deadline,
-                const SizedBox(height: 16),
-                location,
-              ],
+              children: [deadline, const SizedBox(height: 16), location],
             );
           }
 
           return Row(
             children: [
               Expanded(child: deadline),
+
               const SizedBox(width: 30),
+
               Expanded(child: location),
             ],
           );
@@ -1266,104 +1374,117 @@ class _CompassViewState extends State<CompassView> {
     );
   }
 
-  Widget _sectionTitle(
-    String text,
-  ) {
+  Widget _sectionTitle(String text) {
     return Text(
       text,
+
       style: const TextStyle(
         color: navy,
+
         fontSize: 16,
+
         fontWeight: FontWeight.w800,
       ),
     );
   }
 
   // =============================================================
+
   // OPEN LINKS
+
   // =============================================================
 
-  Future<void> _openLink(
-    String link,
-  ) async {
+  Future<void> _openLink(String link) async {
     final uri = Uri.parse(link);
 
-    final opened = await launchUrl(
-      uri,
-      webOnlyWindowName: '_blank',
-    );
+    final opened = await launchUrl(uri, webOnlyWindowName: '_blank');
 
     if (!opened && mounted) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(
-        const SnackBar(
-          content: Text(
-            'Unable to open the link.',
-          ),
-        ),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Unable to open the link.')));
     }
   }
 }
 
 // ===============================================================
+
 // OPPORTUNITY MODEL
+
 // ===============================================================
 
 class Opportunity {
   final String title;
+
   final String organizer;
+
   final String category;
+
   final String description;
+
   final String deadline;
+
   final String status;
+
   final String location;
+
   final String registrationLink;
 
   final List<String> eligibility;
+
   final List<String> perks;
 
   const Opportunity({
     required this.title,
+
     required this.organizer,
+
     required this.category,
+
     required this.description,
+
     required this.deadline,
+
     required this.status,
+
     required this.registrationLink,
+
     this.location = 'To be announced',
+
     this.eligibility = const [],
+
     this.perks = const [],
   });
 }
 
 // ===============================================================
+
 // POPUP INFO
+
 // ===============================================================
 
-class _PopupInfoItem
-    extends StatelessWidget {
+class _PopupInfoItem extends StatelessWidget {
   final IconData icon;
+
   final String label;
+
   final String value;
 
   const _PopupInfoItem({
     required this.icon,
+
     required this.label,
+
     required this.value,
   });
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment:
-          CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+
       children: [
-        Icon(
-          icon,
-          color: _CompassViewState.pink,
-          size: 21,
-        ),
+        Icon(icon, color: _CompassViewState.pink, size: 21),
 
         const SizedBox(width: 10),
 
@@ -1371,21 +1492,21 @@ class _PopupInfoItem
           child: Text.rich(
             TextSpan(
               style: const TextStyle(
-                color:
-                    _CompassViewState.lightText,
+                color: _CompassViewState.lightText,
+
                 fontSize: 14,
               ),
+
               children: [
-                TextSpan(
-                  text: '$label: ',
-                ),
+                TextSpan(text: '$label: '),
+
                 TextSpan(
                   text: value,
+
                   style: const TextStyle(
-                    color:
-                        _CompassViewState.navy,
-                    fontWeight:
-                        FontWeight.w700,
+                    color: _CompassViewState.navy,
+
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ],
@@ -1398,24 +1519,21 @@ class _PopupInfoItem
 }
 
 // ===============================================================
+
 // LEARN MORE BUTTON
+
 // ===============================================================
 
-class _LearnMoreButton
-    extends StatefulWidget {
+class _LearnMoreButton extends StatefulWidget {
   final VoidCallback onTap;
 
-  const _LearnMoreButton({
-    required this.onTap,
-  });
+  const _LearnMoreButton({required this.onTap});
 
   @override
-  State<_LearnMoreButton> createState() =>
-      _LearnMoreButtonState();
+  State<_LearnMoreButton> createState() => _LearnMoreButtonState();
 }
 
-class _LearnMoreButtonState
-    extends State<_LearnMoreButton> {
+class _LearnMoreButtonState extends State<_LearnMoreButton> {
   bool hovered = false;
 
   @override
@@ -1424,50 +1542,46 @@ class _LearnMoreButtonState
       onEnter: (_) {
         setState(() => hovered = true);
       },
+
       onExit: (_) {
         setState(() => hovered = false);
       },
+
       child: InkWell(
         onTap: widget.onTap,
-        borderRadius:
-            BorderRadius.circular(30),
+
+        borderRadius: BorderRadius.circular(30),
+
         child: AnimatedContainer(
-          duration: const Duration(
-            milliseconds: 170,
-          ),
-          padding:
-              const EdgeInsets.symmetric(
-            horizontal: 18,
-            vertical: 11,
-          ),
+          duration: const Duration(milliseconds: 170),
+
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 11),
+
           decoration: BoxDecoration(
-            color: hovered
-                ? _CompassViewState.pink
-                : _CompassViewState.navy,
-            borderRadius:
-                BorderRadius.circular(30),
+            color: hovered ? _CompassViewState.pink : _CompassViewState.navy,
+
+            borderRadius: BorderRadius.circular(30),
           ),
+
           child: const Row(
-            mainAxisSize:
-                MainAxisSize.min,
+            mainAxisSize: MainAxisSize.min,
+
             children: [
               Text(
                 'LEARN MORE',
+
                 style: TextStyle(
                   color: Colors.white,
+
                   fontSize: 12,
-                  fontWeight:
-                      FontWeight.w800,
+
+                  fontWeight: FontWeight.w800,
                 ),
               ),
 
               SizedBox(width: 8),
 
-              Icon(
-                Icons.arrow_forward_rounded,
-                color: Colors.white,
-                size: 16,
-              ),
+              Icon(Icons.arrow_forward_rounded, color: Colors.white, size: 16),
             ],
           ),
         ),
@@ -1477,36 +1591,47 @@ class _LearnMoreButtonState
 }
 
 // ===============================================================
+
 // ACTION BUTTON
+
 // ===============================================================
 
-class _ActionButton
-    extends StatefulWidget {
+class _ActionButton extends StatefulWidget {
   final String text;
+
   final IconData icon;
+
   final IconData? trailing;
+
   final Color background;
+
   final Color foreground;
+
   final Color? trailingColor;
+
   final VoidCallback onTap;
 
   const _ActionButton({
     required this.text,
+
     required this.icon,
+
     required this.background,
+
     required this.foreground,
+
     required this.onTap,
+
     this.trailing,
+
     this.trailingColor,
   });
 
   @override
-  State<_ActionButton> createState() =>
-      _ActionButtonState();
+  State<_ActionButton> createState() => _ActionButtonState();
 }
 
-class _ActionButtonState
-    extends State<_ActionButton> {
+class _ActionButtonState extends State<_ActionButton> {
   bool hovered = false;
 
   @override
@@ -1515,40 +1640,38 @@ class _ActionButtonState
       onEnter: (_) {
         setState(() => hovered = true);
       },
+
       onExit: (_) {
         setState(() => hovered = false);
       },
+
       child: InkWell(
         onTap: widget.onTap,
-        borderRadius:
-            BorderRadius.circular(30),
+
+        borderRadius: BorderRadius.circular(30),
+
         child: AnimatedContainer(
-          duration: const Duration(
-            milliseconds: 160,
-          ),
-          padding:
-              const EdgeInsets.symmetric(
-            horizontal: 22,
-            vertical: 14,
-          ),
+          duration: const Duration(milliseconds: 160),
+
+          padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
+
           decoration: BoxDecoration(
-            color: hovered
-                ? _CompassViewState.pink
-                : widget.background,
-            borderRadius:
-                BorderRadius.circular(30),
+            color: hovered ? _CompassViewState.pink : widget.background,
+
+            borderRadius: BorderRadius.circular(30),
           ),
+
           child: Row(
-            mainAxisSize:
-                MainAxisSize.min,
-            mainAxisAlignment:
-                MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+
+            mainAxisAlignment: MainAxisAlignment.center,
+
             children: [
               Icon(
                 widget.icon,
-                color: hovered
-                    ? Colors.white
-                    : widget.foreground,
+
+                color: hovered ? Colors.white : widget.foreground,
+
                 size: 18,
               ),
 
@@ -1557,15 +1680,15 @@ class _ActionButtonState
               Flexible(
                 child: Text(
                   widget.text,
-                  textAlign:
-                      TextAlign.center,
+
+                  textAlign: TextAlign.center,
+
                   style: TextStyle(
-                    color: hovered
-                        ? Colors.white
-                        : widget.foreground,
+                    color: hovered ? Colors.white : widget.foreground,
+
                     fontSize: 13,
-                    fontWeight:
-                        FontWeight.w700,
+
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
@@ -1575,10 +1698,11 @@ class _ActionButtonState
 
                 Icon(
                   widget.trailing,
+
                   color: hovered
                       ? Colors.white
-                      : widget.trailingColor ??
-                          widget.foreground,
+                      : widget.trailingColor ?? widget.foreground,
+
                   size: 17,
                 ),
               ],

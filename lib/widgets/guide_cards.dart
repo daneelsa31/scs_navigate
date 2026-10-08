@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
+// ============================================================
+// MAIN SPECIALIZATION CARD
+// ============================================================
+
 class SpecCard extends StatelessWidget {
   final IconData icon;
   final String title;
   final String description;
   final String actionText;
+  final String? imagePath;
   final VoidCallback? onTap;
 
   const SpecCard({
@@ -13,22 +18,27 @@ class SpecCard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.actionText,
+    this.imagePath,
     this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    final hasImage =
+        imagePath != null && imagePath!.trim().isNotEmpty;
+
     return SizedBox(
-      height: 240,
+      height: hasImage ? 340 : 240,
       child: Material(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
+        clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: onTap,
           borderRadius: BorderRadius.circular(16),
           child: Container(
-            padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
+              color: Colors.white,
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
                 color: const Color(0xFFE2E8F0),
@@ -37,52 +47,97 @@ class SpecCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFDD9E5),
-                    borderRadius: BorderRadius.circular(8),
+                // =================================================
+                // IMAGE
+                // =================================================
+
+                if (hasImage)
+                  SizedBox(
+                    width: double.infinity,
+                    height: 145,
+                    child: Image.asset(
+                      imagePath!,
+                      fit: BoxFit.cover,
+                      alignment: Alignment.center,
+                    ),
                   ),
-                  child: Icon(
-                    icon,
-                    color: const Color(0xFFF55D95),
-                    size: 20,
-                  ),
-                ),
 
-                const SizedBox(height: 16),
+                // =================================================
+                // CARD CONTENT
+                // =================================================
 
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start,
+                      children: [
+                        // ICON
+                        Container(
+                          padding: const EdgeInsets.all(7),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFDD9E5),
+                            borderRadius:
+                                BorderRadius.circular(8),
+                          ),
+                          child: Icon(
+                            icon,
+                            color: const Color(0xFFF55D95),
+                            size: 18,
+                          ),
+                        ),
 
-                const SizedBox(height: 8),
+                        const SizedBox(height: 12),
 
-                Text(
-                  description,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFF64748B),
-                    height: 1.4,
-                  ),
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                        // TITLE
+                        Text(
+                          title,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF0F172A),
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
 
-                const Spacer(),
+                        const SizedBox(height: 7),
 
-                Text(
-                  actionText,
-                  style: const TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFFF55D95),
+                        // DESCRIPTION
+                        Text(
+                          description,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Color(0xFF64748B),
+                            height: 1.4,
+                          ),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+
+                        const Spacer(),
+
+                        // ACTION
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                actionText,
+                                style: const TextStyle(
+                                  fontSize: 11,
+                                  fontWeight:
+                                      FontWeight.bold,
+                                  color:
+                                      Color(0xFFF55D95),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -93,6 +148,10 @@ class SpecCard extends StatelessWidget {
     );
   }
 }
+
+// ============================================================
+// SMALL SPECIALIZATION CARD
+// ============================================================
 
 class MiniSpecCard extends StatelessWidget {
   final IconData icon;
@@ -133,6 +192,7 @@ class MiniSpecCard extends StatelessWidget {
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 13,
+              color: Color(0xFF0F172A),
             ),
           ),
 
@@ -143,6 +203,7 @@ class MiniSpecCard extends StatelessWidget {
             style: const TextStyle(
               fontSize: 11,
               color: Color(0xFF64748B),
+              height: 1.4,
             ),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
@@ -152,6 +213,10 @@ class MiniSpecCard extends StatelessWidget {
     );
   }
 }
+
+// ============================================================
+// STUDENT INSIGHT CARD
+// ============================================================
 
 class InsightCard extends StatelessWidget {
   final String quote;
@@ -192,14 +257,16 @@ class InsightCard extends StatelessWidget {
 
           const SizedBox(height: 16),
 
-          // AUTHOR + VERIFIED BADGE
+          // AUTHOR
           LayoutBuilder(
             builder: (context, constraints) {
-              final isSmall = constraints.maxWidth < 300;
+              final isSmall =
+                  constraints.maxWidth < 300;
 
               if (isSmall) {
                 return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start,
                   children: [
                     Text(
                       author,
@@ -209,13 +276,13 @@ class InsightCard extends StatelessWidget {
                       ),
                       softWrap: true,
                     ),
-
                   ],
                 );
               }
 
               return Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Text(
@@ -227,8 +294,6 @@ class InsightCard extends StatelessWidget {
                       softWrap: true,
                     ),
                   ),
-
-                  const SizedBox(width: 8),
                 ],
               );
             },
