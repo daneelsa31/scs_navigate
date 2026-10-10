@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'firebase_options.dart';
 import 'screens/main_page.dart';
+import 'screens/admin/admin_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +23,7 @@ class ScsNavigateApp extends StatelessWidget {
     return MaterialApp(
       title: 'SCS NAVIGATE',
       debugShowCheckedModeBanner: false,
+
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: const Color(0xFFFFFCFD),
@@ -36,7 +38,10 @@ class ScsNavigateApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const MainPage(),
+
+      home: Uri.base.path == '/admin'
+          ? const AdminPage()
+          : const MainPage(),
     );
   }
 }

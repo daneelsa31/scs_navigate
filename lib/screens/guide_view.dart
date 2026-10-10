@@ -25,7 +25,7 @@ class _GuideViewState extends State<GuideView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildGuideHeader(),
-        const SizedBox(height: 30),
+        const SizedBox(height: 22),
         _buildProgramPathwaySection(),
         const SizedBox(height: 30),
         _buildSpecializationsSection(),
@@ -44,26 +44,110 @@ class _GuideViewState extends State<GuideView> {
   // ============================================================
 
   Widget _buildGuideHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Your Comprehensive Academic Roadmap',
-          style: TextStyle(
-            fontSize: 36,
-            fontWeight: FontWeight.w800,
-            color: Color(0xFFFD73A6),
-            letterSpacing: -1.0,
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'SCS GUIDE',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFFF55D95),
+              letterSpacing: 1.3,
+            ),
           ),
-        ),
 
-        const SizedBox(height: 12),
+          const SizedBox(height: 10),
 
-        const Text(
-          'SCS GUIDE helps you navigate academic requirements, compare tracks, and select the right specializations based on verified curriculum standards and real senior experiences.',
-          style: TextStyle(fontSize: 16, color: Color(0xFF64748B), height: 1.5),
-        ),
-      ],
+          RichText(
+            text: const TextSpan(
+              style: TextStyle(
+                fontSize: 38,
+                fontWeight: FontWeight.w800,
+                height: 1.1,
+                letterSpacing: -1.1,
+                color: Color(0xFF0F172A),
+              ),
+              children: [
+                TextSpan(text: 'Your Comprehensive\n'),
+                TextSpan(
+                  text: 'Academic Roadmap',
+                  style: TextStyle(color: Color(0xFFF55D95)),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 14),
+
+          ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 900),
+            child: Text(
+              'Understand your program pathway, compare available IT specializations, '
+              'and prepare for the academic choices you may need to make.',
+              style: TextStyle(
+                fontSize: 16,
+                color: Color(0xFF64748B),
+                height: 1.55,
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 20),
+
+          Container(
+            constraints: const BoxConstraints(maxWidth: 880),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            decoration: BoxDecoration(
+              color: const Color(0xFFFFF7FA),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: const Color(0xFFF55D95).withValues(alpha: 0.18),
+              ),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(
+                  Icons.lightbulb_outline_rounded,
+                  color: Color(0xFFF55D95),
+                  size: 20,
+                ),
+
+                const SizedBox(width: 10),
+
+                Expanded(
+                  child: Text.rich(
+                    const TextSpan(
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFF475569),
+                        height: 1.5,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: 'Did you know? ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF0F172A),
+                          ),
+                        ),
+                        TextSpan(
+                          text:
+                              'During the 2nd semester of your 2nd year, some SCS programs begin choosing their specialization or academic pathway.',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -89,7 +173,7 @@ class _GuideViewState extends State<GuideView> {
               final programButtons = Wrap(
                 spacing: 8,
                 runSpacing: 8,
-                children: ['BSIT', 'BSCS', 'BSIS', 'ACT'].map((program) {
+                children: ['BSIT', 'BSCS', 'BSIS', 'ACT', 'GD'].map((program) {
                   final isSelected = _selectedProgram == program;
 
                   return InkWell(
@@ -202,113 +286,195 @@ class _GuideViewState extends State<GuideView> {
               color: const Color.fromARGB(255, 22, 49, 104),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'YOU ARE REQUIRED TO TAKE:',
-                  style: TextStyle(
-                    color: Color.fromARGB(153, 240, 239, 239),
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-
-                const SizedBox(height: 5),
-
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: _getRequiredCourses(_selectedProgram).map((course) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 4.0),
-                      child: Text(
-                        '•  $course',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 13,
-                          height: 1.4,
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ),
-
-                if (_getProgramNote(_selectedProgram).isNotEmpty) ...[
-                  const SizedBox(height: 5),
-
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.info_outline,
-                        size: 16,
-                        color: Color(0xFFF59E0B),
-                      ),
-
-                      const SizedBox(width: 8),
-
-                      Expanded(
-                        child: Text(
-                          _getProgramNote(_selectedProgram),
-                          style: const TextStyle(
-                            color: Color(0xFFF59E0B),
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-
-                const SizedBox(height: 16),
-
-                const Text(
-                  'YOU MAY CHOOSE FROM THESE SPECIALIZATIONS:',
-                  style: TextStyle(
-                    color: Colors.white60,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-
-                const SizedBox(height: 12),
-
-                Wrap(
-                  spacing: 12,
-                  runSpacing: 8,
-                  children: _getProgramSpecializations(_selectedProgram).map((
-                    spec,
-                  ) {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF55D95).withValues(alpha: 0.2),
-                        border: Border.all(color: const Color(0xFFF55D95)),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Text(
-                        '✓ $spec',
-                        style: const TextStyle(
-                          color: Color(0xFFFD73A6),
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ],
-            ),
+            child: _selectedProgram == 'ACT' || _selectedProgram == 'GD'
+                ? _buildNonSpecializationPathway()
+                : _buildSpecializationPathway(),
           ),
         ],
       ),
     );
   }
 
+  Widget _buildSpecializationPathway() {
+    final specializations = _getProgramSpecializations(_selectedProgram);
+    final note = _getProgramNote(_selectedProgram);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'PATHWAY RULE',
+          style: TextStyle(
+            color: Color.fromARGB(153, 240, 239, 239),
+            fontSize: 11,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 0.5,
+          ),
+        ),
+
+        const SizedBox(height: 6),
+
+        Text(
+          _getPathwayRule(_selectedProgram),
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 13,
+            height: 1.4,
+          ),
+        ),
+
+        if (note.isNotEmpty) ...[
+          const SizedBox(height: 10),
+
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Icon(
+                Icons.info_outline,
+                size: 16,
+                color: Color(0xFFF59E0B),
+              ),
+
+              const SizedBox(width: 8),
+
+              Expanded(
+                child: Text(
+                  note,
+                  style: const TextStyle(
+                    color: Color(0xFFF59E0B),
+                    fontSize: 12,
+                    height: 1.4,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+
+        const SizedBox(height: 18),
+
+        const Text(
+          'AVAILABLE IT SPECIALIZATIONS',
+          style: TextStyle(
+            color: Colors.white60,
+            fontSize: 11,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 0.5,
+          ),
+        ),
+
+        const SizedBox(height: 12),
+
+        Wrap(
+          spacing: 12,
+          runSpacing: 8,
+          children: specializations.map((spec) {
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF55D95).withValues(alpha: 0.2),
+                border: Border.all(color: const Color(0xFFF55D95)),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Text(
+                '✓ $spec',
+                style: const TextStyle(
+                  color: Color(0xFFFD73A6),
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildNonSpecializationPathway() {
+    final isAct = _selectedProgram == 'ACT';
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'PROGRAM PATHWAY',
+          style: TextStyle(
+            color: Color.fromARGB(153, 240, 239, 239),
+            fontSize: 11,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 0.5,
+          ),
+        ),
+
+        const SizedBox(height: 8),
+
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Icon(
+              Icons.check_circle_outline_rounded,
+              color: Color(0xFFF55D95),
+              size: 18,
+            ),
+
+            const SizedBox(width: 8),
+
+            Expanded(
+              child: Text(
+                isAct
+                    ? 'Follow the prescribed ACT curriculum.'
+                    : 'Follow the prescribed Game Development curriculum.',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  height: 1.4,
+                ),
+              ),
+            ),
+          ],
+        ),
+
+        const SizedBox(height: 20),
+
+        const Text(
+          'IT SPECIALIZATION',
+          style: TextStyle(
+            color: Color.fromARGB(153, 240, 239, 239),
+            fontSize: 11,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 0.5,
+          ),
+        ),
+
+        const SizedBox(height: 6),
+
+        const Text(
+          'Not required for this program.',
+          style: TextStyle(color: Colors.white, fontSize: 13, height: 1.4),
+        ),
+
+        const SizedBox(height: 18),
+
+        const Text(
+          'PROFESSIONAL ELECTIVE',
+          style: TextStyle(
+            color: Color.fromARGB(153, 240, 239, 239),
+            fontSize: 11,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 0.5,
+          ),
+        ),
+
+        const SizedBox(height: 6),
+
+        const Text(
+          'Not required for this program.',
+          style: TextStyle(color: Colors.white, fontSize: 13, height: 1.4),
+        ),
+      ],
+    );
+  }
   // ============================================================
   // SPECIALIZATIONS
   // ============================================================
@@ -410,55 +576,6 @@ class _GuideViewState extends State<GuideView> {
                 Expanded(child: card2),
                 const SizedBox(width: 16),
                 Expanded(child: card3),
-              ],
-            );
-          },
-        ),
-
-        const SizedBox(height: 28),
-
-        // --------------------------------------------------------
-        // OTHER SPECIALIZATIONS
-        // --------------------------------------------------------
-        const Text(
-          'OTHER PROGRAM SPECIALIZATIONS & ELECTIVES',
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF94A3B8),
-            letterSpacing: 0.5,
-          ),
-        ),
-
-        const SizedBox(height: 16),
-
-        LayoutBuilder(
-          builder: (context, constraints) {
-            final isSmall = constraints.maxWidth < 700;
-
-            return GridView.count(
-              crossAxisCount: isSmall ? 1 : 4,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
-              childAspectRatio: isSmall ? 3.2 : 2.3,
-              children: const [
-                MiniSpecCard(
-                  icon: Icons.memory,
-                  title: 'Artificial Intelligence',
-                  description: 'Engineered intelligence and machine learning.',
-                ),
-                MiniSpecCard(
-                  icon: Icons.analytics_outlined,
-                  title: 'Business Analytics',
-                  description: 'Bridge technology and business decisions.',
-                ),
-                MiniSpecCard(
-                  icon: Icons.code,
-                  title: 'Software Development',
-                  description: 'Master object-oriented design and clean code.',
-                ),
               ],
             );
           },
@@ -1317,8 +1434,13 @@ class _GuideViewState extends State<GuideView> {
         return 'Bachelor of Science in Information Systems (BSIS)';
 
       case 'ACT':
-      default:
         return 'Associate in Computer Technology (ACT)';
+
+      case 'GD':
+        return 'Game Development (GD)';
+
+      default:
+        return '';
     }
   }
 
@@ -1334,70 +1456,54 @@ class _GuideViewState extends State<GuideView> {
         return 'Integrates information technology solutions with business processes to help organizations achieve strategic goals.';
 
       case 'ACT':
-      default:
         return 'Two-year practical program covering essential software development and IT infrastructure basics.';
+
+      case 'GD':
+        return 'Follows a prescribed curriculum focused on game development and related computing subjects.';
+
+      default:
+        return '';
     }
   }
 
   List<String> _getProgramSpecializations(String program) {
     switch (program) {
       case 'BSIT':
-        return [
-          'Web Development',
-          'Mobile Development',
-          'Cybersecurity',
-          'AIoT',
-        ];
-
       case 'BSCS':
-        return [
-          'Artificial Intelligence',
-          'Software Development',
-          'Cybersecurity',
-        ];
-
       case 'BSIS':
-        return [
-          'Business Analytics',
-          'Web Development',
-          'Software Development',
-        ];
+        return ['Web Development', 'Mobile Development', 'Cybersecurity'];
 
       case 'ACT':
-      default:
-        return ['Web Development', 'Application Development'];
-    }
-  }
-
-  List<String> _getRequiredCourses(String program) {
-    switch (program) {
-      case 'BSIT':
-        return ['Minimum of 1 Specialization', 'Maximum of 2 Specializations'];
-
-      case 'BSCS':
-        return ['Artificial Intelligence', 'Maximum of 1 IT Specialization'];
-
-      case 'BSIS':
-        return ['Business Analytics', 'Maximum of 1 IT Specialization'];
-
-      case 'ACT':
-        return ['Software Development', 'Maximum of 1 IT Specialization'];
+      case 'GD':
+        return [];
 
       default:
         return [];
     }
   }
 
+  String _getPathwayRule(String program) {
+    switch (program) {
+      case 'BSIT':
+        return 'Choose 1 or 2 IT specializations.';
+
+      case 'BSCS':
+      case 'BSIS':
+        return 'You may choose up to 1 IT specialization.';
+
+      default:
+        return '';
+    }
+  }
+
   String _getProgramNote(String program) {
     switch (program) {
       case 'BSIT':
-        return 'If you opt to enroll in only 1 specialization, you are required to enroll in Proffessional Elective course.';
+        return 'If you choose only 1 IT specialization, you are required to enroll in the Professional Elective.';
 
       case 'BSCS':
-        return 'If you opt not to take any specialization, you are required to enroll in Proffessional Elective course.';
-
       case 'BSIS':
-        return 'If you opt not to take any specialization, you are required to enroll in Proffessional Elective course.';
+        return 'If you do not choose an IT specialization, you are required to enroll in the Professional Elective.';
 
       default:
         return '';

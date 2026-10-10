@@ -1606,7 +1606,7 @@ class _SpecializationDetailScreenState
                     project.imageUrl!,
                     fit: BoxFit.cover,
                     errorBuilder:
-                        (_, _, __) {
+                        (_, _, _) {
                       return _buildProjectMediaPlaceholder(
                         project.mediaType,
                       );
