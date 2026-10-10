@@ -60,11 +60,58 @@ class _CompassViewState extends State<CompassView> {
       stream: _opportunityService.getPublicOpportunities(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Padding(
-            padding: EdgeInsets.symmetric(vertical: 100),
-            child: Center(child: CircularProgressIndicator(color: pink)),
-          );
-        }
+  return LayoutBuilder(
+    builder: (context, constraints) {
+      final mobile = constraints.maxWidth < 700;
+
+      return Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFFFFF7FA),
+              Color(0xFFFFFBFD),
+              Color(0xFFFFF4F8),
+            ],
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildCompassHero(mobile),
+
+            const SizedBox(height: 22),
+
+            _buildSearchPanel(mobile),
+
+            const SizedBox(height: 28),
+
+            const Text(
+              'Loading opportunities...',
+              style: TextStyle(
+                color: lightText,
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            _buildLoadingCards(),
+
+            const SizedBox(height: 28),
+
+            _buildRecognitionBanner(),
+
+            const SizedBox(height: 8),
+          ],
+        ),
+      );
+    },
+  );
+}
 
         if (snapshot.hasError) {
           return Padding(
@@ -1373,4 +1420,48 @@ class _ActionButtonState extends State<_ActionButton> {
       ),
     );
   }
+}
+
+Widget _buildLoadingCards() {
+  return LayoutBuilder(
+    builder: (context, constraints) {
+      final mobile = constraints.maxWidth < 850;
+
+      Widget loadingCard() {
+  var pink;
+  return Container(
+    height: 260,
+    decoration: BoxDecoration(
+      color: Colors.white.withValues(alpha: 0.90),
+      borderRadius: BorderRadius.circular(22),
+      border: Border.all(
+        color: pink.withValues(alpha: 0.12),
+      ),
+    ),
+    child: Center(
+      child: CircularProgressIndicator(
+        color: pink,
+        strokeWidth: 2.5,
+      ),
+    ),
+  );
+}
+
+      if (mobile) {
+        return loadingCard();
+      }
+
+      return Row(
+        children: [
+          Expanded(
+            child: loadingCard(),
+          ),
+          const SizedBox(width: 20),
+          Expanded(
+            child: loadingCard(),
+          ),
+        ],
+      );
+    },
+  );
 }

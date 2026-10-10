@@ -132,13 +132,13 @@ class HomeView extends StatelessWidget {
               ),
               children: [
                 TextSpan(
-                  text: 'Your Comprehensive\n',
+                  text: 'Navigate Your SCS Journey\n',
                   style: TextStyle(
                     color: navy,
                   ),
                 ),
                 TextSpan(
-                  text: 'Academic Roadmap',
+                  text: 'Explore Paths. Discover Opportunities.',
                   style: TextStyle(
                     color: deepPink,
                   ),
