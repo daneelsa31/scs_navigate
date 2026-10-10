@@ -64,6 +64,8 @@ flutter:
   assets:
     - assets/images/scs_navigate_logo.png
     - assets/images/specializations/
+    - assets/images/scs_ssc_logo.png
+    - assets/images/home_background.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

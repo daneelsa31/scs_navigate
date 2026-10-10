@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'home_view.dart';
 import 'guide_view.dart';
 import 'specialization_detail.dart';
-import '../models/specialization.dart';
 import 'compass_view.dart';
+
+import '../models/specialization.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -14,12 +16,20 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
+
   Specialization? _selectedSpecialization;
 
   static const Color navy = Color(0xFF00184D);
+
   static const Color pink = Color(0xFFF55D95);
+
   static const Color lightText = Color(0xFF64748B);
+
   static const Color background = Color(0xFFFFFCFD);
+
+  // =============================================================
+  // NAVIGATION
+  // =============================================================
 
   void _navigateToTab(int index) {
     setState(() {
@@ -40,11 +50,17 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  // =============================================================
+  // BUILD
+  // =============================================================
+
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.sizeOf(context).width;
 
     final bool isMobile = screenWidth < 850;
+
+    final bool isHome = _selectedIndex == 0 && _selectedSpecialization == null;
 
     return Scaffold(
       backgroundColor: background,
@@ -53,18 +69,40 @@ class _MainPageState extends State<MainPage> {
       // NAVIGATION BAR
       // =========================================================
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.5,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         toolbarHeight: 76,
-        titleSpacing: isMobile ? 14 : 28,
+        titleSpacing: isMobile ? 14 : 32,
         surfaceTintColor: Colors.transparent,
 
+        // =======================================================
+        // NAVBAR BACKGROUND
+        // =======================================================
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: isHome
+                  ? [
+                      const Color(0xFFFFFAFC),
+                      const Color(0xFFFFF2F7),
+                      const Color(0xFFFFDDEA),
+                    ]
+                  : [Colors.white, Colors.white],
+            ),
+          ),
+        ),
+
+        // =======================================================
+        // LOGO
+        // =======================================================
         title: Row(
           children: [
             Image.asset(
               'assets/images/scs_navigate_logo.png',
-              width: isMobile ? 44 : 52,
-              height: isMobile ? 44 : 52,
+              width: isMobile ? 46 : 54,
+              height: isMobile ? 46 : 54,
               fit: BoxFit.contain,
             ),
 
@@ -83,6 +121,7 @@ class _MainPageState extends State<MainPage> {
                     letterSpacing: -0.5,
                   ),
                 ),
+
                 Text(
                   'SCHOOL OF COMPUTER STUDIES',
                   style: TextStyle(
@@ -97,19 +136,25 @@ class _MainPageState extends State<MainPage> {
           ],
         ),
 
+        // =======================================================
+        // NAVIGATION ITEMS
+        // =======================================================
         actions: [
           if (!isMobile) ...[
             _navItem(0, 'Home'),
             _navItem(1, 'GUIDE'),
             _navItem(2, 'COMPASS'),
             _navItem(3, 'About'),
+
             const SizedBox(width: 18),
           ],
 
           IconButton(
             tooltip: 'Search',
-            icon: const Icon(Icons.search, color: lightText),
-            onPressed: () => _showSearchDialog(context),
+            icon: const Icon(Icons.search_rounded, color: lightText),
+            onPressed: () {
+              _showSearchDialog(context);
+            },
           ),
 
           const SizedBox(width: 12),
@@ -135,7 +180,9 @@ class _MainPageState extends State<MainPage> {
                           height: 55,
                           fit: BoxFit.contain,
                         ),
+
                         const SizedBox(height: 8),
+
                         const Text(
                           'SCS NAVIGATE',
                           style: TextStyle(
@@ -149,8 +196,11 @@ class _MainPageState extends State<MainPage> {
                   ),
 
                   _drawerItem(0, 'Home'),
+
                   _drawerItem(1, 'GUIDE'),
+
                   _drawerItem(2, 'COMPASS'),
+
                   _drawerItem(3, 'About'),
                 ],
               ),
@@ -159,11 +209,6 @@ class _MainPageState extends State<MainPage> {
 
       // =========================================================
       // BODY
-      //
-      // SelectionArea = users can highlight/copy website text.
-      //
-      // LayoutBuilder + ConstrainedBox + IntrinsicHeight =
-      // footer remains at the bottom on short pages.
       // =========================================================
       body: SelectionArea(
         child: LayoutBuilder(
@@ -174,32 +219,39 @@ class _MainPageState extends State<MainPage> {
                   minHeight: viewportConstraints.maxHeight,
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // MAIN CONTENT
-                    Center(
-                      child: Container(
+                    // ============================================
+                    // HOME
+                    // Full width
+                    // ============================================
+                    if (isHome)
+                      SizedBox(width: double.infinity, child: _buildBody())
+                    // ============================================
+                    // OTHER PAGES
+                    // ============================================
+                    else
+                      Container(
                         width: double.infinity,
-                        constraints: const BoxConstraints(maxWidth: 1280),
-
-                        padding: EdgeInsets.only(
-                          left: isMobile ? 18 : 40,
-                          right: isMobile ? 18 : 40,
-
-                          // GUIDE has less space above the heading
-                          top: _selectedIndex == 1
-                              ? (isMobile ? 12 : 18)
-                              : (isMobile ? 28 : 44),
-
-                          bottom: isMobile ? 28 : 44,
+                        color: _selectedIndex == 1
+                            ? const Color(0xFFFFF7FA)
+                            : background,
+                        child: Center(
+                          child: Container(
+                            width: double.infinity,
+                            constraints: const BoxConstraints(maxWidth: 1280),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: isMobile ? 18 : 40,
+                              vertical: isMobile ? 28 : 44,
+                            ),
+                            child: _buildBody(),
+                          ),
                         ),
-
-                        child: _buildBody(),
                       ),
-                    ),
 
+                    // ============================================
                     // FOOTER
+                    // ============================================
                     _buildFooter(),
                   ],
                 ),
@@ -212,14 +264,17 @@ class _MainPageState extends State<MainPage> {
   }
 
   // =============================================================
-  // NAVIGATION ITEM
+  // NAVIGATION BUTTON
   // =============================================================
 
   Widget _navItem(int index, String label) {
-    final bool isSelected = _selectedIndex == index;
+    final bool isSelected =
+        _selectedIndex == index && _selectedSpecialization == null;
 
     return TextButton(
-      onPressed: () => _navigateToTab(index),
+      onPressed: () {
+        _navigateToTab(index);
+      },
       style: ButtonStyle(
         padding: WidgetStateProperty.all(
           const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
@@ -238,7 +293,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   // =============================================================
-  // MOBILE DRAWER ITEM
+  // MOBILE DRAWER BUTTON
   // =============================================================
 
   Widget _drawerItem(int index, String label) {
@@ -246,6 +301,7 @@ class _MainPageState extends State<MainPage> {
 
     return ListTile(
       selected: isSelected,
+
       selectedTileColor: pink.withValues(alpha: 0.10),
 
       leading: Container(
@@ -267,13 +323,14 @@ class _MainPageState extends State<MainPage> {
 
       onTap: () {
         _navigateToTab(index);
+
         Navigator.pop(context);
       },
     );
   }
 
   // =============================================================
-  // BODY CONTENT
+  // BUILD CURRENT PAGE
   // =============================================================
 
   Widget _buildBody() {
@@ -292,7 +349,7 @@ class _MainPageState extends State<MainPage> {
         return GuideView(onSpecializationTap: _showSpecialization);
 
       case 2:
-        return CompassView();
+        return const CompassView();
 
       case 3:
       default:
@@ -317,209 +374,81 @@ class _MainPageState extends State<MainPage> {
   // FOOTER
   // =============================================================
 
+  // =============================================================
+  // FOOTER
+  // =============================================================
+
+  // =============================================================
+  // FOOTER
+  // =============================================================
+
   Widget _buildFooter() {
     return Container(
       width: double.infinity,
       decoration: const BoxDecoration(
         color: navy,
-        border: Border(top: BorderSide(color: pink, width: 4)),
+        border: Border(top: BorderSide(color: pink, width: 3)),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 34),
-
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 26),
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1280),
-
+          constraints: const BoxConstraints(maxWidth: 1450),
           child: LayoutBuilder(
             builder: (context, constraints) {
-              final bool isSmall = constraints.maxWidth < 760;
+              final bool isMobile = constraints.maxWidth < 900;
 
-              // =================================================
-              // MOBILE FOOTER
-              // =================================================
-              if (isSmall) {
+              if (isMobile) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          'assets/images/scs_navigate_logo.png',
-                          width: 60,
-                          height: 60,
-                          fit: BoxFit.contain,
-                        ),
-
-                        const SizedBox(width: 16),
-
-                        const Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'SCS NAVIGATE',
-                                style: TextStyle(
-                                  color: pink,
-                                  fontSize: 21,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-
-                              SizedBox(height: 4),
-
-                              Text(
-                                'School of Computer Studies',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 18),
-
-                    const Text(
-                      'Your centralized hub for academic pathways, '
-                      'specializations, and technology opportunities.',
-                      style: TextStyle(
-                        color: Color(0xFFB8C3D9),
-                        fontSize: 14,
-                        height: 1.5,
-                      ),
-                    ),
+                    _buildFooterNavigate(),
 
                     const SizedBox(height: 24),
 
                     Container(
                       width: double.infinity,
                       height: 1,
-                      color: pink.withValues(alpha: 0.6),
+                      color: Colors.white12,
                     ),
 
                     const SizedBox(height: 24),
 
-                    const _FooterInfo(
-                      icon: Icons.email_outlined,
-                      text: 'scs.navigate@usjr.edu.ph',
+                    _buildFooterSsc(),
+
+                    const SizedBox(height: 24),
+
+                    Container(
+                      width: double.infinity,
+                      height: 1,
+                      color: Colors.white12,
                     ),
 
-                    const SizedBox(height: 14),
+                    const SizedBox(height: 22),
 
-                    const _FooterInfo(
-                      icon: Icons.language,
-                      text: 'www.usjr.edu.ph',
-                    ),
-
-                    const SizedBox(height: 14),
-
-                    const _FooterInfo(
-                      icon: Icons.location_on_outlined,
-                      text: 'P. del Rosario St., Cebu City, Philippines 6000',
-                    ),
+                    _buildFooterContacts(),
                   ],
                 );
               }
 
-              // =================================================
-              // DESKTOP FOOTER
-              // =================================================
               return Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  // LEFT - SCS NAVIGATE
+                  Expanded(flex: 3, child: _buildFooterNavigate()),
+
+                  const SizedBox(width: 30),
+
+                  // CENTER - SCS SSC
+                  Expanded(flex: 4, child: _buildFooterSsc()),
+
+                  const SizedBox(width: 30),
+
+                  // RIGHT - CONTACT INFO
                   Expanded(
                     flex: 3,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          'assets/images/scs_navigate_logo.png',
-                          width: 76,
-                          height: 76,
-                          fit: BoxFit.contain,
-                        ),
-
-                        const SizedBox(width: 22),
-
-                        const Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'SCS NAVIGATE',
-                                style: TextStyle(
-                                  color: pink,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-
-                              SizedBox(height: 4),
-
-                              Text(
-                                'School of Computer Studies',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-
-                              SizedBox(height: 12),
-
-                              Text(
-                                'Your centralized hub for academic pathways, '
-                                'specializations, and technology opportunities.',
-                                style: TextStyle(
-                                  color: Color(0xFFB8C3D9),
-                                  fontSize: 14,
-                                  height: 1.5,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  Container(
-                    width: 1,
-                    height: 115,
-                    color: pink.withValues(alpha: 0.7),
-                    margin: const EdgeInsets.symmetric(horizontal: 44),
-                  ),
-
-                  const Expanded(
-                    flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _FooterInfo(
-                          icon: Icons.email_outlined,
-                          text: 'scs.navigate@usjr.edu.ph',
-                        ),
-
-                        SizedBox(height: 16),
-
-                        _FooterInfo(
-                          icon: Icons.language,
-                          text: 'www.usjr.edu.ph',
-                        ),
-
-                        SizedBox(height: 16),
-
-                        _FooterInfo(
-                          icon: Icons.location_on_outlined,
-                          text:
-                              'P. del Rosario St., Cebu City, Philippines 6000',
-                        ),
-                      ],
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: _buildFooterContacts(),
                     ),
                   ),
                 ],
@@ -528,6 +457,139 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
       ),
+    );
+  }
+
+  // =============================================================
+  // FOOTER LEFT - SCS NAVIGATE
+  // =============================================================
+
+  Widget _buildFooterNavigate() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Image.asset(
+          'assets/images/scs_navigate_logo.png',
+          width: 78,
+          height: 78,
+          fit: BoxFit.contain,
+        ),
+
+        const SizedBox(width: 18),
+
+        Container(width: 1, height: 62, color: Colors.white24),
+
+        const SizedBox(width: 18),
+
+        const Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'SCS NAVIGATE',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 0.3,
+                ),
+              ),
+
+              SizedBox(height: 5),
+
+              Text(
+                'Explore. Plan. Advance.',
+                style: TextStyle(color: Color(0xFFB8C3D9), fontSize: 13),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  // =============================================================
+  // FOOTER CENTER - SCS SSC
+  // =============================================================
+
+  Widget _buildFooterSsc() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Image.asset(
+          'assets/images/scs_ssc_logo.png',
+          width: 120,
+          height: 120,
+          fit: BoxFit.contain,
+        ),
+
+        const SizedBox(width: 20),
+
+        Container(width: 1, height: 78, color: Colors.white24),
+
+        const SizedBox(width: 20),
+
+        const Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'SCS Supreme Student Council',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+
+              SizedBox(height: 6),
+
+              Text(
+                'Serving and supporting the SCS student community.',
+                style: TextStyle(
+                  color: Color(0xFFB8C3D9),
+                  fontSize: 13,
+                  height: 1.4,
+                ),
+              ),
+
+              SizedBox(height: 4),
+
+              Text(
+                'University of San Jose-Recoletos',
+                style: TextStyle(color: Color(0xFF8FA0BF), fontSize: 12),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  // =============================================================
+  // FOOTER RIGHT - CONTACTS
+  // =============================================================
+
+  Widget _buildFooterContacts() {
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _FooterInfo(icon: Icons.email_outlined, text: 'YOUR SCS SSC EMAIL'),
+
+        SizedBox(height: 10),
+
+        _FooterInfo(icon: Icons.facebook, text: 'SCS Supreme Student Council'),
+
+        SizedBox(height: 10),
+
+        _FooterInfo(
+          icon: Icons.location_on_outlined,
+          text: 'University of San Jose-Recoletos, Cebu City',
+        ),
+      ],
     );
   }
 
@@ -555,7 +617,9 @@ class _MainPageState extends State<MainPage> {
 
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              Navigator.pop(context);
+            },
             child: const Text('Close', style: TextStyle(color: pink)),
           ),
         ],
@@ -579,19 +643,21 @@ class _FooterInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Icon(icon, color: pink, size: 21),
+        Icon(icon, color: pink, size: 19),
 
-        const SizedBox(width: 14),
+        const SizedBox(width: 10),
 
-        Expanded(
+        ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 330),
           child: Text(
             text,
             style: const TextStyle(
               color: Color(0xFFB8C3D9),
-              fontSize: 14,
-              height: 1.4,
+              fontSize: 13,
+              height: 1.3,
             ),
           ),
         ),
