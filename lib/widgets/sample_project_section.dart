@@ -387,14 +387,14 @@ class _ProjectMedia extends StatelessWidget {
       return Image.network(
         image,
         fit: BoxFit.cover,
-        errorBuilder: (_, __, ___) => _placeholder(),
+        errorBuilder: (_, _, _) => _placeholder(),
       );
     }
 
     return Image.asset(
       image,
       fit: BoxFit.cover,
-      errorBuilder: (_, __, ___) => _placeholder(),
+      errorBuilder: (_, _, _) => _placeholder(),
     );
   }
 

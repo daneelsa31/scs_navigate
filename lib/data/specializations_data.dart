@@ -1,510 +1,439 @@
 import 'package:flutter/material.dart';
+
 import '../models/specialization.dart';
+
 import '../models/sample_project.dart';
 
-
 // ============================================================
+
 // WEB DEVELOPMENT
+
 // ============================================================
 
 final Specialization webDevelopmentSpec = Specialization(
   title: 'Web Development',
+
   subtitle: 'Build websites. Build applications. Build solutions.',
+
   icon: Icons.language,
 
   whatIsIt:
-      'Web Development focuses on designing, building, and deploying interactive web applications. You will learn front-end design systems, robust backend server architectures, relational/non-relational databases, and modern cloud deployment APIs.',
+      'Web Development focuses on creating websites and web applications that people can use through a browser. You will learn how to build the visible parts of a website, handle user input, work with databases, and create the behind-the-scenes code that makes web applications work.',
 
   whatWillILearn: [
-    'Modern Front-end Architecture (HTML5, CSS3, Modern JS Frameworks)',
-    'Backend API Development (RESTful Services, Node.js, PHP)',
-    'Database Design & Management (SQL, NoSQL, ORMs)',
-    'Web Security & Authentication Standards',
-    'Cloud Deployment & Hosting Maintenance',
+    'Build responsive websites using HTML, CSS, and JavaScript.',
+    'Process forms and user input using server-side programming.',
+    'Connect web applications to databases such as MySQL.',
+    'Organize code using Object-Oriented Programming.',
+    'Build larger web applications using frameworks such as Laravel.',
+    'Apply basic security and good coding practices.',
   ],
 
   skillsRequired: [
-    'Programming',
-    'Problem-Solving',
-    'Database Management',
-    'UI Development',
-    'API Design',
+    'HTML, CSS, and JavaScript Basics',
+    'Programming Fundamentals',
+    'Basic Object-Oriented Programming',
+    'Basic Database Knowledge',
+    'Problem-Solving and Debugging',
   ],
 
   targetTechnologies: [
     'HTML',
     'CSS',
     'JavaScript',
-    'TypeScript',
     'PHP',
-    'React',
-    'Node.js',
     'MySQL',
-    'Git',
+    'Laravel',
+    'Apache / Nginx',
   ],
 
   careerPaths: [
     {
       'title': 'Web Developer',
-      'desc': 'Creates and maintains functional, responsive websites.',
+
+      'desc': 'Builds and maintains websites and web applications.',
     },
+
     {
       'title': 'Front-End Developer',
-      'desc':
-          'Specializes in user interface design, animations, and user experience.',
+
+      'desc': 'Builds the parts of websites that users see and interact with.',
     },
+
     {
       'title': 'Back-End Developer',
+
       'desc':
-          'Builds server logic, database architectures, and API integrations.',
+          'Builds the behind-the-scenes logic and database features of web applications.',
     },
+
     {
       'title': 'Full-Stack Developer',
+
       'desc':
-          'Handles both client-side UI and server-side infrastructure.',
+          'Works on both the user interface and the server/database side of a web application.',
     },
   ],
 
   isItForMe:
-      'You may enjoy Web Development if you like building websites, coding interactive interfaces, designing user experiences, and seeing your solutions instantly accessible on the browser.',
+      'You may enjoy Web Development if you like creating websites, working with both design and programming, and turning ideas into systems that people can access through a browser.',
 
   expectText:
-      'Programming • Debugging • Project-Based Evaluation • Continuous practice with modern frameworks',
+      'Expect frequent coding, debugging, and project work as you learn how websites connect to servers and databases.',
 
   sampleSubjects: [
     'Web Systems and Technologies',
+
     'Database Systems',
+
     'Client-Side Scripting',
+
     'Server-Side Programming',
   ],
 
-  // ----------------------------------------------------------
-  // SAMPLE PROJECTS
+  // Replace this with the official Web Development presentation link.
+  presentationUrl:
+      'https://drive.google.com/file/d/1Aq6G4fEfFZXlCAMQoZhKX0Mx_3_OVIVX/view?usp=sharing',
+
   // ----------------------------------------------------------
 
+  // SAMPLE PROJECTS
+
+  // ----------------------------------------------------------
   sampleProjects: [
     SampleProject(
       title: 'SCS Campus Event & Facility Booking Portal',
+
       description:
           'A web-based campus portal for viewing events, checking facility availability, and submitting reservation requests.',
+
       mediaType: 'image',
-      technologies: [
-        'HTML',
-        'CSS',
-        'JavaScript',
-        'Node.js',
-        'MySQL',
-      ],
+
+      technologies: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
+
       githubUrl: '',
+
       demoUrl: '',
     ),
 
     SampleProject(
       title: 'Student Academic Portfolio & Project Showcase',
+
       description:
           'A responsive platform where students can showcase their projects, skills, achievements, and technical portfolios.',
+
       mediaType: 'image',
-      technologies: [
-        'React',
-        'TypeScript',
-        'Tailwind CSS',
-        'Supabase',
-      ],
+
+      technologies: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
+
       githubUrl: '',
+
       demoUrl: '',
     ),
 
     SampleProject(
       title: 'Online Student Organization Management System',
+
       description:
           'A centralized web application for managing organization members, announcements, activities, and event registrations.',
+
       mediaType: 'video',
-      technologies: [
-        'PHP',
-        'MySQL',
-        'JavaScript',
-        'Bootstrap',
-      ],
+
+      technologies: ['PHP', 'MySQL', 'JavaScript', 'Laravel'],
+
       githubUrl: '',
+
       demoUrl: '',
     ),
   ],
 );
 
-
 // ============================================================
+
 // MOBILE DEVELOPMENT
+
 // ============================================================
 
 final Specialization mobileDevelopmentSpec = Specialization(
   title: 'Mobile Development',
-  subtitle:
-      'Create native and cross-platform mobile apps for millions of users.',
+
+  subtitle: 'Build cross-platform applications with Flutter.',
+
   icon: Icons.phone_android,
 
   whatIsIt:
-      'Mobile Development focuses on designing and building applications for smartphones and tablets. You will learn native and cross-platform frameworks, mobile UI/UX principles, device APIs, and app store deployment.',
+      'Mobile Development focuses on creating applications for phones and other devices using Flutter. You will learn how to design app screens, manage app data, connect apps to online services, and gradually build more advanced mobile applications.',
 
   whatWillILearn: [
-    'Cross-Platform App Development (Flutter, Dart)',
-    'Native Android/iOS Fundamentals',
-    'Mobile UI/UX & Responsive Layouts',
-    'Local Storage & State Management',
-    'App Store Deployment & Distribution',
+    'Build cross-platform applications using Flutter and Dart.',
+    'Design responsive and user-friendly app screens.',
+    'Manage app data and movement between screens.',
+    'Connect apps to APIs, databases, and login services.',
+    'Add features such as maps, file storage, and real-time data.',
+    'Test and organize larger applications properly.',
+    'Explore advanced features such as AI and machine learning.',
+    'Prepare a complete application for deployment.',
   ],
 
   skillsRequired: [
-    'Programming',
-    'UI Development',
+    'Basic Programming',
     'Problem-Solving',
-    'App Design',
-    'Testing & Debugging',
+    'Basic Understanding of User Interfaces',
+    'Testing and Debugging',
+    'Patience When Learning New Tools',
   ],
 
   targetTechnologies: [
-    'Dart',
     'Flutter',
-    'Kotlin',
-    'Java',
-    'Swift',
+    'Dart',
+    'Git & GitHub',
+    'Supabase',
+    'REST APIs',
+    'Mapbox',
     'Firebase',
-    'Git',
+    'TensorFlow Lite',
   ],
 
   careerPaths: [
     {
       'title': 'Mobile App Developer',
-      'desc':
-          'Builds and maintains apps for Android and iOS platforms.',
+
+      'desc': 'Builds applications for phones and other devices.',
     },
+
     {
       'title': 'Flutter Developer',
-      'desc':
-          'Specializes in cross-platform apps using a single codebase.',
+
+      'desc': 'Builds cross-platform applications using Flutter.',
     },
+
     {
-      'title': 'Android Developer',
-      'desc':
-          'Focuses on native Android app development.',
+      'title': 'Cross-Platform Developer',
+
+      'desc': 'Builds applications that can run on more than one platform.',
     },
+
     {
-      'title': 'iOS Developer',
+      'title': 'Software Developer',
+
       'desc':
-          'Focuses on native iOS app development using Swift.',
+          'Builds and maintains software applications, including mobile solutions.',
     },
   ],
 
   isItForMe:
-      'You may enjoy Mobile Development if you like building apps people carry in their pockets, designing touch-friendly interfaces, and seeing your work run on real devices.',
+      'You may enjoy Mobile Development if you like creating apps that people can use directly on their phones and enjoy combining programming with interface design.',
 
   expectText:
-      'Programming • Debugging • Device Testing • Continuous practice with mobile frameworks',
+      'Expect frequent Flutter and Dart coding, screen design, testing, debugging, and project work that becomes more advanced over time.',
 
   sampleSubjects: [
     'Mobile Application Development',
+
     'Human-Computer Interaction',
+
     'Database Systems',
+
     'Application Deployment',
   ],
 
-  // ----------------------------------------------------------
-  // SAMPLE PROJECTS
+  // Replace this with the official Mobile Development presentation link.
+  presentationUrl: 'https://ahdzlee.github.io/usjr-mobile-cybsec-track/',
+
   // ----------------------------------------------------------
 
+  // SAMPLE PROJECTS
+
+  // ----------------------------------------------------------
   sampleProjects: [
     SampleProject(
       title: 'SCS Navigate Mobile App',
+
       description:
           'A student-focused mobile application that helps SCS students discover academic pathways, opportunities, events, and useful resources.',
+
       mediaType: 'image',
-      technologies: [
-        'Flutter',
-        'Dart',
-        'Firebase',
-      ],
+
+      technologies: ['Flutter', 'Dart', 'Supabase'],
+
       githubUrl: '',
+
       demoUrl: '',
     ),
 
     SampleProject(
       title: 'Campus Announcement & Bulletin App',
+
       description:
           'A mobile application for viewing campus announcements, student notices, and categorized updates in one place.',
+
       mediaType: 'image',
-      technologies: [
-        'Flutter',
-        'Dart',
-        'Hive',
-      ],
+
+      technologies: ['Flutter', 'Dart', 'Supabase'],
+
       githubUrl: '',
+
       demoUrl: '',
     ),
 
     SampleProject(
       title: 'Student Expense Tracker',
+
       description:
           'A mobile budgeting application that helps students record expenses, organize spending categories, and monitor their budget.',
+
       mediaType: 'video',
-      technologies: [
-        'Flutter',
-        'Dart',
-        'SQLite',
-        'Firebase',
-      ],
+
+      technologies: ['Flutter', 'Dart', 'Firebase'],
+
       githubUrl: '',
+
       demoUrl: '',
     ),
   ],
 );
 
-
 // ============================================================
+
 // CYBERSECURITY
+
 // ============================================================
 
 final Specialization cybersecuritySpec = Specialization(
   title: 'Cybersecurity',
-  subtitle:
-      'Protect networks, data, and systems from emerging cyber threats.',
+
+  subtitle: 'Understand attacks. Find weaknesses. Protect systems.',
+
   icon: Icons.security,
 
   whatIsIt:
-      'Cybersecurity focuses on protecting networks, systems, and data from digital attacks. You will learn network defense, ethical hacking fundamentals, risk assessment, and security policy implementation.',
+      'Cybersecurity focuses on understanding how computer systems and networks can be attacked and how they can be protected. You will practice finding weaknesses, monitoring suspicious activity, securing systems, and responding to security incidents in controlled environments.',
 
   whatWillILearn: [
-    'Network Security & Defense Fundamentals',
-    'Ethical Hacking & Penetration Testing Basics',
-    'Risk Assessment & Vulnerability Management',
-    'Cryptography & Secure Communication',
-    'Security Policy & Incident Response',
+    'Understand common attacks against systems, networks, and applications.',
+    'Find security weaknesses in controlled laboratory environments.',
+    'Monitor and protect computer systems and networks.',
+    'Investigate suspicious activity and security incidents.',
+    'Analyze network traffic and system activity.',
+    'Learn basic digital forensics and incident response.',
+    'Recommend ways to improve system security.',
+    'Document and clearly explain security findings.',
   ],
 
   skillsRequired: [
-    'Networking',
+    'Basic Networking Knowledge',
+    'Basic Linux Knowledge',
+    'Programming or Scripting Fundamentals',
     'Problem-Solving',
-    'Analytical Thinking',
     'Attention to Detail',
-    'Scripting',
+    'Patience With Troubleshooting',
   ],
 
   targetTechnologies: [
-    'Wireshark',
     'Linux',
+    'Kali Linux',
     'Nmap',
+    'Wireshark',
+    'Burp Suite',
     'Metasploit',
-    'Python',
-    'Firewalls',
   ],
 
   careerPaths: [
     {
       'title': 'Security Analyst',
+
       'desc':
-          'Monitors systems and networks for threats and breaches.',
+          'Monitors systems and networks for suspicious activity and security problems.',
     },
+
     {
       'title': 'Penetration Tester',
+
       'desc':
-          'Simulates attacks to find and fix security weaknesses.',
+          'Tests systems in authorized environments to find security weaknesses.',
     },
+
     {
       'title': 'Network Security Engineer',
+
       'desc':
-          'Designs and maintains secure network infrastructure.',
+          'Helps design and maintain networks that are protected against attacks.',
     },
+
     {
       'title': 'SOC Analyst',
-      'desc':
-          'Works in a Security Operations Center monitoring live threats.',
+
+      'desc': 'Monitors alerts and investigates possible security incidents.',
     },
   ],
 
   isItForMe:
-      'You may enjoy Cybersecurity if you like solving puzzles, thinking like an attacker to defend systems, and staying sharp on the latest digital threats.',
+      'You may enjoy Cybersecurity if you are curious about how systems work, like investigating problems, and want to understand both how attacks happen and how they can be prevented.',
 
   expectText:
-      'Networking • Scripting • Threat Analysis • Continuous practice with security tools',
+      'Expect hands-on labs, troubleshooting, security tools, investigation, and written findings that explain what happened and how to improve security.',
 
   sampleSubjects: [
     'Information Assurance and Security',
+
     'Networking Fundamentals',
+
     'Ethical Hacking',
+
     'Systems Administration',
   ],
 
-  // ----------------------------------------------------------
-  // SAMPLE PROJECTS
+  // Replace this with the official Cybersecurity presentation link.
+  presentationUrl: 'https://ahdzlee.github.io/usjr-mobile-cybsec-track/',
+
   // ----------------------------------------------------------
 
+  // SAMPLE PROJECTS
+
+  // ----------------------------------------------------------
   sampleProjects: [
     SampleProject(
       title: 'Campus Network Security Assessment',
+
       description:
           'A controlled security assessment project that identifies common vulnerabilities and recommends improvements for a campus network.',
+
       mediaType: 'image',
-      technologies: [
-        'Linux',
-        'Nmap',
-        'Wireshark',
-        'Kali Linux',
-      ],
+
+      technologies: ['Linux', 'Nmap', 'Wireshark', 'Kali Linux'],
+
       githubUrl: '',
+
       demoUrl: '',
     ),
 
     SampleProject(
       title: 'Phishing Awareness & Detection System',
+
       description:
           'An educational security project designed to help users recognize suspicious messages, links, and phishing attempts.',
+
       mediaType: 'image',
-      technologies: [
-        'Python',
-        'Machine Learning',
-        'HTML',
-        'JavaScript',
-      ],
+
+      technologies: ['Python', 'Machine Learning', 'HTML', 'JavaScript'],
+
       githubUrl: '',
+
       demoUrl: '',
     ),
 
     SampleProject(
       title: 'Secure Student Information Portal',
+
       description:
           'A prototype student portal demonstrating authentication, access control, password security, and secure data handling.',
+
       mediaType: 'video',
-      technologies: [
-        'PHP',
-        'MySQL',
-        'JavaScript',
-        'Encryption',
-      ],
+
+      technologies: ['PHP', 'MySQL', 'JavaScript', 'Encryption'],
+
       githubUrl: '',
-      demoUrl: '',
-    ),
-  ],
-);
 
-
-// ============================================================
-// PROFESSIONAL ELECTIVE / AIoT
-// ============================================================
-
-final Specialization aiotSpec = Specialization(
-  title: 'Professional Elective / AIoT',
-  subtitle: 'Bridging embedded devices and artificial intelligence.',
-  icon: Icons.bolt,
-
-  whatIsIt:
-      'AIoT combines Artificial Intelligence and the Internet of Things, focusing on smart, connected devices that can sense, process, and act on data. You will learn embedded systems, sensor integration, and applied machine learning.',
-
-  whatWillILearn: [
-    'Embedded Systems & Microcontroller Programming',
-    'Sensor & Actuator Integration',
-    'Applied Machine Learning on Edge Devices',
-    'IoT Communication Protocols',
-    'Data Collection & Real-Time Processing',
-  ],
-
-  skillsRequired: [
-    'Programming',
-    'Electronics Basics',
-    'Problem-Solving',
-    'Data Analysis',
-    'Systems Thinking',
-  ],
-
-  targetTechnologies: [
-    'Python',
-    'Arduino',
-    'Raspberry Pi',
-    'TensorFlow Lite',
-    'MQTT',
-    'C++',
-  ],
-
-  careerPaths: [
-    {
-      'title': 'IoT Developer',
-      'desc':
-          'Builds connected device systems and embedded applications.',
-    },
-    {
-      'title': 'AI/ML Engineer',
-      'desc':
-          'Designs and deploys machine learning models, including on-device.',
-    },
-    {
-      'title': 'Embedded Systems Engineer',
-      'desc':
-          'Works on hardware-software integration for smart devices.',
-    },
-    {
-      'title': 'Automation Engineer',
-      'desc':
-          'Builds smart automation and monitoring solutions.',
-    },
-  ],
-
-  isItForMe:
-      'You may enjoy AIoT if you like combining hardware and software, experimenting with sensors and smart devices, and applying AI in the physical world.',
-
-  expectText:
-      'Programming • Hardware Experimentation • Data Modeling • Continuous practice with embedded tools',
-
-  sampleSubjects: [
-    'Internet of Things',
-    'Embedded Systems',
-    'Machine Learning Fundamentals',
-    'Data Analytics',
-  ],
-
-  // ----------------------------------------------------------
-  // SAMPLE PROJECTS
-  // ----------------------------------------------------------
-
-  sampleProjects: [
-    SampleProject(
-      title: 'Smart Classroom Monitoring System',
-      description:
-          'An IoT-based classroom system that monitors environmental conditions such as temperature, humidity, and room activity.',
-      mediaType: 'image',
-      technologies: [
-        'Arduino',
-        'ESP32',
-        'IoT Sensors',
-        'MQTT',
-      ],
-      githubUrl: '',
-      demoUrl: '',
-    ),
-
-    SampleProject(
-      title: 'AI-Based Plant Monitoring System',
-      description:
-          'A smart agriculture prototype that collects plant and environmental data and uses intelligent analysis to support plant care.',
-      mediaType: 'image',
-      technologies: [
-        'Raspberry Pi',
-        'Python',
-        'Machine Learning',
-        'IoT Sensors',
-      ],
-      githubUrl: '',
-      demoUrl: '',
-    ),
-
-    SampleProject(
-      title: 'Smart Energy Monitoring System',
-      description:
-          'A connected device system that monitors electricity usage and provides data that can be analyzed for energy-saving opportunities.',
-      mediaType: 'video',
-      technologies: [
-        'ESP32',
-        'Python',
-        'MQTT',
-        'IoT',
-      ],
-      githubUrl: '',
       demoUrl: '',
     ),
   ],

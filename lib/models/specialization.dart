@@ -15,6 +15,9 @@ class Specialization {
   final List<String> sampleSubjects;
   final List<SampleProject> sampleProjects;
 
+  // Optional link to the official specialization presentation/slides.
+  final String? presentationUrl;
+
   Specialization({
     required this.title,
     required this.subtitle,
@@ -28,5 +31,6 @@ class Specialization {
     required this.expectText,
     required this.sampleSubjects,
     this.sampleProjects = const [],
+    this.presentationUrl,
   });
 }
