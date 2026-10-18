@@ -30,13 +30,40 @@ class SampleProjectSection extends StatelessWidget {
           borderRadius: BorderRadius.circular(14),
           border: Border.all(color: borderColor),
         ),
-        child: const Text(
-          'No sample projects have been added for this specialization yet.',
-          style: TextStyle(
-            fontSize: 13,
-            color: lightText,
-            height: 1.5,
-          ),
+        child: const Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              Icons.hourglass_empty_rounded,
+              color: pink,
+              size: 20,
+            ),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Sample projects coming soon',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w800,
+                      color: navy,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    'Verified student projects will be added here once they are available.',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: lightText,
+                      height: 1.45,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       );
     }

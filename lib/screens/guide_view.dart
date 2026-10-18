@@ -9,10 +9,41 @@ class GuideView extends StatefulWidget {
   State<GuideView> createState() => _GuideViewState();
 }
 class _GuideViewState extends State<GuideView> {
-  String _selectedProgram = 'BSIS';
+  String _selectedProgram = 'BSIT';
   final Set<int> _expandedFaqs = <int>{};
   bool _showAllFaqs = false;
   bool _showAllComparisonRows = false;
+
+  final GlobalKey _webSpecializationKey = GlobalKey();
+  final GlobalKey _mobileSpecializationKey = GlobalKey();
+  final GlobalKey _cybersecuritySpecializationKey = GlobalKey();
+  final GlobalKey _professionalElectiveKey = GlobalKey();
+
+  void _scrollToKey(GlobalKey key) {
+    final targetContext = key.currentContext;
+    if (targetContext == null) return;
+
+    Scrollable.ensureVisible(
+      targetContext,
+      duration: const Duration(milliseconds: 550),
+      curve: Curves.easeInOutCubic,
+      alignment: 0.06,
+    );
+  }
+
+  void _scrollToSpecialization(String specialization) {
+    switch (specialization) {
+      case 'Web Development':
+        _scrollToKey(_webSpecializationKey);
+        break;
+      case 'Mobile Development':
+        _scrollToKey(_mobileSpecializationKey);
+        break;
+      case 'Cybersecurity':
+        _scrollToKey(_cybersecuritySpecializationKey);
+        break;
+    }
+  }
   @override
 Widget build(BuildContext context) {
   return Container(
@@ -498,26 +529,47 @@ Widget build(BuildContext context) {
         ),
         if (note.isNotEmpty) ...[
           const SizedBox(height: 10),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Icon(
-                Icons.info_outline,
-                size: 16,
-                color: Color(0xFFF59E0B),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  note,
-                  style: const TextStyle(
-                    color: Color(0xFFF59E0B),
-                    fontSize: 12,
-                    height: 1.4,
+          Tooltip(
+            message: 'Go to Professional Elective',
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: InkWell(
+                onTap: () => _scrollToKey(_professionalElectiveKey),
+                borderRadius: BorderRadius.circular(10),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(
+                        Icons.info_outline,
+                        size: 16,
+                        color: Color(0xFFF59E0B),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          note,
+                          style: const TextStyle(
+                            color: Color(0xFFF59E0B),
+                            fontSize: 12,
+                            height: 1.4,
+                            decoration: TextDecoration.underline,
+                            decorationColor: Color(0xFFF59E0B),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      const Icon(
+                        Icons.arrow_downward_rounded,
+                        size: 15,
+                        color: Color(0xFFF59E0B),
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ],
+            ),
           ),
         ],
         const SizedBox(height: 18),
@@ -535,19 +587,43 @@ Widget build(BuildContext context) {
           spacing: 12,
           runSpacing: 8,
           children: specializations.map((spec) {
-            return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: const Color(0xFFF55D95).withValues(alpha: 0.2),
-                border: Border.all(color: const Color(0xFFF55D95)),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Text(
-                '✓ $spec',
-                style: const TextStyle(
-                  color: Color(0xFFFD73A6),
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
+            return Tooltip(
+              message: 'Go to $spec',
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: InkWell(
+                  onTap: () => _scrollToSpecialization(spec),
+                  borderRadius: BorderRadius.circular(16),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 7,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF55D95).withValues(alpha: 0.2),
+                      border: Border.all(color: const Color(0xFFF55D95)),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          '✓ $spec',
+                          style: const TextStyle(
+                            color: Color(0xFFFD73A6),
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        const Icon(
+                          Icons.arrow_downward_rounded,
+                          size: 14,
+                          color: Color(0xFFFD73A6),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             );
@@ -664,38 +740,49 @@ Widget build(BuildContext context) {
         LayoutBuilder(
           builder: (context, constraints) {
             final isSmall = constraints.maxWidth < 700;
-            final card1 = SpecCard(
-              icon: webDevelopmentSpec.icon,
-              imagePath: 'assets/images/specializations/web_development.png',
-              title: webDevelopmentSpec.title,
-              description:
-                  'Build websites. Build applications. Build solutions.',
-              actionText: 'EXPLORE WEB DEVELOPMENT →',
-              onTap: () {
-                widget.onSpecializationTap(webDevelopmentSpec);
-              },
+            final card1 = Container(
+              key: _webSpecializationKey,
+              child: SpecCard(
+                icon: webDevelopmentSpec.icon,
+                imagePath: 'assets/images/specializations/web_development.png',
+                title: webDevelopmentSpec.title,
+                description:
+                    'Build websites. Build applications. Build solutions.',
+                actionText: 'EXPLORE WEB DEVELOPMENT →',
+                onTap: () {
+                  widget.onSpecializationTap(webDevelopmentSpec);
+                },
+              ),
             );
-            final card2 = SpecCard(
-              icon: mobileDevelopmentSpec.icon,
-              imagePath: 'assets/images/specializations/mobile_development.png',
-              title: mobileDevelopmentSpec.title,
-              description:
-                  'Create cross-platform apps and interactive mobile experiences.',
-              actionText: 'EXPLORE MOBILE DEVELOPMENT →',
-              onTap: () {
-                widget.onSpecializationTap(mobileDevelopmentSpec);
-              },
+
+            final card2 = Container(
+              key: _mobileSpecializationKey,
+              child: SpecCard(
+                icon: mobileDevelopmentSpec.icon,
+                imagePath: 'assets/images/specializations/mobile_development.png',
+                title: mobileDevelopmentSpec.title,
+                description:
+                    'Create cross-platform apps and interactive mobile experiences.',
+                actionText: 'EXPLORE MOBILE DEVELOPMENT →',
+                onTap: () {
+                  widget.onSpecializationTap(mobileDevelopmentSpec);
+                },
+              ),
             );
-            final card3 = SpecCard(
-              icon: cybersecuritySpec.icon,
-              imagePath: 'assets/images/specializations/cybersecurity.png',
-              title: cybersecuritySpec.title,
-              description:
-                  'Protect networks, systems, and data from cyber threats.',
-              actionText: 'EXPLORE CYBERSECURITY →',
-              onTap: () {
-                widget.onSpecializationTap(cybersecuritySpec);
-              },
+
+            final card3 = Container(
+              key: _cybersecuritySpecializationKey,
+              child: SpecCard(
+                icon: cybersecuritySpec.icon,
+                imagePath: 'assets/images/specializations/cybersecurity.png',
+                title: cybersecuritySpec.title,
+                description:
+                    'Protect networks, systems, and data from cyber threats.',
+                actionText: 'EXPLORE CYBERSECURITY →',
+                onTap: () {
+                  widget.onSpecializationTap(cybersecuritySpec);
+                },
+              ),
             );
             if (isSmall) {
               return Column(
@@ -724,17 +811,25 @@ Widget build(BuildContext context) {
         // --------------------------------------------------------
         // PROFESSIONAL ELECTIVE
         // --------------------------------------------------------
-        const Text(
-          'PROFESSIONAL ELECTIVE',
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF94A3B8),
-            letterSpacing: 0.5,
+        Container(
+          key: _professionalElectiveKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'PROFESSIONAL ELECTIVE',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF94A3B8),
+                  letterSpacing: 0.5,
+                ),
+              ),
+              const SizedBox(height: 16),
+              _buildProfessionalElectiveCard(),
+            ],
           ),
         ),
-        const SizedBox(height: 16),
-        _buildProfessionalElectiveCard(),
       ],
     );
   }
@@ -927,15 +1022,11 @@ Widget build(BuildContext context) {
                     const SizedBox(height: 10),
                     const _ElectiveBullet(
                       text:
-                          'BSIT and BSIS students who choose only one specialization',
+                          'BSIT students who choose only one IT specialization',
                     ),
                     const _ElectiveBullet(
                       text:
-                          'BSCS students who choose not to take an IT specialization',
-                    ),
-                    const _ElectiveBullet(
-                      text:
-                          'Students whose program pathway requires a Professional Elective to complete the required units or course requirements',
+                          'BSCS and BSIS students who do not choose an IT specialization',
                     ),
                     const SizedBox(height: 20),
                     // WHAT IS AIoT ABOUT?
@@ -1018,51 +1109,51 @@ Widget build(BuildContext context) {
     final rows = [
       [
         'Best For Students Who...',
-        'Enjoy building websites, solving coding problems, and working with both interfaces and databases.',
-        'Enjoy creating apps, designing interfaces, and building interactive features for mobile devices.',
-        'Enjoy solving technical challenges, investigating systems, networking, Linux, and hands-on security labs.',
+        'Enjoy building websites, working with both design and programming, and connecting pages to databases.',
+        'Enjoy creating apps, designing screens, and building features people can use on phones or other devices.',
+        'Enjoy investigating problems, learning how systems work, and understanding how attacks can be prevented.',
       ],
       [
         'Main Focus',
-        'Building complete web applications from interface to database.',
-        'Building cross-platform apps using Flutter, APIs, databases, maps, and AI features.',
-        'Learning how systems are attacked, monitored, investigated, and defended.',
+        'Building websites and web applications, from the visible interface to the server and database.',
+        'Building cross-platform mobile applications using Flutter and connecting them to online services and databases.',
+        'Learning how systems and networks are attacked, monitored, protected, and investigated.',
       ],
       [
         'Programming Intensity',
-        'High — lots of coding and application building.',
-        'High — app development, logic, APIs, and project work.',
-        'Medium to High — scripting, automation, security tools, and technical labs.',
+        'High — frequent coding, debugging, and web application projects.',
+        'High — frequent Flutter/Dart coding, app logic, testing, and project work.',
+        'Medium to High — scripting, technical labs, troubleshooting, and security exercises.',
       ],
       [
         'UI / Design Focus',
-        'Medium to High — web interfaces and turning designs into working pages.',
-        'High — responsive layouts, widgets, animations, and mobile interfaces.',
-        'Low — more focused on systems, networks, investigation, and security operations.',
+        'Medium to High — creating web pages, layouts, forms, and user interfaces.',
+        'High — designing app screens, layouts, interactions, and responsive interfaces.',
+        'Low — more focused on systems, networks, investigation, and security than interface design.',
       ],
       [
         'Networking / Systems Focus',
-        'Low to Medium — mainly web servers and backend systems.',
-        'Low to Medium — mostly app and backend integration.',
-        'Very High — networking, traffic analysis, Linux, SIEM, and system security.',
+        'Medium — includes web servers, databases, and how web applications communicate.',
+        'Low to Medium — mostly focused on apps, APIs, databases, maps, and online services.',
+        'High — strong focus on networks, Linux, system behavior, monitoring, and security.',
       ],
       [
         'Typical Projects / Activities',
-        'Web systems, PHP/MySQL applications, database-driven websites, and Laravel projects.',
-        'Flutter apps, maps, login systems, backend-connected apps, AI tools, and production-ready mobile projects.',
-        'CTFs, ethical hacking labs, vulnerable machines, pentesting, forensics, and red-team/blue-team exercises.',
+        'Websites, PHP/MySQL systems, database-connected applications, and Laravel projects.',
+        'Flutter apps, login systems, maps, database-connected apps, AI-enabled features, and complete mobile projects.',
+        'Security labs, network analysis, vulnerability testing, incident investigation, and attack-and-defense exercises.',
       ],
       [
         'Possible Career Directions',
-        'Frontend Developer, Backend Developer, Full-Stack Developer, PHP Developer, Laravel Developer.',
+        'Web Developer, Front-End Developer, Back-End Developer, Full-Stack Developer, PHP/Laravel Developer.',
         'Flutter Developer, Mobile App Developer, Cross-Platform Developer, Mobile UI Developer, Software Developer.',
-        'SOC Analyst, Cybersecurity Analyst, Junior Pentester, Incident Response Analyst, Digital Forensics Analyst.',
+        'Cybersecurity Analyst, SOC Analyst, Junior Penetration Tester, Incident Response Analyst, Digital Forensics Analyst.',
       ],
       [
         'Primary Technologies',
-        'HTML5, CSS3, JavaScript, PHP, MySQL, Apache, Nginx, Laravel.',
-        'Flutter, Dart, Riverpod, Supabase, PostgreSQL, REST APIs, Mapbox, Firebase.',
-        'Kali Linux, Nmap, Wireshark, Burp Suite, Metasploit, Splunk, Wazuh, Python.',
+        'HTML, CSS, JavaScript, PHP, MySQL, Laravel, Apache / Nginx.',
+        'Flutter, Dart, Git & GitHub, Supabase, REST APIs, Mapbox, Firebase, TensorFlow Lite.',
+        'Linux, Kali Linux, Nmap, Wireshark, Burp Suite, Metasploit.',
       ],
     ];
     final visibleRows = _showAllComparisonRows ? rows : rows.take(4).toList();

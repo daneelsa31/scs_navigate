@@ -84,6 +84,10 @@ class _CompassViewState extends State<CompassView> {
 
                     const SizedBox(height: 22),
 
+                    _buildRecognitionBanner(),
+
+                    const SizedBox(height: 22),
+
                     _buildSearchPanel(mobile),
 
                     const SizedBox(height: 28),
@@ -100,10 +104,6 @@ class _CompassViewState extends State<CompassView> {
                     const SizedBox(height: 16),
 
                     _buildLoadingCards(),
-
-                    const SizedBox(height: 28),
-
-                    _buildRecognitionBanner(),
 
                     const SizedBox(height: 8),
                   ],
@@ -170,6 +170,8 @@ class _CompassViewState extends State<CompassView> {
                 children: [
                   _buildCompassHero(mobile),
                   const SizedBox(height: 22),
+                  _buildRecognitionBanner(),
+                  const SizedBox(height: 22),
                   _buildSearchPanel(mobile),
                   const SizedBox(height: 28),
                   Text(
@@ -186,8 +188,6 @@ class _CompassViewState extends State<CompassView> {
                     _buildEmptyState()
                   else
                     _buildCards(results),
-                  const SizedBox(height: 28),
-                  _buildRecognitionBanner(),
                   const SizedBox(height: 8),
                 ],
               ),

@@ -17,29 +17,47 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
   Specialization? _selectedSpecialization;
+  final ScrollController _pageScrollController = ScrollController();
 
   static const Color navy = Color(0xFF00184D);
   static const Color pink = Color(0xFFF55D95);
   static const Color lightText = Color(0xFF64748B);
   static const Color background = Color(0xFFFFFCFD);
 
+  void _scrollToTop() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_pageScrollController.hasClients) return;
+      _pageScrollController.jumpTo(0);
+    });
+  }
+
   void _navigateToTab(int index) {
     setState(() {
       _selectedIndex = index;
       _selectedSpecialization = null;
     });
+    _scrollToTop();
   }
 
   void _showSpecialization(Specialization spec) {
     setState(() {
+      _selectedIndex = 1;
       _selectedSpecialization = spec;
     });
+    _scrollToTop();
   }
 
   void _closeSpecialization() {
     setState(() {
       _selectedSpecialization = null;
     });
+    _scrollToTop();
+  }
+
+  @override
+  void dispose() {
+    _pageScrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -152,6 +170,7 @@ class _MainPageState extends State<MainPage> {
         child: LayoutBuilder(
           builder: (context, viewportConstraints) {
             return SingleChildScrollView(
+              controller: _pageScrollController,
               child: ConstrainedBox(
                 constraints: BoxConstraints(
                   minHeight: viewportConstraints.maxHeight,

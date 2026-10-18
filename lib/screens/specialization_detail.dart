@@ -115,91 +115,247 @@ class _SpecializationDetailScreenState
     final hasPresentation =
         widget.spec.presentationUrl != null &&
         widget.spec.presentationUrl!.trim().isNotEmpty;
+
+    final specializationIntro = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _buildIcon(),
+            SizedBox(width: isMobile ? 14 : 18),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.spec.title,
+                    style: TextStyle(
+                      fontSize: isMobile ? 27 : 36,
+                      fontWeight: FontWeight.w800,
+                      color: const Color(0xFF0F172A),
+                      letterSpacing: isMobile ? -0.4 : -1,
+                      height: 1.1,
+                    ),
+                  ),
+                  const SizedBox(height: 7),
+                  Text(
+                    widget.spec.subtitle,
+                    style: TextStyle(
+                      fontSize: isMobile ? 14 : 16,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFFF55D95),
+                      height: 1.35,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+
+    if (!hasPresentation) {
+      return specializationIntro;
+    }
+
     if (isMobile) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildIcon(),
-          const SizedBox(height: 14),
-          Text(
-            widget.spec.title,
-            style: const TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.w800,
-              color: Color(0xFF0F172A),
-              height: 1.15,
-            ),
-          ),
-          const SizedBox(height: 7),
-          Text(
-            widget.spec.subtitle,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFFF55D95),
-              height: 1.4,
-            ),
-          ),
-          if (hasPresentation) ...[
-            const SizedBox(height: 18),
-            _buildPresentationButton(),
-          ],
+          specializationIntro,
+          const SizedBox(height: 22),
+          _buildPresentationResourceCard(isMobile: true),
         ],
       );
     }
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        _buildIcon(),
-        const SizedBox(width: 18),
+        Expanded(flex: 5, child: specializationIntro),
+        const SizedBox(width: 30),
+        Expanded(
+          flex: 6,
+          child: _buildPresentationResourceCard(isMobile: false),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPresentationResourceCard({required bool isMobile}) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(isMobile ? 18 : 22),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFF7FA),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: const Color(0xFFF55D95).withValues(alpha: 0.24),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFFF55D95).withValues(alpha: 0.06),
+            blurRadius: 18,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: isMobile
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildPresentationResourceHeading(),
+                const SizedBox(height: 16),
+                _buildPresentationResourceActions(),
+              ],
+            )
+          : Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 82,
+                  height: 82,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(18),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFFF55D95).withValues(alpha: 0.08),
+                        blurRadius: 14,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: const Icon(
+                    Icons.slideshow_rounded,
+                    color: Color(0xFFF55D95),
+                    size: 42,
+                  ),
+                ),
+                const SizedBox(width: 20),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildPresentationResourceHeading(showIcon: false),
+                      const SizedBox(height: 16),
+                      _buildPresentationResourceActions(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+    );
+  }
+
+  Widget _buildPresentationResourceHeading({bool showIcon = true}) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (showIcon) ...[
+          Container(
+            width: 46,
+            height: 46,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(13),
+            ),
+            child: const Icon(
+              Icons.slideshow_rounded,
+              color: Color(0xFFF55D95),
+              size: 26,
+            ),
+          ),
+          const SizedBox(width: 12),
+        ],
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                widget.spec.title,
-                style: const TextStyle(
-                  fontSize: 36,
+              const Text(
+                'SPECIALIZATION RESOURCE',
+                style: TextStyle(
+                  color: Color(0xFFF55D95),
+                  fontSize: 10,
                   fontWeight: FontWeight.w800,
-                  color: Color(0xFF0F172A),
-                  letterSpacing: -1,
+                  letterSpacing: 0.8,
                 ),
               ),
-              const SizedBox(height: 4),
-              Text(
-                widget.spec.subtitle,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFFF55D95),
+              const SizedBox(height: 5),
+              const Text(
+                'Official Track Presentation',
+                style: TextStyle(
+                  color: Color(0xFF0F172A),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                  height: 1.2,
+                ),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'View the official SCS presentation for this specialization. It contains the track overview, subjects, and other official details.',
+                style: TextStyle(
+                  color: Color(0xFF64748B),
+                  fontSize: 12.5,
+                  height: 1.45,
                 ),
               ),
             ],
           ),
         ),
-        if (hasPresentation) ...[
-          const SizedBox(width: 24),
-          _buildPresentationButton(),
-        ],
       ],
     );
   }
-  Widget _buildPresentationButton() {
-    return FilledButton.icon(
-      onPressed: () {
-        _openPresentation(widget.spec.presentationUrl!);
-      },
-      icon: const Icon(Icons.slideshow_rounded, size: 18),
-      label: const Text('View Presentation'),
-      style: FilledButton.styleFrom(
-        backgroundColor: const Color(0xFFF55D95),
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        textStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
-      ),
+
+  Widget _buildPresentationResourceActions() {
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: 14,
+      runSpacing: 10,
+      children: [
+        FilledButton.icon(
+          onPressed: () {
+            _openPresentation(widget.spec.presentationUrl!);
+          },
+          icon: const Icon(Icons.open_in_new_rounded, size: 17),
+          label: const Text('Open Presentation'),
+          style: FilledButton.styleFrom(
+            backgroundColor: const Color(0xFFF55D95),
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24),
+            ),
+            textStyle: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        const Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.open_in_new_rounded,
+              size: 15,
+              color: Color(0xFF64748B),
+            ),
+            SizedBox(width: 6),
+            Text(
+              'Opens in a new tab',
+              style: TextStyle(
+                color: Color(0xFF64748B),
+                fontSize: 11.5,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
+
   Future<void> _openPresentation(String link) async {
     final uri = Uri.tryParse(link);
     if (uri == null) {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../models/specialization.dart';
 
-import '../models/sample_project.dart';
 
 // ============================================================
 
@@ -100,52 +99,7 @@ final Specialization webDevelopmentSpec = Specialization(
   // SAMPLE PROJECTS
 
   // ----------------------------------------------------------
-  sampleProjects: [
-    SampleProject(
-      title: 'SCS Campus Event & Facility Booking Portal',
-
-      description:
-          'A web-based campus portal for viewing events, checking facility availability, and submitting reservation requests.',
-
-      mediaType: 'image',
-
-      technologies: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
-
-      githubUrl: '',
-
-      demoUrl: '',
-    ),
-
-    SampleProject(
-      title: 'Student Academic Portfolio & Project Showcase',
-
-      description:
-          'A responsive platform where students can showcase their projects, skills, achievements, and technical portfolios.',
-
-      mediaType: 'image',
-
-      technologies: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
-
-      githubUrl: '',
-
-      demoUrl: '',
-    ),
-
-    SampleProject(
-      title: 'Online Student Organization Management System',
-
-      description:
-          'A centralized web application for managing organization members, announcements, activities, and event registrations.',
-
-      mediaType: 'video',
-
-      technologies: ['PHP', 'MySQL', 'JavaScript', 'Laravel'],
-
-      githubUrl: '',
-
-      demoUrl: '',
-    ),
-  ],
+  sampleProjects: [],
 );
 
 // ============================================================
@@ -245,52 +199,7 @@ final Specialization mobileDevelopmentSpec = Specialization(
   // SAMPLE PROJECTS
 
   // ----------------------------------------------------------
-  sampleProjects: [
-    SampleProject(
-      title: 'SCS Navigate Mobile App',
-
-      description:
-          'A student-focused mobile application that helps SCS students discover academic pathways, opportunities, events, and useful resources.',
-
-      mediaType: 'image',
-
-      technologies: ['Flutter', 'Dart', 'Supabase'],
-
-      githubUrl: '',
-
-      demoUrl: '',
-    ),
-
-    SampleProject(
-      title: 'Campus Announcement & Bulletin App',
-
-      description:
-          'A mobile application for viewing campus announcements, student notices, and categorized updates in one place.',
-
-      mediaType: 'image',
-
-      technologies: ['Flutter', 'Dart', 'Supabase'],
-
-      githubUrl: '',
-
-      demoUrl: '',
-    ),
-
-    SampleProject(
-      title: 'Student Expense Tracker',
-
-      description:
-          'A mobile budgeting application that helps students record expenses, organize spending categories, and monitor their budget.',
-
-      mediaType: 'video',
-
-      technologies: ['Flutter', 'Dart', 'Firebase'],
-
-      githubUrl: '',
-
-      demoUrl: '',
-    ),
-  ],
+  sampleProjects: [],
 );
 
 // ============================================================
@@ -391,50 +300,5 @@ final Specialization cybersecuritySpec = Specialization(
   // SAMPLE PROJECTS
 
   // ----------------------------------------------------------
-  sampleProjects: [
-    SampleProject(
-      title: 'Campus Network Security Assessment',
-
-      description:
-          'A controlled security assessment project that identifies common vulnerabilities and recommends improvements for a campus network.',
-
-      mediaType: 'image',
-
-      technologies: ['Linux', 'Nmap', 'Wireshark', 'Kali Linux'],
-
-      githubUrl: '',
-
-      demoUrl: '',
-    ),
-
-    SampleProject(
-      title: 'Phishing Awareness & Detection System',
-
-      description:
-          'An educational security project designed to help users recognize suspicious messages, links, and phishing attempts.',
-
-      mediaType: 'image',
-
-      technologies: ['Python', 'Machine Learning', 'HTML', 'JavaScript'],
-
-      githubUrl: '',
-
-      demoUrl: '',
-    ),
-
-    SampleProject(
-      title: 'Secure Student Information Portal',
-
-      description:
-          'A prototype student portal demonstrating authentication, access control, password security, and secure data handling.',
-
-      mediaType: 'video',
-
-      technologies: ['PHP', 'MySQL', 'JavaScript', 'Encryption'],
-
-      githubUrl: '',
-
-      demoUrl: '',
-    ),
-  ],
+  sampleProjects: [],
 );

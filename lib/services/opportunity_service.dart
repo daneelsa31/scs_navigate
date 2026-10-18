@@ -3,22 +3,47 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/opportunity.dart';
 
 class OpportunityService {
-  final FirebaseFirestore _firestore =
-      FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  CollectionReference<Map<String, dynamic>>
-      get _opportunities {
+  CollectionReference<Map<String, dynamic>> get _opportunities {
     return _firestore.collection('opportunities');
+  }
+
+  int _createdAtMilliseconds(Map<String, dynamic> data) {
+    final createdAt = data['createdAt'];
+
+    if (createdAt is Timestamp) {
+      return createdAt.millisecondsSinceEpoch;
+    }
+
+    if (createdAt is DateTime) {
+      return createdAt.millisecondsSinceEpoch;
+    }
+
+    return 0;
+  }
+
+  List<QueryDocumentSnapshot<Map<String, dynamic>>> _newestFirst(
+    QuerySnapshot<Map<String, dynamic>> snapshot,
+  ) {
+    final docs = snapshot.docs.toList();
+
+    docs.sort((a, b) {
+      final aCreated = _createdAtMilliseconds(a.data());
+      final bCreated = _createdAtMilliseconds(b.data());
+      return bCreated.compareTo(aCreated);
+    });
+
+    return docs;
   }
 
   Stream<List<Opportunity>> getPublicOpportunities() {
     return _opportunities.snapshots().map((snapshot) {
-      return snapshot.docs
+      return _newestFirst(snapshot)
           .map(Opportunity.fromFirestore)
           .where(
             (opportunity) =>
-                opportunity.isPublished &&
-                !opportunity.isArchived,
+                opportunity.isPublished && !opportunity.isArchived,
           )
           .toList();
     });
@@ -26,56 +51,40 @@ class OpportunityService {
 
   Stream<List<Opportunity>> getAllOpportunities() {
     return _opportunities.snapshots().map((snapshot) {
-      return snapshot.docs
+      return _newestFirst(snapshot)
           .map(Opportunity.fromFirestore)
           .toList();
     });
   }
 
-  Future<void> addOpportunity(
-    Opportunity opportunity,
-  ) async {
-    await _opportunities.add(
-      opportunity.toFirestore(),
-    );
+  Future<void> addOpportunity(Opportunity opportunity) async {
+    final data = opportunity.toFirestore();
+    data['createdAt'] = FieldValue.serverTimestamp();
+
+    await _opportunities.add(data);
   }
 
-  Future<void> updateOpportunity(
-    Opportunity opportunity,
-  ) async {
-    await _opportunities
-        .doc(opportunity.id)
-        .update(opportunity.toFirestore());
+  Future<void> updateOpportunity(Opportunity opportunity) async {
+    await _opportunities.doc(opportunity.id).update(opportunity.toFirestore());
   }
 
-  Future<void> deleteOpportunity(
-    String id,
-  ) async {
+  Future<void> deleteOpportunity(String id) async {
     await _opportunities.doc(id).delete();
   }
 
-  Future<void> archiveOpportunity(
-    String id,
-    bool archived,
-  ) async {
+  Future<void> archiveOpportunity(String id, bool archived) async {
     await _opportunities.doc(id).update({
       'isArchived': archived,
     });
   }
 
-  Future<void> changePublication(
-    String id,
-    bool published,
-  ) async {
+  Future<void> changePublication(String id, bool published) async {
     await _opportunities.doc(id).update({
       'isPublished': published,
     });
   }
 
-  Future<void> changeStatus(
-    String id,
-    String status,
-  ) async {
+  Future<void> changeStatus(String id, String status) async {
     await _opportunities.doc(id).update({
       'status': status,
     });
