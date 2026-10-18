@@ -303,27 +303,32 @@ class _MainPageState extends State<MainPage> {
               final isMobile = constraints.maxWidth < 900;
 
               if (isMobile) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildFooterNavigate(),
-                    const SizedBox(height: 24),
-                    Container(
-                      width: double.infinity,
-                      height: 1,
-                      color: Colors.white12,
+                return Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 360),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        _buildFooterNavigateMobile(),
+                        const SizedBox(height: 24),
+                        Container(
+                          width: double.infinity,
+                          height: 1,
+                          color: Colors.white12,
+                        ),
+                        const SizedBox(height: 24),
+                        _buildFooterSscMobile(),
+                        const SizedBox(height: 24),
+                        Container(
+                          width: double.infinity,
+                          height: 1,
+                          color: Colors.white12,
+                        ),
+                        const SizedBox(height: 22),
+                        _buildFooterContactsMobile(),
+                      ],
                     ),
-                    const SizedBox(height: 24),
-                    _buildFooterSsc(),
-                    const SizedBox(height: 24),
-                    Container(
-                      width: double.infinity,
-                      height: 1,
-                      color: Colors.white12,
-                    ),
-                    const SizedBox(height: 22),
-                    _buildFooterContacts(),
-                  ],
+                  ),
                 );
               }
 
@@ -347,6 +352,103 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildFooterNavigateMobile() {
+    return Column(
+      children: [
+        Image.asset(
+          'assets/images/scs_navigate_logo.png',
+          width: 86,
+          height: 86,
+          fit: BoxFit.contain,
+        ),
+        const SizedBox(height: 12),
+        const Text(
+          'SCS NAVIGATE',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
+            letterSpacing: 0.3,
+          ),
+        ),
+        const SizedBox(height: 5),
+        const Text(
+          'Explore. Plan. Advance.',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Color(0xFFB8C3D9),
+            fontSize: 13,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFooterSscMobile() {
+    return Column(
+      children: [
+        Image.asset(
+          'assets/images/scs_ssc_logo.png',
+          width: 104,
+          height: 104,
+          fit: BoxFit.contain,
+        ),
+        const SizedBox(height: 12),
+        const Text(
+          'SSC 45th Congress',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        const SizedBox(height: 6),
+        const Text(
+          'Serving and supporting the SCS student community.',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Color(0xFFB8C3D9),
+            fontSize: 13,
+            height: 1.4,
+          ),
+        ),
+        const SizedBox(height: 4),
+        const Text(
+          'University of San Jose-Recoletos',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Color(0xFF8FA0BF),
+            fontSize: 12,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFooterContactsMobile() {
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _FooterInfo(
+          icon: Icons.email_outlined,
+          text: 'scs.ssc45th@gmail.com',
+        ),
+        SizedBox(height: 12),
+        _FooterInfo(
+          icon: Icons.facebook,
+          text: 'SCS Core Page',
+        ),
+        SizedBox(height: 12),
+        _FooterInfo(
+          icon: Icons.location_on_outlined,
+          text: 'University of San Jose-Recoletos, Cebu City',
+        ),
+      ],
     );
   }
 

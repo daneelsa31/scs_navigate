@@ -548,14 +548,14 @@ Widget build(BuildContext context) {
                       ),
                       const SizedBox(width: 8),
                       Expanded(
-                        child: Text(
-                          note,
-                          style: const TextStyle(
-                            color: Color(0xFFF59E0B),
-                            fontSize: 12,
-                            height: 1.4,
-                            decoration: TextDecoration.underline,
-                            decorationColor: Color(0xFFF59E0B),
+                        child: Text.rich(
+                          TextSpan(
+                            style: const TextStyle(
+                              color: Color(0xFFF59E0B),
+                              fontSize: 12,
+                              height: 1.4,
+                            ),
+                            children: _buildProgramNoteSpans(note),
                           ),
                         ),
                       ),
@@ -1679,6 +1679,31 @@ Widget build(BuildContext context) {
         return '';
     }
   }
+  List<InlineSpan> _buildProgramNoteSpans(String note) {
+    const phrase = 'Professional Elective';
+    final index = note.indexOf(phrase);
+
+    if (index == -1) {
+      return [TextSpan(text: note)];
+    }
+
+    final before = note.substring(0, index);
+    final after = note.substring(index + phrase.length);
+
+    return [
+      TextSpan(text: before),
+      const TextSpan(
+        text: phrase,
+        style: TextStyle(
+          decoration: TextDecoration.underline,
+          decorationColor: Color(0xFFF59E0B),
+          decorationThickness: 1.2,
+        ),
+      ),
+      TextSpan(text: after),
+    ];
+  }
+
   List<String> _getProgramSpecializations(String program) {
     switch (program) {
       case 'BSIT':
