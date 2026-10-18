@@ -21,7 +21,7 @@ class _CompassViewState extends State<CompassView> {
   final OpportunityService _opportunityService = OpportunityService();
 
   // Change this later to your actual Google Form link.
-  static const proofFormLink = 'https://docs.google.com/forms/';
+  static const proofFormLink = 'https://docs.google.com/forms/d/e/1FAIpQLSff_6U3g8DDXx8tk-Ji9QnvsBT19FibUiGqwr3VSF2zuvaOaA/viewform?usp=sharing&ouid=110345523613732871794';
 
   String selectedCategory = 'All';
   String searchQuery = '';
@@ -839,7 +839,7 @@ class _CompassViewState extends State<CompassView> {
             Icon(Icons.workspace_premium_outlined, color: pink, size: 19),
             SizedBox(width: 8),
             Text(
-              'ACADEMIC RECOGNITION',
+              'PARTICIPATION RECOGNITION',
               style: TextStyle(
                 color: pink,
                 fontSize: 12,
@@ -861,7 +861,7 @@ class _CompassViewState extends State<CompassView> {
         ),
         SizedBox(height: 6),
         Text(
-          'Submit your proof of participation for verification.',
+          'Submit your proof of participation for verification. Use USJR email.',
           style: TextStyle(color: Color(0xFFCBD5E1), fontSize: 13),
         ),
       ],

@@ -355,7 +355,7 @@ Widget build(BuildContext context) {
                     final programButtons = Wrap(
                       spacing: 9,
                       runSpacing: 9,
-                      children: ['BSIT', 'BSCS', 'BSIS', 'ACT', 'GD'].map((
+                      children: ['BSIT', 'BSCS', 'BSIS', 'ACT', 'BSGD'].map((
                         program,
                       ) {
                         final isSelected = _selectedProgram == program;
@@ -492,7 +492,7 @@ Widget build(BuildContext context) {
                       color: Colors.white.withValues(alpha: 0.08),
                     ),
                   ),
-                  child: _selectedProgram == 'ACT' || _selectedProgram == 'GD'
+                  child: _selectedProgram == 'ACT' || _selectedProgram == 'BSGD'
                       ? _buildNonSpecializationPathway()
                       : _buildSpecializationPathway(),
                 ),
@@ -1657,8 +1657,8 @@ Widget build(BuildContext context) {
         return 'Bachelor of Science in Information Systems (BSIS)';
       case 'ACT':
         return 'Associate in Computer Technology (ACT)';
-      case 'GD':
-        return 'Game Development (GD)';
+      case 'BSGD':
+        return 'Bachelor of Science in Game Development (BSGD)';
       default:
         return '';
     }
@@ -1673,7 +1673,7 @@ Widget build(BuildContext context) {
         return 'Integrates information technology solutions with business processes to help organizations achieve strategic goals.';
       case 'ACT':
         return 'Two-year practical program covering essential software development and IT infrastructure basics.';
-      case 'GD':
+      case 'BSGD':
         return 'Follows a prescribed curriculum focused on game development and related computing subjects.';
       default:
         return '';
@@ -1711,7 +1711,7 @@ Widget build(BuildContext context) {
       case 'BSIS':
         return ['Web Development', 'Mobile Development', 'Cybersecurity'];
       case 'ACT':
-      case 'GD':
+      case 'BSGD':
         return [];
       default:
         return [];
